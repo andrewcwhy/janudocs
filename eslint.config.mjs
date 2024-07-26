@@ -1,22 +1,42 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import tseslint from "typescript-eslint";
-import pluginReactConfig from "eslint-plugin-react/configs/recommended.js";
 import { fixupConfigRules } from "@eslint/compat";
+import reactRefresh from "eslint-plugin-react-refresh";
+import globals from "globals";
+import tsParser from "@typescript-eslint/parser";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import js from "@eslint/js";
+import { FlatCompat } from "@eslint/eslintrc";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const compat = new FlatCompat({
+    baseDirectory: __dirname,
+    recommendedConfig: js.configs.recommended,
+    allConfig: js.configs.all
+});
 
-export default [
-    { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
-    { languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } } },
-    { languageOptions: { globals: globals.browser } },
-    pluginJs.configs.recommended,
-    ...tseslint.configs.recommended,
-    ...fixupConfigRules(pluginReactConfig),
-    {
-        settings: {
-            react: {
-                version: 'detect'
-            }
-        }
-    }
-];
+export default [{
+    ignores: ["**/dist", "**/.eslintrc.cjs"],
+}, ...fixupConfigRules(compat.extends(
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+)), {
+    plugins: {
+        "react-refresh": reactRefresh,
+    },
+
+    languageOptions: {
+        globals: {
+            ...globals.browser,
+        },
+
+        parser: tsParser,
+    },
+
+    rules: {
+        "react-refresh/only-export-components": ["warn", {
+            allowConstantExport: true,
+        }],
+    },
+}];
