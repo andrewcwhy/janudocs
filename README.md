@@ -1,15 +1,14 @@
-# doc-web-app-template
+# DocuJanus
 
-To install dependencies:
+🚧 **Currently in development.**
+
+DocuJanus is a customizable, modern documentation platform powered by **React**, **Bun**, **Vite**, **MDX**, and **Tailwind CSS**.
+
+Stay tuned for more updates!
+
+## Quick start
 
 ```bash
-bun install
-```
-
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.2.5. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+bun create docujanus my-website
+cd my-website
+bun run dev
