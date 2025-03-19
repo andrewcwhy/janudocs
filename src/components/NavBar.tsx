@@ -34,7 +34,7 @@ export default function NavBar() {
         <>
             <nav className="w-full bg-white/60 backdrop-blur border-b border-gray-200 p-4 flex items-center justify-between fixed top-0 left-0 z-50 h-16">
                 <div className="flex items-center gap-8">
-                    <Link to="/" className="text-xl font-bold text-gray-800 hover:text-blue-600">Docujanus</Link>
+                    <Link to="/" className="text-xl font-bold text-gray-800 hover:text-blue-600">Janudocs</Link>
 
                     {/* Desktop Links */}
                     <div className="hidden md:flex gap-6 text-gray-700 text-sm">
@@ -65,7 +65,7 @@ export default function NavBar() {
                     </button>
 
                     <a
-                        href="https://github.com/your-repo"
+                        href="https://github.com/andrewcwhy/janudocs"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-gray-600 hover:text-gray-800"

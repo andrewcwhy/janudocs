@@ -42,8 +42,8 @@ const generateIndex = () => {
         })
 
     output.categories = categories
-    writeFileSync(join(docsDir, 'index.json'), JSON.stringify(output, null, 2))
-    console.log('✅ docs/index.json generated')
+    writeFileSync(join(docsDir, 'manifest.json'), JSON.stringify(output, null, 2))
+    console.log('✅ docs/manifest.json generated')
 }
 
 generateIndex()

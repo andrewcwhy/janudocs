@@ -18,7 +18,7 @@ export default function SideBar() {
 
     useEffect(() => {
         ;(async () => {
-            const res = await fetch('/docs/index.json')
+            const res = await fetch('/docs/manifest.json')
             const data = await res.json()
             setCategories(data.categories)
 
