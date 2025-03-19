@@ -1,0 +1,59 @@
+{
+    "categories": [
+        {
+            "label": "Backend",
+            "description": "Backend development",
+            "path": "backend",
+            "files": []
+        },
+        {
+            "label": "Frameworks",
+            "description": "Frameworks",
+            "path": "frameworks",
+            "files": []
+        },
+        {
+            "label": "Frontend",
+            "description": "Frontend development",
+            "path": "frontend",
+            "files": []
+        },
+        {
+            "label": "Fullstack",
+            "description": "Fullstack development",
+            "path": "fullstack",
+            "files": []
+        },
+        {
+            "label": "Getting Started",
+            "description": "Introductory guides",
+            "path": "getting-started",
+            "files": ["advanced.md", "basics.md", "intro.md"]
+        },
+        {
+            "label": "Guides",
+            "description": "Detailed guides",
+            "path": "guides",
+            "files": ["css.md", "react.md", "testing-auto-format.md"]
+        },
+        {
+            "label": "JavaScript",
+            "description": "JavaScript",
+            "path": "javascript",
+            "files": [
+                "arrays.md",
+                "comments.md",
+                "const.md",
+                "let.md",
+                "numbers.md",
+                "objects.md"
+            ]
+        },
+        {
+            "label": "TypeScript",
+            "description": "TypeScript",
+            "path": "typescript",
+            "files": ["enums.md"]
+        }
+    ]
+}
