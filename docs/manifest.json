@@ -1,28 +1,13 @@
 {
   "categories": [
     {
-      "label": "Backend",
-      "description": "Backend development",
-      "path": "backend",
-      "files": []
-    },
-    {
       "label": "Frameworks",
       "description": "Frameworks",
       "path": "frameworks",
-      "files": []
-    },
-    {
-      "label": "Frontend",
-      "description": "Frontend development",
-      "path": "frontend",
-      "files": []
-    },
-    {
-      "label": "Fullstack",
-      "description": "Fullstack development",
-      "path": "fullstack",
-      "files": []
+      "files": [
+        "file1.md",
+        "markdown.md"
+      ]
     },
     {
       "label": "Getting Started",

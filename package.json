@@ -10,7 +10,7 @@
         "generator",
         "website",
         "janudocs"
-    ]
+    ],
     "scripts": {
         "dev": "bunx --bun vite",
         "build": "tsc -b && bunx --bun vite build",

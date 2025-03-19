@@ -17,7 +17,7 @@ export default function SideBar() {
     const location = useLocation()
 
     useEffect(() => {
-        ;(async () => {
+        ; (async () => {
             const res = await fetch('/docs/manifest.json')
             const data = await res.json()
             setCategories(data.categories)
@@ -58,23 +58,17 @@ export default function SideBar() {
                     return (
                         // Wrapper div for each category
                         <div key={cat.path} className="flex flex-col gap-3">
-                            <div>
-                                <button
-                                    onClick={() => toggleCategory(cat.path)}
-                                    className="w-full flex justify-between items-center text-left font-medium text-gray-700 hover:text-blue-600 transition-colors"
-                                >
-                                    <span>{cat.label}</span>
-                                    {isOpen ? (
-                                        <FiChevronDown />
-                                    ) : (
-                                        <FiChevronRight />
-                                    )}
-                                </button>
-
-                                <p className="text-gray-500 text-xs mt-1">
-                                    {cat.description}
-                                </p>
-                            </div>
+                            <button
+                                onClick={() => toggleCategory(cat.path)}
+                                className="w-full flex justify-between items-center text-left font-medium text-gray-700 hover:text-blue-600 transition-colors"
+                            >
+                                <span>{cat.label}</span>
+                                {isOpen ? (
+                                    <FiChevronDown />
+                                ) : (
+                                    <FiChevronRight />
+                                )}
+                            </button>
 
                             {isOpen && (
                                 <ul className="flex flex-col gap-2">
@@ -90,11 +84,10 @@ export default function SideBar() {
                                             <li key={file}>
                                                 <Link
                                                     to={routePath}
-                                                    className={`block pl-4 text-sm transition-colors border-l-2 ${
-                                                        isActive
+                                                    className={`block pl-4 text-sm transition-colors border-l-2 ${isActive
                                                             ? 'border-blue-600 text-blue-600 font-medium'
                                                             : 'border-gray-200 text-gray-700 hover:text-blue-600 hover:border-gray-300'
-                                                    }`}
+                                                        }`}
                                                 >
                                                     {displayName}
                                                 </Link>

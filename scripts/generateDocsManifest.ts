@@ -1,4 +1,3 @@
-// scripts/generateDocsIndex.ts
 import { readdirSync, readFileSync, writeFileSync, statSync } from 'fs'
 import { join, resolve } from 'path'
 

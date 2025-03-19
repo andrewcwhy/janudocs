@@ -1,6 +1,5 @@
 import NavBar from './NavBar'
 import SideBar from './SideBar'
-import Footer from './Footer'
 import { Outlet, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 
@@ -40,8 +39,6 @@ export default function Layout() {
                     <Outlet />
                 </main>
             </div>
-
-            <Footer />
         </div>
     )
 }
