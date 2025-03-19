@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { FiGithub, FiMoreVertical, FiX, FiSearch } from 'react-icons/fi'
 import SearchBar from './SearchBar'
 
@@ -34,14 +34,14 @@ export default function NavBar() {
         <>
             <nav className="w-full bg-white/60 backdrop-blur border-b border-gray-200 p-4 flex items-center justify-between fixed top-0 left-0 z-50 h-16">
                 <div className="flex items-center gap-8">
-                    <Link to="/" className="text-xl font-bold text-gray-800 hover:text-blue-600">Janudocs</Link>
+                    <NavLink to="/" className="text-xl font-bold text-gray-800 hover:text-blue-600">Janudocs</NavLink>
 
                     {/* Desktop Links */}
                     <div className="hidden md:flex gap-6 text-gray-700 text-sm">
                         {navLinks.map((link) => (
-                            <Link key={link.label} to={link.path} className="hover:text-blue-600">
+                            <NavLink key={link.label} to={link.path} className="hover:text-blue-600">
                                 {link.label}
-                            </Link>
+                            </NavLink>
                         ))}
                     </div>
                 </div>
@@ -86,14 +86,14 @@ export default function NavBar() {
                 {menuOpen && (
                     <div className="absolute top-full left-0 w-full bg-white shadow-md border-t border-gray-200 flex flex-col gap-4 p-4 md:hidden">
                         {navLinks.map((link) => (
-                            <Link
+                            <NavLink
                                 key={link.label}
                                 to={link.path}
                                 className="hover:text-blue-600"
                                 onClick={() => setMenuOpen(false)}
                             >
                                 {link.label}
-                            </Link>
+                            </NavLink>
                         ))}
                     </div>
                 )}

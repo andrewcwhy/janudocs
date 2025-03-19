@@ -1,21 +1,17 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router'
 import DocsViewer from './components/DocsViewer'
-import Home from './pages/Home'
-import Layout from './components/Layout'
+import Home from '@/pages/Home'
+import Layout from '@/components/Layout'
 
 export default function App() {
     return (
-        <BrowserRouter>
-            <Routes>
-                {/* Wrap all pages with Layout */}
-                <Route path="/" element={<Layout />}>
-                    <Route index element={<Home />} />
-                    <Route
-                        path="docs/:category/:doc"
-                        element={<DocsViewer />}
-                    />
-                </Route>
-            </Routes>
-        </BrowserRouter>
+        <Routes>
+            {/* Wrap all pages with Layout */}
+            <Route element={<Layout />}>
+                {/* Use index for the home page */}
+                <Route index element={<Home />} />
+                <Route path="docs/:category/:doc" element={<DocsViewer />} />
+            </Route>
+        </Routes>
     )
 }
