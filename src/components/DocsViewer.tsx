@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 import { useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -14,7 +14,6 @@ export default function DocsViewer() {
     }, [category, doc])
 
     return (
-        <div>
             <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
@@ -44,6 +43,5 @@ export default function DocsViewer() {
             >
                 {content}
             </ReactMarkdown>
-        </div>
     )
 }

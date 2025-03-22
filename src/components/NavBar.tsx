@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router'
 import { FiGithub, FiMoreVertical, FiX, FiSearch } from 'react-icons/fi'
-import SearchBar from './SearchBar'
+import SearchBar from '@/components/SearchBar'
 
 const navLinks = [
     { label: 'About', path: '/about' },
@@ -32,7 +32,8 @@ export default function NavBar() {
 
     return (
         <>
-            <nav className="w-full bg-white/60 backdrop-blur border-b border-gray-200 p-4 flex items-center justify-between fixed top-0 left-0 z-50 h-16">
+            <nav className="bg-white/60 backdrop-blur p-4 flex items-center justify-between
+             h-16">
                 <div className="flex items-center gap-8">
                     <NavLink to="/" className="text-xl font-bold text-gray-800 hover:text-blue-600">Janudocs</NavLink>
 
