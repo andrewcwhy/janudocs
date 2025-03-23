@@ -2,7 +2,7 @@
 
 🚧 **Currently in development.**
 
-Janudocs is a customizable, documentation platform powered by **React**, **Bun**, **Vite**, **MD**, and **Tailwind CSS**.
+Janudocs is a customizable, documentation platform powered by **React**, **Vite**, **MD**, and **Tailwind CSS**.
 
 Stay tuned for more updates!
 
