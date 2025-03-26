@@ -12,3 +12,4 @@ Stay tuned for more updates!
 bun create janudocs my-website
 cd my-website
 bun run dev
+```

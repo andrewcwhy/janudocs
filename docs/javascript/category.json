@@ -1,1 +1,5 @@
-{ "label": "JavaScript", "description": "JavaScript" }
+{
+    "label": "JavaScript",
+    "description": "JavaScript",
+    "position": 5
+}

@@ -12,13 +12,15 @@
         "janudocs"
     ],
     "scripts": {
-        "dev": "bunx --bun vite",
         "build": "tsc -b && bunx --bun vite build",
+        "dev": "bunx --bun vite",
+        "format": "prettier --write .",
         "lint": "eslint .",
         "preview": "vite preview",
         "gen": "bun run scripts/generateDocsManifest.ts"
     },
     "dependencies": {
+        "latest": "^0.2.0",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-icons": "^5.5.0",
@@ -37,9 +39,11 @@
         "@vitejs/plugin-react": "^4.3.4",
         "bun": "^1.2.5",
         "eslint": "^9.22.0",
+        "eslint-config-prettier": "^10.1.1",
         "eslint-plugin-react-hooks": "^5.2.0",
         "eslint-plugin-react-refresh": "^0.4.19",
         "globals": "^16.0.0",
+        "prettier": "3.5.3",
         "typescript": "~5.8.2",
         "typescript-eslint": "^8.26.1",
         "vite": "^6.2.2"

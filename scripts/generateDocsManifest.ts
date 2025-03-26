@@ -8,10 +8,18 @@ const output = {
         description: string
         path: string
         files: string[]
+        position?: number
     }[],
+    looseFiles: [] as string[],
 }
 
 const generateIndex = () => {
+    // ✅ Grab loose .md files directly inside /docs (not in any category folder)
+    const looseFiles = readdirSync(docsDir, { withFileTypes: true })
+        .filter((dirent) => dirent.isFile() && dirent.name.endsWith('.md'))
+        .map((dirent) => dirent.name)
+
+    // ✅ Grab category folders
     const categories = readdirSync(docsDir, { withFileTypes: true })
         .filter((dirent) => dirent.isDirectory())
         .map((dirent) => {
@@ -20,12 +28,15 @@ const generateIndex = () => {
 
             let label = dirent.name
             let description = ''
+            let position: number | undefined = undefined
+
             if (statSync(categoryJsonPath).isFile()) {
                 const categoryMeta = JSON.parse(
                     readFileSync(categoryJsonPath, 'utf-8')
                 )
                 label = categoryMeta.label || label
                 description = categoryMeta.description || ''
+                position = categoryMeta.position
             }
 
             const files = readdirSync(catPath).filter((file) =>
@@ -37,11 +48,23 @@ const generateIndex = () => {
                 description,
                 path: dirent.name,
                 files,
+                position,
             }
         })
 
+    // ✅ Sort categories by 'position' (undefined positions go last)
+    categories.sort(
+        (a, b) => (a.position ?? Infinity) - (b.position ?? Infinity)
+    )
+
+    // ✅ Build the output object
     output.categories = categories
-    writeFileSync(join(docsDir, 'manifest.json'), JSON.stringify(output, null, 2))
+    output.looseFiles = looseFiles
+
+    writeFileSync(
+        join(docsDir, 'manifest.json'),
+        JSON.stringify(output, null, 2)
+    )
     console.log('✅ docs/manifest.json generated')
 }
 

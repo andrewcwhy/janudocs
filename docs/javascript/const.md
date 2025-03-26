@@ -7,3 +7,4 @@ def greet(name):
     return f"Hello, {name}! Welcome to the randomness."
 
 print(greet("World"))
+```

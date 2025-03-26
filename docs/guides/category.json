@@ -1,1 +1,5 @@
-{ "label": "Guides", "description": "Detailed guides" }
+{
+    "label": "Guides",
+    "description": "Detailed guides",
+    "position": 2
+}

@@ -6,7 +6,7 @@ import SearchBar from '@/components/SearchBar'
 const navLinks = [
     { label: 'About', path: '/about' },
     { label: 'Contact', path: '/contact' },
-    { label: 'Docs', path: '/docs/getting-started/intro' },
+    { label: 'Docs', path: '/docs/getting-started/installation' },
 ]
 
 export default function NavBar() {
@@ -32,15 +32,26 @@ export default function NavBar() {
 
     return (
         <>
-            <nav className="bg-white/60 backdrop-blur p-4 flex items-center justify-between
-             h-16">
+            <nav
+                className="bg-white/60 backdrop-blur p-4 flex items-center justify-between
+             h-16"
+            >
                 <div className="flex items-center gap-8">
-                    <NavLink to="/" className="text-xl font-bold text-gray-800 hover:text-blue-600">Janudocs</NavLink>
+                    <NavLink
+                        to="/"
+                        className="text-xl font-bold text-gray-800 hover:text-blue-600"
+                    >
+                        Janudocs
+                    </NavLink>
 
                     {/* Desktop Links */}
                     <div className="hidden md:flex gap-6 text-gray-700 text-sm">
                         {navLinks.map((link) => (
-                            <NavLink key={link.label} to={link.path} className="hover:text-blue-600">
+                            <NavLink
+                                key={link.label}
+                                to={link.path}
+                                className="hover:text-blue-600"
+                            >
                                 {link.label}
                             </NavLink>
                         ))}
@@ -53,7 +64,10 @@ export default function NavBar() {
                         onClick={() => setIsSearchOpen(true)}
                         className="hidden md:flex items-center gap-2 text-gray-600 hover:text-gray-800 text-sm border px-3 py-1 rounded shadow-sm"
                     >
-                        <FiSearch /> Search <span className="text-xs text-gray-400">(Ctrl + K)</span>
+                        <FiSearch /> Search{' '}
+                        <span className="text-xs text-gray-400">
+                            (Ctrl + K)
+                        </span>
                     </button>
 
                     {/* Mobile Search Icon */}
@@ -79,7 +93,11 @@ export default function NavBar() {
                         onClick={toggleMenu}
                         aria-label="Toggle menu"
                     >
-                        {menuOpen ? <FiX size={24} /> : <FiMoreVertical size={24} />}
+                        {menuOpen ? (
+                            <FiX size={24} />
+                        ) : (
+                            <FiMoreVertical size={24} />
+                        )}
                     </button>
                 </div>
 
@@ -101,7 +119,10 @@ export default function NavBar() {
             </nav>
 
             {/* Render SearchBar with Modal */}
-            <SearchBar isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+            <SearchBar
+                isOpen={isSearchOpen}
+                onClose={() => setIsSearchOpen(false)}
+            />
         </>
     )
 }
