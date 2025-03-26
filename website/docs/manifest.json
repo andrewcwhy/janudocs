@@ -1,53 +1,40 @@
 {
-  "categories": [
-    {
-      "label": "Getting Started",
-      "description": "Introductory guides",
-      "path": "getting-started",
-      "files": [
-        "installation.md",
-        "intro.md"
-      ],
-      "position": 1
-    },
-    {
-      "label": "Guides",
-      "description": "Detailed guides",
-      "path": "guides",
-      "files": [
-        "css.md",
-        "react.md",
-        "testing-auto-format.md"
-      ],
-      "position": 2
-    },
-    {
-      "label": "Frameworks",
-      "description": "Frameworks",
-      "path": "writing",
-      "files": [
-        "file1.md",
-        "markdown.md"
-      ],
-      "position": 4
-    },
-    {
-      "label": "JavaScript",
-      "description": "JavaScript",
-      "path": "javascript",
-      "files": [
-        "arrays.md",
-        "comments.md",
-        "const.md",
-        "let.md",
-        "numbers.md",
-        "objects.md"
-      ],
-      "position": 5
-    }
-  ],
-  "looseFiles": [
-    "introduction.md",
-    "looseFile.md"
-  ]
+    "categories": [
+        {
+            "label": "Getting Started",
+            "description": "Introductory guides",
+            "path": "getting-started",
+            "files": ["installation.md", "intro.md"],
+            "position": 1
+        },
+        {
+            "label": "Guides",
+            "description": "Detailed guides",
+            "path": "guides",
+            "files": ["css.md", "react.md", "testing-auto-format.md"],
+            "position": 2
+        },
+        {
+            "label": "Frameworks",
+            "description": "Frameworks",
+            "path": "writing",
+            "files": ["file1.md", "markdown.md"],
+            "position": 4
+        },
+        {
+            "label": "JavaScript",
+            "description": "JavaScript",
+            "path": "javascript",
+            "files": [
+                "arrays.md",
+                "comments.md",
+                "const.md",
+                "let.md",
+                "numbers.md",
+                "objects.md"
+            ],
+            "position": 5
+        }
+    ],
+    "looseFiles": ["introduction.md", "looseFile.md"]
 }

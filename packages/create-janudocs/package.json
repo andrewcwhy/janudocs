@@ -7,14 +7,14 @@
     "description": "Create a new Janudocs project",
     "bin": {
         "create-janudocs": "./bin.ts"
-      },
+    },
     "homepage": "",
     "repository": {
         "type": "git",
         "url": "https://github.com/andrewcwhy/janudocs.git",
         "directory": "packages/create-janudocs"
-      },
-      "bugs": {
+    },
+    "bugs": {
         "url": "https://github.com/andrewcwhy/janudocs/issues"
-      }
+    }
 }
