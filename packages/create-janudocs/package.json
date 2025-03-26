@@ -3,7 +3,10 @@
     "type": "module",
     "author": "Andrew Christian Young",
     "license": "MIT",
-    "bin": "",
+    "version": "1.0.0",
+    "bin": {
+        "create-janudocs": "./bin.ts"
+      },
     "homepage": "",
     "repository": {
         "type": "git",
@@ -12,5 +15,8 @@
       },
       "bugs": {
         "url": "https://github.com/andrewcwhy/janudocs/issues"
+      },
+      "engines": {
+        "bun": ">=1.0.0"
       }
 }
