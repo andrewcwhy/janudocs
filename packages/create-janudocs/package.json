@@ -1,0 +1,16 @@
+{
+    "name": "create-janudocs",
+    "type": "module",
+    "author": "Andrew Christian Young",
+    "license": "MIT",
+    "bin": "",
+    "homepage": "",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/andrewcwhy/janudocs.git",
+        "directory": "packages/create-janudocs"
+      },
+      "bugs": {
+        "url": "https://github.com/andrewcwhy/janudocs/issues"
+      }
+}
