@@ -10,7 +10,7 @@ interface DocCategory {
     files: string[]
 }
 
-export default function SideBar() {
+export default function Sidebar() {
     const [categories, setCategories] = useState<DocCategory[]>([])
     const [looseFiles, setLooseFiles] = useState<string[]>([])
     const [openCategories, setOpenCategories] = useState<
