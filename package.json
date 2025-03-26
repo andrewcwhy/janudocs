@@ -12,7 +12,7 @@
         "janudocs"
     ],
     "scripts": {
-        "build": "tsc -p tsconfig.app.json && bunx --bun vite build && cp -r docs dist/",
+        "build": "tsc -p tsconfig.app.json && bunx --bun vite build",
         "dev": "bunx --bun vite",
         "format": "prettier --write .",
         "lint": "eslint .",
@@ -46,6 +46,7 @@
         "prettier": "3.5.3",
         "typescript": "~5.8.2",
         "typescript-eslint": "^8.26.1",
-        "vite": "^6.2.2"
+        "vite": "^6.2.2",
+        "vite-plugin-static-copy": "^2.3.0"
     }
 }
