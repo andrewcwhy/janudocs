@@ -1,0 +1,51 @@
+{
+    "name": "janudocs",
+    "description": "A documentation generator and website builder.",
+    "version": "1.0.0",
+    "private": false,
+    "type": "module",
+    "license": "MIT",
+    "keywords": [
+        "documentation",
+        "generator",
+        "website",
+        "janudocs"
+    ],
+    "scripts": {
+        "build": "tsc -p tsconfig.app.json && bunx --bun vite build",
+        "dev": "bunx --bun vite",
+        "format": "prettier --write .",
+        "lint": "eslint .",
+        "preview": "vite preview",
+        "gen": "bun run scripts/generateDocsManifest.ts"
+    },
+    "dependencies": {
+        "latest": "^0.2.0",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-icons": "^5.5.0",
+        "react-markdown": "^10.1.0",
+        "react-router": "^7.4.0",
+        "remark-gfm": "^4.0.1",
+        "tailwindcss": "^4.0.14",
+        "zod": "^3.24.2"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.22.0",
+        "@tailwindcss/vite": "^4.0.14",
+        "@types/bun": "^1.2.5",
+        "@types/react": "^19.0.12",
+        "@types/react-dom": "^19.0.4",
+        "@vitejs/plugin-react": "^4.3.4",
+        "bun": "^1.2.5",
+        "eslint": "^9.22.0",
+        "eslint-config-prettier": "^10.1.1",
+        "eslint-plugin-react-hooks": "^5.2.0",
+        "eslint-plugin-react-refresh": "^0.4.19",
+        "globals": "^16.0.0",
+        "prettier": "3.5.3",
+        "typescript": "~5.8.2",
+        "typescript-eslint": "^8.26.1",
+        "vite": "^6.2.2"
+    }
+}

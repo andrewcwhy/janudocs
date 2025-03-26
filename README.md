@@ -1,15 +1,21 @@
-# Janudocs
+# bun-react-tailwind-template
 
-🚧 **Currently in development.**
-
-Janudocs is a customizable, documentation platform powered by **React**, **Vite**, **MD**, and **Tailwind CSS**.
-
-Stay tuned for more updates!
-
-## Quick start
+To install dependencies:
 
 ```bash
-bun create janudocs my-website
-cd my-website
-bun run dev
+bun install
 ```
+
+To start a development server:
+
+```bash
+bun dev
+```
+
+To run for production:
+
+```bash
+bun start
+```
+
+This project was created using `bun init` in bun v1.2.5. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.

@@ -4,6 +4,7 @@
     "author": "Andrew Christian Young",
     "license": "MIT",
     "version": "1.0.0",
+    "description": "Create a new Janudocs project",
     "bin": {
         "create-janudocs": "./bin.ts"
       },
@@ -15,8 +16,5 @@
       },
       "bugs": {
         "url": "https://github.com/andrewcwhy/janudocs/issues"
-      },
-      "engines": {
-        "bun": ">=1.0.0"
       }
 }
