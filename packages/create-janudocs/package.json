@@ -6,7 +6,7 @@
     "version": "1.0.0",
     "description": "Create a new Janudocs project",
     "bin": {
-        "create-janudocs": "./bin.ts"
+        "create-janudocs": "./bin/index.ts"
     },
     "homepage": "",
     "repository": {
