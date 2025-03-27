@@ -10,7 +10,11 @@ interface DocCategory {
     files: string[]
 }
 
-export default function Sidebar() {
+interface SidebarProps {
+    variant?: 'desktop' | 'mobile'
+}
+
+export default function Sidebar({ variant = 'desktop' }: SidebarProps) {
     const [categories, setCategories] = useState<DocCategory[]>([])
     const [looseFiles, setLooseFiles] = useState<string[]>([])
     const [openCategories, setOpenCategories] = useState<
@@ -64,7 +68,14 @@ export default function Sidebar() {
     }
 
     return (
-        <aside className="w-2xs flex flex-col gap-8 p-6 bg-white border-r border-gray-200 sticky top-16 max-h-[calc(100vh-4rem)] overflow-y-auto">
+        <aside
+            className={
+                variant === 'mobile'
+                    ? 'p-4 bg-white border-t border-gray-200 shadow-md flex flex-col gap-6 md:hidden'
+                    : 'w-2xs flex flex-col gap-8 p-6 bg-white border-r border-gray-200 sticky top-16 max-h-[calc(100vh-4rem)] overflow-y-auto hidden md:block'
+            }
+        >
+            {' '}
             {categories.map((cat) => {
                 if (!cat.files?.length) return null
                 const isOpen = openCategories[cat.path]
@@ -127,7 +138,6 @@ export default function Sidebar() {
                     </div>
                 )
             })}
-
             {/* Render loose files */}
             {looseFiles.length > 0 && (
                 <ul className="flex flex-col gap-2">
