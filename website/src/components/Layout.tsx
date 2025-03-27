@@ -8,9 +8,9 @@ export default function Layout() {
             <div className="border-b border-gray-200 fixed inset-x-0 z-10">
                 <NavBar />
             </div>
-            <div className="flex pt-16 flex-grow bg-gray-50">
+            <main className="flex pt-16 flex-grow">
                 <Outlet />
-            </div>
+            </main>
             <Footer />
         </>
     )
