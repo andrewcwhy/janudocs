@@ -11,8 +11,8 @@ const navLinks = [
 ]
 
 export default function NavBar() {
-    const [menuOpen, toggleMenu] = useToggle(false)
-    const [searchOpen, toggleSearch] = useToggle(false)
+    const [menuOpen, toggleMenu] = useToggle()
+    const [searchOpen, toggleSearch] = useToggle()
 
     const handleKeyDown = useCallback(
         (e: KeyboardEvent) => {
@@ -122,10 +122,7 @@ export default function NavBar() {
             </nav>
 
             {/* Render SearchBar with Modal */}
-            <SearchBar
-                isOpen={searchOpen}
-                onClose={toggleSearch}
-            />
+            <SearchBar isOpen={searchOpen} onClose={toggleSearch} />
         </>
     )
 }

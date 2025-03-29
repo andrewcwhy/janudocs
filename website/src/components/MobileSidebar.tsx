@@ -3,6 +3,7 @@ import { IoIosArrowForward } from 'react-icons/io'
 import { useState } from 'react'
 import { useParams } from 'react-router'
 import Sidebar from '@/components/Sidebar'
+import { useToggle } from '@/hooks/useToggle'
 
 function formatName(str: string | undefined) {
     if (!str) return ''
@@ -10,7 +11,7 @@ function formatName(str: string | undefined) {
 }
 
 export default function MobileSidebarHeader() {
-    const [sidebarOpen, setSidebarOpen] = useState(false)
+    const [sidebarOpen, toggleSidebar] = useToggle()
     const { category, doc } = useParams()
 
     const categoryName = formatName(category)
@@ -20,7 +21,7 @@ export default function MobileSidebarHeader() {
         <>
             <header className="flex h-16 p-4 border-t border-gray-200 bg-white items-center md:hidden relative z-40">
                 <button
-                    onClick={() => setSidebarOpen(!sidebarOpen)}
+                    onClick={toggleSidebar}
                     aria-label="Toggle Sidebar"
                     className="mr-4"
                 >
