@@ -6,13 +6,7 @@ import {
     FiArrowDown,
     FiCornerDownLeft,
 } from 'react-icons/fi'
-
-interface DocCategory {
-    label: string
-    description: string
-    path: string
-    files: string[]
-}
+import { useDocsManifest } from '@/hooks/useDocsManifest'
 
 interface SearchResult {
     name: string
@@ -26,8 +20,8 @@ interface SearchBarProps {
 }
 
 export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
+    const { manifest } = useDocsManifest()
     const [query, setQuery] = useState('')
-    const [categories, setCategories] = useState<DocCategory[]>([])
     const [groupedResults, setGroupedResults] = useState<
         Record<string, SearchResult[]>
     >({})
@@ -35,7 +29,6 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
     const navigate = useNavigate()
     const inputRef = useRef<HTMLInputElement>(null)
 
-    // Scroll Lock Effect for Desktop & Mobile
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden'
@@ -53,17 +46,11 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
         }
     }, [isOpen])
 
-    useEffect(() => {
-        fetch('/docs/manifest.json')
-            .then((res) => res.json())
-            .then((data) => setCategories(data.categories))
-            .catch((err) => console.error('Failed to load docs manifest:', err))
-    }, [])
-
     const normalizedQuery = useMemo(
         () => query.toLowerCase().replace(/[-_]/g, ' ').trim(),
         [query]
     )
+
     const searchTerms = useMemo(
         () => normalizedQuery.split(/\s+/).filter((t) => t.length > 0),
         [normalizedQuery]
@@ -77,53 +64,74 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
 
         const grouped: Record<string, SearchResult[]> = {}
 
-        categories.forEach((cat) => {
+        // Search category files
+        manifest.categories.forEach((cat) => {
             const matches = cat.files
                 .map((file): SearchResult | null => {
                     const fileName = file.replace('.md', '')
-                    const normalizedFileName = fileName
+                    const normalized = fileName
                         .replace(/[-_]/g, ' ')
                         .toLowerCase()
 
-                    const allTermsMatched = searchTerms.every((term) =>
-                        normalizedFileName.includes(term)
-                    )
-                    if (!allTermsMatched) return null
+                    if (!searchTerms.every((term) => normalized.includes(term)))
+                        return null
 
                     let score = 0
                     searchTerms.forEach((term) => {
-                        if (normalizedFileName.includes(term)) score += 3
+                        if (normalized.includes(term)) score += 3
                     })
 
                     return {
                         name: fileName,
-                        path: `/docs/${cat.path}/${file.replace('.md', '')}`,
+                        path: `/docs/${cat.path}/${fileName}`,
                         score,
                     }
                 })
-                .filter((item): item is SearchResult => item !== null)
+                .filter((r): r is SearchResult => r !== null)
                 .sort((a, b) => b.score - a.score)
 
-            if (matches.length > 0) {
-                grouped[cat.label] = matches
-            }
+            if (matches.length > 0) grouped[cat.label] = matches
         })
+
+        // Search loose files
+        if (manifest.looseFiles?.[0]?.files?.length) {
+            const matches = manifest.looseFiles[0].files
+                .map((file): SearchResult | null => {
+                    const fileName = file.replace('.md', '')
+                    const normalized = fileName
+                        .replace(/[-_]/g, ' ')
+                        .toLowerCase()
+
+                    if (!searchTerms.every((term) => normalized.includes(term)))
+                        return null
+
+                    let score = 0
+                    searchTerms.forEach((term) => {
+                        if (normalized.includes(term)) score += 3
+                    })
+
+                    return {
+                        name: fileName,
+                        path: `/docs/${fileName}`,
+                        score,
+                    }
+                })
+                .filter((r): r is SearchResult => r !== null)
+                .sort((a, b) => b.score - a.score)
+
+            if (matches.length > 0) grouped['Miscellaneous'] = matches
+        }
 
         setGroupedResults(grouped)
         setActiveIndex(0)
-    }, [query, categories, searchTerms])
+    }, [query, manifest, searchTerms])
 
     const flatResults = Object.values(groupedResults).flat()
 
     const highlightMatches = (text: string) => {
         if (searchTerms.length === 0) return text
-        const escapedTerms = searchTerms.map((term) =>
-            term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-        )
-        const regex = new RegExp(`(${escapedTerms.join('|')})`, 'gi')
-        const parts = text.split(regex)
-
-        return parts.map((part, index) =>
+        const regex = new RegExp(`(${searchTerms.join('|')})`, 'gi')
+        return text.split(regex).map((part, index) =>
             index % 2 === 1 ? (
                 <mark key={index} className="bg-yellow-100 font-semibold">
                     {part}
@@ -172,7 +180,7 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
                 className="relative bg-white rounded-none md:rounded-2xl shadow-2xl w-full max-w-full md:max-w-2xl h-full md:h-auto md:max-h-[80vh] flex flex-col overflow-hidden"
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* Top Bar with Search and ESC */}
+                {/* Header */}
                 <header className="flex items-center border-b border-gray-200 p-4">
                     <div className="flex items-center gap-3 flex-grow bg-gray-50 rounded-lg px-4 py-2 shadow-inner">
                         <FiSearch className="text-gray-500" />
@@ -194,18 +202,18 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
                     </button>
                 </header>
 
-                {/* Results List */}
+                {/* Results */}
                 <main className="flex-1 overflow-auto">
                     {Object.keys(groupedResults).length > 0 ? (
                         <div className="p-4 flex flex-col gap-6">
                             {Object.entries(groupedResults).map(
-                                ([category, items]) => (
+                                ([section, items]) => (
                                     <section
-                                        key={category}
+                                        key={section}
                                         className="flex flex-col gap-2"
                                     >
                                         <div className="font-semibold text-gray-800 text-base">
-                                            {category}
+                                            {section}
                                         </div>
                                         <ul className="flex flex-col gap-1">
                                             {items.map((item, idx) => {
@@ -271,15 +279,15 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
                     )}
                 </main>
 
-                {/* Footer with Commands */}
+                {/* Footer */}
                 <footer className="border-t border-gray-200 p-3 bg-gray-50 flex items-center justify-center gap-4 text-sm text-gray-500">
                     <div className="flex items-center gap-2">
-                        <FiArrowUp className="text-gray-600" />
-                        <FiArrowDown className="text-gray-600" />
+                        <FiArrowUp />
+                        <FiArrowDown />
                         <span>to navigate</span>
                     </div>
                     <div className="flex items-center gap-2">
-                        <FiCornerDownLeft className="text-gray-600" />
+                        <FiCornerDownLeft />
                         <span>to select</span>
                     </div>
                     <div className="flex items-center gap-2">

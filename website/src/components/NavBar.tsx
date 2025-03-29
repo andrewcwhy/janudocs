@@ -1,7 +1,8 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { NavLink } from 'react-router'
 import { FiGithub, FiMoreVertical, FiX, FiSearch } from 'react-icons/fi'
 import SearchBar from '@/components/SearchBar'
+import { useToggle } from '@/hooks/useToggle'
 
 const navLinks = [
     { label: 'About', path: '/about' },
@@ -10,20 +11,22 @@ const navLinks = [
 ]
 
 export default function NavBar() {
-    const [menuOpen, setMenuOpen] = useState(false)
-    const [isSearchOpen, setIsSearchOpen] = useState(false)
+    const [menuOpen, toggleMenu] = useToggle(false)
+    const [searchOpen, toggleSearch] = useToggle(false)
 
-    const toggleMenu = () => setMenuOpen(!menuOpen)
-
-    const handleKeyDown = useCallback((e: KeyboardEvent) => {
-        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-            e.preventDefault()
-            setIsSearchOpen(true)
-        }
-        if (e.key === 'Escape') {
-            setIsSearchOpen(false)
-        }
-    }, [])
+    const handleKeyDown = useCallback(
+        (e: KeyboardEvent) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                e.preventDefault()
+                toggleSearch()
+            }
+            if (e.key === 'Escape') {
+                // Only close if it's open
+                if (searchOpen) toggleSearch()
+            }
+        },
+        [searchOpen, toggleSearch]
+    )
 
     useEffect(() => {
         window.addEventListener('keydown', handleKeyDown)
@@ -61,7 +64,7 @@ export default function NavBar() {
                 <div className="flex items-center gap-4">
                     {/* Desktop Search */}
                     <button
-                        onClick={() => setIsSearchOpen(true)}
+                        onClick={toggleSearch}
                         className="hidden md:flex items-center gap-2 text-gray-600 hover:text-gray-800 text-sm border px-3 py-1 rounded shadow-sm"
                     >
                         <FiSearch /> Search{' '}
@@ -72,7 +75,7 @@ export default function NavBar() {
 
                     {/* Mobile Search Icon */}
                     <button
-                        onClick={() => setIsSearchOpen(true)}
+                        onClick={toggleSearch}
                         className="md:hidden text-gray-600 hover:text-gray-800"
                         aria-label="Open Search"
                     >
@@ -109,7 +112,7 @@ export default function NavBar() {
                                 key={link.label}
                                 to={link.path}
                                 className="hover:text-blue-600"
-                                onClick={() => setMenuOpen(false)}
+                                onClick={toggleMenu}
                             >
                                 {link.label}
                             </NavLink>
@@ -120,8 +123,8 @@ export default function NavBar() {
 
             {/* Render SearchBar with Modal */}
             <SearchBar
-                isOpen={isSearchOpen}
-                onClose={() => setIsSearchOpen(false)}
+                isOpen={searchOpen}
+                onClose={toggleSearch}
             />
         </>
     )

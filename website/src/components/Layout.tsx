@@ -8,11 +8,10 @@ export default function Layout() {
 
     return (
         <div className="flex flex-col min-h-screen">
+            <Nav />
             <div
                 className={`sticky top-0 z-40 transition-transform duration-300 ${scrollDirection === 'down' ? '-translate-y-full' : 'translate-y-0'}`}
-            >
-                <Nav />
-            </div>
+            ></div>
             <Outlet />
             <Footer />
         </div>

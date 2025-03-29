@@ -1,22 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router'
 import { FiChevronDown, FiChevronRight } from 'react-icons/fi'
+import { useDocsManifest } from '@/hooks/useDocsManifest'
 import config from '../../janudocs.config'
 
-interface DocCategory {
-    label: string
-    description: string
-    path: string
-    files: string[]
-}
-
-interface SidebarProps {
-    variant?: 'desktop' | 'mobile'
-}
-
-export default function Sidebar({ variant = 'desktop' }: SidebarProps) {
-    const [categories, setCategories] = useState<DocCategory[]>([])
-    const [looseFiles, setLooseFiles] = useState<string[]>([])
+export default function Sidebar() {
+    const { manifest } = useDocsManifest()
     const [openCategories, setOpenCategories] = useState<
         Record<string, boolean>
     >({})
@@ -32,19 +21,12 @@ export default function Sidebar({ variant = 'desktop' }: SidebarProps) {
     const { highlightActive, textStyle: itemTextStyle } = sidebar.items
 
     useEffect(() => {
-        fetch('/docs/manifest.json')
-            .then((res) => res.json())
-            .then((data) => {
-                setCategories(data.categories)
-                setLooseFiles(data.looseFiles || [])
-                const initialOpen: Record<string, boolean> = {}
-                data.categories.forEach((cat: DocCategory) => {
-                    initialOpen[cat.path] = defaultState === 'expanded'
-                })
-                setOpenCategories(initialOpen)
-            })
-            .catch((err) => console.error('Failed to load manifest:', err))
-    }, [defaultState])
+        const initialOpen: Record<string, boolean> = {}
+        manifest.categories.forEach((cat) => {
+            initialOpen[cat.path] = defaultState === 'expanded'
+        })
+        setOpenCategories(initialOpen)
+    }, [manifest.categories, defaultState])
 
     const toggleCategory = (path: string) => {
         if (!togglable) return
@@ -53,7 +35,6 @@ export default function Sidebar({ variant = 'desktop' }: SidebarProps) {
 
     const formatName = (str: string) => str.replace(/[-_]/g, ' ')
 
-    // Helper to apply textTransform from config
     const getTextTransformClass = (transform: string) => {
         switch (transform) {
             case 'capitalize':
@@ -68,17 +49,11 @@ export default function Sidebar({ variant = 'desktop' }: SidebarProps) {
     }
 
     return (
-        <aside
-            className={
-                variant === 'mobile'
-                    ? 'p-4 bg-white border-t border-gray-200 shadow-md flex flex-col gap-6 md:hidden'
-                    : 'w-2xs flex flex-col gap-8 p-6 bg-white border-r border-gray-200 sticky top-16 max-h-[calc(100vh-4rem)] overflow-y-auto hidden md:block'
-            }
-        >
-            {' '}
-            {categories.map((cat) => {
+        <aside className="w-2xs h-full flex flex-col gap-8 p-6 bg-white border-r border-gray-200 sticky top-16 max-h-[calc(100vh-4rem)] overflow-y-auto">
+            {manifest.categories.map((cat) => {
                 if (!cat.files?.length) return null
                 const isOpen = openCategories[cat.path]
+
                 return (
                     <div key={cat.path} className="flex flex-col gap-3">
                         <div>
@@ -97,9 +72,9 @@ export default function Sidebar({ variant = 'desktop' }: SidebarProps) {
                                         <FiChevronRight />
                                     ))}
                             </button>
-                            {descriptions.show && cat.description && (
+                            {descriptions.show && (
                                 <p
-                                    className={`text-xs text-gray-500 ${getTextTransformClass(descriptions.textStyle.textTransform)}`}
+                                    className={`text-sm text-gray-500 ${getTextTransformClass(descriptions.textStyle.textTransform)}`}
                                 >
                                     {cat.description}
                                 </p>
@@ -138,10 +113,9 @@ export default function Sidebar({ variant = 'desktop' }: SidebarProps) {
                     </div>
                 )
             })}
-            {/* Render loose files */}
-            {looseFiles.length > 0 && (
+            {manifest.looseFiles?.[0]?.files?.length > 0 && (
                 <ul className="flex flex-col gap-2">
-                    {looseFiles.map((file) => {
+                    {manifest.looseFiles[0].files.map((file) => {
                         const routePath = `/docs/${file.replace('.md', '')}`
                         const isActive = location.pathname === routePath
                         const displayName = formatName(file.replace('.md', ''))
@@ -150,7 +124,7 @@ export default function Sidebar({ variant = 'desktop' }: SidebarProps) {
                             <li key={file}>
                                 <Link
                                     to={routePath}
-                                    className={`font-medium transition-colors ${getTextTransformClass(
+                                    className={`transition-colors ${getTextTransformClass(
                                         itemTextStyle.textTransform
                                     )} ${
                                         highlightActive && isActive

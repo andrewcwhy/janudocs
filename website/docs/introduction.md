@@ -1,6 +1,7 @@
 # The Enigmatic World of Randomness
 
-Welcome to the mysterious world of randomness! Here you'll find thoughts that wander without reason.
+Welcome to the mysterious world of randomness! Here you'll find thoughts that
+wander without reason.
 
 ## Highlights
 

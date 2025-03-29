@@ -2,7 +2,7 @@ import { FiMenu, FiX } from 'react-icons/fi'
 import { IoIosArrowForward } from 'react-icons/io'
 import { useState } from 'react'
 import { useParams } from 'react-router'
-import SideBar from '@/components/Sidebar'
+import Sidebar from '@/components/Sidebar'
 
 function formatName(str: string | undefined) {
     if (!str) return ''
@@ -39,7 +39,7 @@ export default function MobileSidebarHeader() {
 
             {sidebarOpen && (
                 <div className="absolute top-16 inset-x-0 z-30 md:hidden">
-                    <SideBar variant="mobile" />
+                    <Sidebar />
                 </div>
             )}
         </>
