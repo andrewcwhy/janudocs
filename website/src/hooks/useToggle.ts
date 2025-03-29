@@ -1,14 +1,14 @@
 import { useCallback, useState } from 'react'
 
 export function useToggle(
-    initialValue: boolean = false
-): [boolean, () => void] {
-    const [value, setValue] = useState(initialValue)
+    initialState: boolean = false
+): [isToggled: boolean, handleToggle: () => void] {
+    const [isToggled, setIsToggled] = useState(initialState)
 
     // This function will toggle the value between true and false
-    const toggle = useCallback(() => {
-        setValue((value) => !value)
+    const handleToggle = useCallback(() => {
+        setIsToggled((prev) => !prev)
     }, [])
 
-    return [value, toggle] as const
+    return [isToggled, handleToggle]
 }

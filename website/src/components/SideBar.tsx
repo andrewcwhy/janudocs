@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router'
 import { FiChevronDown, FiChevronRight } from 'react-icons/fi'
 import { useDocsManifest } from '@/hooks/useDocsManifest'
 import config from '../../janudocs.config'
+import { formatFileName, removeFileExtension } from '@/utils/stringUtils'
 
 export default function Sidebar() {
     const { manifest } = useDocsManifest()
@@ -32,8 +33,6 @@ export default function Sidebar() {
         if (!togglable) return
         setOpenCategories((prev) => ({ ...prev, [path]: !prev[path] }))
     }
-
-    const formatName = (str: string) => str.replace(/[-_]/g, ' ')
 
     const getTextTransformClass = (transform: string) => {
         switch (transform) {
@@ -87,9 +86,7 @@ export default function Sidebar() {
                                     const routePath = `/docs/${cat.path}/${file.replace('.md', '')}`
                                     const isActive =
                                         location.pathname === routePath
-                                    const displayName = formatName(
-                                        file.replace('.md', '')
-                                    )
+                                    const displayName = formatFileName(file)
 
                                     return (
                                         <li key={file}>
@@ -116,9 +113,9 @@ export default function Sidebar() {
             {manifest.looseFiles?.[0]?.files?.length > 0 && (
                 <ul className="flex flex-col gap-2">
                     {manifest.looseFiles[0].files.map((file) => {
-                        const routePath = `/docs/${file.replace('.md', '')}`
+                        const routePath = `/docs/${removeFileExtension(file)}`
                         const isActive = location.pathname === routePath
-                        const displayName = formatName(file.replace('.md', ''))
+                        const displayName = formatFileName(file)
 
                         return (
                             <li key={file}>

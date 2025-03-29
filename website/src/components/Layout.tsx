@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router'
 import Nav from '@/components/NavBar'
 import Footer from '@/components/Footer'
-import { useScrollDirection } from '../hooks/useScrollDirection'
+import { useScrollDirection } from '@/hooks/useScrollDirection'
 
 export default function Layout() {
     const scrollDirection = useScrollDirection()

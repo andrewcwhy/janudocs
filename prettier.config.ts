@@ -4,9 +4,7 @@ const config: Config = {
     trailingComma: 'es5',
     tabWidth: 4,
     semi: false,
-    printWidth: 80,
     singleQuote: true,
-    proseWrap: 'always',
 }
 
 export default config

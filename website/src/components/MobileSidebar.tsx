@@ -1,21 +1,19 @@
 import { FiMenu, FiX } from 'react-icons/fi'
 import { IoIosArrowForward } from 'react-icons/io'
-import { useState } from 'react'
 import { useParams } from 'react-router'
 import Sidebar from '@/components/Sidebar'
 import { useToggle } from '@/hooks/useToggle'
-
-function formatName(str: string | undefined) {
-    if (!str) return ''
-    return str.replace(/[-_]/g, ' ').replace(/\.[^/.]+$/, '')
-}
+import { useLockBodyScroll } from '@/hooks/useLockBodyScroll'
+import { formatFileName } from '@/utils/stringUtils'
 
 export default function MobileSidebarHeader() {
-    const [sidebarOpen, toggleSidebar] = useToggle()
+    const [isSidebarOpen, toggleSidebar] = useToggle()
     const { category, doc } = useParams()
 
-    const categoryName = formatName(category)
-    const fileName = formatName(doc)
+    useLockBodyScroll(isSidebarOpen)
+
+    const categoryName = formatFileName(category)
+    const fileName = formatFileName(doc)
 
     return (
         <>
@@ -25,7 +23,7 @@ export default function MobileSidebarHeader() {
                     aria-label="Toggle Sidebar"
                     className="mr-4"
                 >
-                    {sidebarOpen ? <FiX size={20} /> : <FiMenu size={20} />}
+                    {isSidebarOpen ? <FiX size={20} /> : <FiMenu size={20} />}
                 </button>
                 <div className="flex items-center gap-2 truncate">
                     <p className="truncate text-sm text-gray-800">
@@ -38,7 +36,7 @@ export default function MobileSidebarHeader() {
                 </div>
             </header>
 
-            {sidebarOpen && (
+            {isSidebarOpen && (
                 <div className="absolute top-16 inset-x-0 z-30 md:hidden">
                     <Sidebar />
                 </div>

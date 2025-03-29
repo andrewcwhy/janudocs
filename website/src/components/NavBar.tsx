@@ -11,8 +11,8 @@ const navLinks = [
 ]
 
 export default function NavBar() {
-    const [menuOpen, toggleMenu] = useToggle()
-    const [searchOpen, toggleSearch] = useToggle()
+    const [isMenuOpen, toggleMenu] = useToggle()
+    const [isSearchOpen, toggleSearch] = useToggle()
 
     const handleKeyDown = useCallback(
         (e: KeyboardEvent) => {
@@ -22,10 +22,10 @@ export default function NavBar() {
             }
             if (e.key === 'Escape') {
                 // Only close if it's open
-                if (searchOpen) toggleSearch()
+                if (isSearchOpen) toggleSearch()
             }
         },
-        [searchOpen, toggleSearch]
+        [isSearchOpen, toggleSearch]
     )
 
     useEffect(() => {
@@ -91,12 +91,13 @@ export default function NavBar() {
                         <FiGithub size={20} />
                     </a>
 
+                    {/* Mobile Men */}
                     <button
                         className="md:hidden text-gray-600 hover:text-gray-800"
                         onClick={toggleMenu}
                         aria-label="Toggle menu"
                     >
-                        {menuOpen ? (
+                        {isMenuOpen ? (
                             <FiX size={24} />
                         ) : (
                             <FiMoreVertical size={24} />
@@ -105,7 +106,7 @@ export default function NavBar() {
                 </div>
 
                 {/* Mobile Menu */}
-                {menuOpen && (
+                {isMenuOpen && (
                     <div className="absolute top-full left-0 w-full bg-white shadow-md border-t border-gray-200 flex flex-col gap-4 p-4 md:hidden">
                         {navLinks.map((link) => (
                             <NavLink
@@ -122,7 +123,7 @@ export default function NavBar() {
             </nav>
 
             {/* Render SearchBar with Modal */}
-            <SearchBar isOpen={searchOpen} onClose={toggleSearch} />
+            <SearchBar isOpen={isSearchOpen} onClose={toggleSearch} />
         </>
     )
 }

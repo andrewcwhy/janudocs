@@ -1,3 +1,4 @@
+// External Imports
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { Link, useNavigate } from 'react-router'
 import {
@@ -6,8 +7,14 @@ import {
     FiArrowDown,
     FiCornerDownLeft,
 } from 'react-icons/fi'
-import { useDocsManifest } from '@/hooks/useDocsManifest'
 
+// Internal Imports
+import { useDocsManifest } from '@/hooks/useDocsManifest'
+import { useClickAway } from '@/hooks/useClickAway'
+import { useLockBodyScroll } from '@/hooks/useLockBodyScroll'
+import { formatFileName } from '@/utils/stringUtils'
+
+// Interfaces
 interface SearchResult {
     name: string
     path: string
@@ -20,32 +27,37 @@ interface SearchBarProps {
 }
 
 export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
-    const { manifest } = useDocsManifest()
+    // Refs
+    const inputRef = useRef<HTMLInputElement>(null)
+    const modalRef = useRef<HTMLDivElement>(null)
+
+    // State
     const [query, setQuery] = useState('')
     const [groupedResults, setGroupedResults] = useState<
         Record<string, SearchResult[]>
     >({})
     const [activeIndex, setActiveIndex] = useState(0)
-    const navigate = useNavigate()
-    const inputRef = useRef<HTMLInputElement>(null)
 
+    // Hooks
+    const { manifest } = useDocsManifest()
+    const navigate = useNavigate()
+
+    // Disable body scroll when modal is open
+    useLockBodyScroll(isOpen)
+
+    // Close modal when clicking outside
+    useClickAway(modalRef, () => {
+        if (isOpen) onClose()
+    })
+
+    // Focus input when modal is open
     useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = 'hidden'
-            document.body.style.position = 'fixed'
-            document.body.style.width = '100%'
-        } else {
-            document.body.style.overflow = ''
-            document.body.style.position = ''
-            document.body.style.width = ''
-        }
-        return () => {
-            document.body.style.overflow = ''
-            document.body.style.position = ''
-            document.body.style.width = ''
+        if (isOpen && inputRef.current) {
+            inputRef.current.focus()
         }
     }, [isOpen])
 
+    // Memoized search helper functions
     const normalizedQuery = useMemo(
         () => query.toLowerCase().replace(/[-_]/g, ' ').trim(),
         [query]
@@ -56,6 +68,12 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
         [normalizedQuery]
     )
 
+    const flatResults = useMemo(
+        () => Object.values(groupedResults).flat(),
+        [groupedResults]
+    )
+
+    // Search logic
     useEffect(() => {
         if (!query.trim()) {
             setGroupedResults({})
@@ -64,29 +82,31 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
 
         const grouped: Record<string, SearchResult[]> = {}
 
-        // Search category files
+        const processFile = (
+            file: string,
+            basePath: string
+        ): SearchResult | null => {
+            const displayName = formatFileName(file)
+
+            if (!searchTerms.every((term) => displayName.includes(term)))
+                return null
+
+            let score = 0
+            searchTerms.forEach((term) => {
+                if (displayName.includes(term)) score += 3
+            })
+
+            return {
+                name: displayName,
+                path: `${basePath}/${displayName}`,
+                score,
+            }
+        }
+
+        // Search categorized files
         manifest.categories.forEach((cat) => {
             const matches = cat.files
-                .map((file): SearchResult | null => {
-                    const fileName = file.replace('.md', '')
-                    const normalized = fileName
-                        .replace(/[-_]/g, ' ')
-                        .toLowerCase()
-
-                    if (!searchTerms.every((term) => normalized.includes(term)))
-                        return null
-
-                    let score = 0
-                    searchTerms.forEach((term) => {
-                        if (normalized.includes(term)) score += 3
-                    })
-
-                    return {
-                        name: fileName,
-                        path: `/docs/${cat.path}/${fileName}`,
-                        score,
-                    }
-                })
+                .map((file) => processFile(file, `/docs/${cat.path}`))
                 .filter((r): r is SearchResult => r !== null)
                 .sort((a, b) => b.score - a.score)
 
@@ -94,40 +114,21 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
         })
 
         // Search loose files
-        if (manifest.looseFiles?.[0]?.files?.length) {
-            const matches = manifest.looseFiles[0].files
-                .map((file): SearchResult | null => {
-                    const fileName = file.replace('.md', '')
-                    const normalized = fileName
-                        .replace(/[-_]/g, ' ')
-                        .toLowerCase()
+        const loose = manifest.looseFiles?.[0]?.files ?? []
+        const looseMatches = loose
+            .map((file) => processFile(file, '/docs'))
+            .filter((r): r is SearchResult => r !== null)
+            .sort((a, b) => b.score - a.score)
 
-                    if (!searchTerms.every((term) => normalized.includes(term)))
-                        return null
-
-                    let score = 0
-                    searchTerms.forEach((term) => {
-                        if (normalized.includes(term)) score += 3
-                    })
-
-                    return {
-                        name: fileName,
-                        path: `/docs/${fileName}`,
-                        score,
-                    }
-                })
-                .filter((r): r is SearchResult => r !== null)
-                .sort((a, b) => b.score - a.score)
-
-            if (matches.length > 0) grouped['Miscellaneous'] = matches
+        if (looseMatches.length > 0) {
+            grouped['Miscellaneous'] = looseMatches
         }
 
         setGroupedResults(grouped)
         setActiveIndex(0)
     }, [query, manifest, searchTerms])
 
-    const flatResults = Object.values(groupedResults).flat()
-
+    // Highlight matching terms
     const highlightMatches = (text: string) => {
         if (searchTerms.length === 0) return text
         const regex = new RegExp(`(${searchTerms.join('|')})`, 'gi')
@@ -142,6 +143,7 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
         )
     }
 
+    // Handle keyboard navigation
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'ArrowDown') {
             e.preventDefault()
@@ -163,22 +165,13 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
         onClose()
     }
 
-    useEffect(() => {
-        if (isOpen && inputRef.current) {
-            inputRef.current.focus()
-        }
-    }, [isOpen])
-
     if (!isOpen) return null
 
     return (
-        <div
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50"
-            onClick={handleClose}
-        >
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
             <div
                 className="relative bg-white rounded-none md:rounded-2xl shadow-2xl w-full max-w-full md:max-w-2xl h-full md:h-auto md:max-h-[80vh] flex flex-col overflow-hidden"
-                onClick={(e) => e.stopPropagation()}
+                ref={modalRef}
             >
                 {/* Header */}
                 <header className="flex items-center border-b border-gray-200 p-4">

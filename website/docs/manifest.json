@@ -1,45 +1,59 @@
 {
-    "categories": [
-        {
-            "label": "Getting Started",
-            "description": "Introductory guides",
-            "path": "getting-started",
-            "files": ["installation.md", "intro.md"],
-            "count": 2
-        },
-        {
-            "label": "Guides",
-            "description": "Detailed guides",
-            "path": "guides",
-            "files": ["css.md", "react.md", "testing-auto-format.md"],
-            "count": 3
-        },
-        {
-            "label": "JavaScript",
-            "description": "JavaScript",
-            "path": "javascript",
-            "files": [
-                "arrays.md",
-                "comments.md",
-                "const.md",
-                "let.md",
-                "numbers.md",
-                "objects.md"
-            ],
-            "count": 6
-        },
-        {
-            "label": "Frameworks",
-            "description": "Frameworks",
-            "path": "writing",
-            "files": ["file1.md", "markdown.md"],
-            "count": 2
-        }
-    ],
-    "looseFiles": [
-        {
-            "files": ["introduction.md", "loose-file.md", "testing.md"],
-            "count": 3
-        }
-    ]
+  "categories": [
+    {
+      "label": "Getting Started",
+      "description": "Introductory guides",
+      "path": "getting-started",
+      "files": [
+        "installation.md",
+        "intro.md"
+      ],
+      "count": 2
+    },
+    {
+      "label": "Guides",
+      "description": "Detailed guides",
+      "path": "guides",
+      "files": [
+        "css.md",
+        "react.md",
+        "testing-auto-format .md"
+      ],
+      "count": 3
+    },
+    {
+      "label": "JavaScript",
+      "description": "JavaScript",
+      "path": "javascript",
+      "files": [
+        "arrays.md",
+        "comments.md",
+        "const.md",
+        "let.md",
+        "numbers.md",
+        "objects.md"
+      ],
+      "count": 6
+    },
+    {
+      "label": "Frameworks",
+      "description": "Frameworks",
+      "path": "writing",
+      "files": [
+        "file1.md",
+        "markdown.md"
+      ],
+      "count": 2
+    }
+  ],
+  "looseFiles": [
+    {
+      "files": [
+        "introduction.md",
+        "loose-file.md",
+        "testing.md"
+      ],
+      "count": 3
+    }
+  ]
 }
