@@ -48,17 +48,19 @@ export default function NavBar() {
                     </NavLink>
 
                     {/* Desktop Links */}
-                    <div className="hidden md:flex gap-6 text-gray-700 text-sm">
+                    <ul className="hidden md:flex gap-6 text-gray-700 text-sm">
                         {navLinks.map((link) => (
-                            <NavLink
-                                key={link.label}
-                                to={link.path}
-                                className="hover:text-blue-600"
-                            >
-                                {link.label}
-                            </NavLink>
+                            <li key={link.label}>
+                                <NavLink
+                                    key={link.label}
+                                    to={link.path}
+                                    className="hover:text-blue-600"
+                                >
+                                    {link.label}
+                                </NavLink>
+                            </li>
                         ))}
-                    </div>
+                    </ul>
                 </div>
 
                 <div className="flex items-center gap-4">
@@ -107,18 +109,20 @@ export default function NavBar() {
 
                 {/* Mobile Menu */}
                 {isMenuOpen && (
-                    <div className="absolute top-full left-0 w-full bg-white shadow-md border-t border-gray-200 flex flex-col gap-4 p-4 md:hidden">
+                    <ul className="absolute top-full inset-x-0 bg-white shadow-md border-t border-gray-200 flex flex-col gap-4 p-4 md:hidden">
                         {navLinks.map((link) => (
-                            <NavLink
-                                key={link.label}
-                                to={link.path}
-                                className="hover:text-blue-600"
-                                onClick={toggleMenu}
-                            >
-                                {link.label}
-                            </NavLink>
+                            <li key={link.label}>
+                                <NavLink
+                                    key={link.label}
+                                    to={link.path}
+                                    className="hover:text-blue-600"
+                                    onClick={toggleMenu}
+                                >
+                                    {link.label}
+                                </NavLink>
+                            </li>
                         ))}
-                    </div>
+                    </ul>
                 )}
             </nav>
 
