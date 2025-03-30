@@ -1,16 +1,14 @@
 {
     "compilerOptions": {
-        "target": "ESNext",
-        "module": "ESNext",
-        "moduleResolution": "bundler",
-        "jsx": "react-jsx",
-        "allowJs": true,
-        "strict": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true,
-        "baseUrl": ".",
-        "paths": {
-            "@/*": ["./src/*"]
-        }
-    }
-}
+      "target": "ESNext",
+      "module": "ESNext",
+      "declaration": true,
+      "outDir": "dist",
+      "esModuleInterop": true,
+      "moduleResolution": "Node",
+      "strict": true,
+      "skipLibCheck": true
+    },
+    "include": ["src", "bin"]
+  }
+  

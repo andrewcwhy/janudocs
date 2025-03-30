@@ -1,20 +1,45 @@
 {
     "name": "create-janudocs",
-    "type": "module",
-    "author": "Andrew Christian Young",
-    "license": "MIT",
     "version": "1.0.0",
     "description": "Create a new Janudocs project",
+    "author": "Andrew Christian Young",
+    "license": "MIT",
+    "type": "module",
+    "keywords": [
+      "janudocs",
+      "react",
+      "javascript",
+      "typescript",
+      "documentation"
+    ],
     "bin": {
-        "create-janudocs": "./bin/index.ts"
+      "create-janudocs": "./bin/index.js"
     },
-    "homepage": "",
+    "files": [
+      "dist"
+    ],
+    "scripts": {
+    "create-janudocs": "link:create-janudocs",
+      "build": "tsc",
+      "dev": "tsc --watch"
+    },
+    "dependencies": {
+      "@types/prompts": "^2.4.9",
+      "commander": "^13.1.0",
+      "picocolors": "^1.1.1",
+      "prompts": "^2.4.2"
+    },
     "repository": {
-        "type": "git",
-        "url": "https://github.com/andrewcwhy/janudocs.git",
-        "directory": "packages/create-janudocs"
+      "type": "git",
+      "url": "https://github.com/andrewcwhy/janudocs.git",
+      "directory": "packages/create-janudocs"
     },
     "bugs": {
-        "url": "https://github.com/andrewcwhy/janudocs/issues"
+      "url": "https://github.com/andrewcwhy/janudocs/issues"
+    },
+    "homepage": "https://github.com/andrewcwhy/janudocs/tree/main/packages/create-janudocs#readme",
+    "publishConfig": {
+      "access": "public"
     }
-}
+  }
+  

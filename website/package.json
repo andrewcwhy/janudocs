@@ -2,7 +2,7 @@
     "name": "janudocs",
     "description": "A documentation generator and website builder.",
     "version": "1.0.0",
-    "private": false,
+    "private": true,
     "type": "module",
     "license": "MIT",
     "keywords": [
