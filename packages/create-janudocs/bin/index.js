@@ -1,4 +1,5 @@
 #!/usr/bin/env bun
-import { run } from '../src/index.js'
 
-run()
+import { main } from '../src/index.js'
+
+main()

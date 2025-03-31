@@ -1,60 +1,108 @@
-import { Command } from 'commander'
-import prompts from 'prompts'
+import {
+    text,
+    select,
+    multiselect,
+    intro,
+    outro,
+    isCancel,
+    cancel,
+    spinner,
+} from '@clack/prompts'
 import pc from 'picocolors'
 import { existsSync, mkdirSync, cpSync } from 'fs'
-import { join, resolve } from 'path'
+import { resolve } from 'path'
+import { installDependencies } from './setupDependencies'
 
-const program = new Command()
-
-program
-  .name('create-janudocs')
-  .description('Create a new Janudocs documentation project')
-  .version('0.1.0')
-  .action(async () => {
-    console.log(pc.cyan('Welcome to create-janudocs CLI!\n'))
-
-    const response = await prompts([
-      {
-        type: 'text',
-        name: 'projectName',
-        message: 'What is the name of your documentation project?',
-        initial: 'my-janudocs',
-      },
-      {
-        type: 'select',
-        name: 'template',
-        message: 'Choose a starter template',
-        choices: [{ title: 'Default', value: 'default' }],
-      },
-    ])
-
-    const { projectName, template } = response
-
-    if (!projectName) {
-      console.log(pc.red('✖ Project name is required.'))
-      process.exit(1)
+// Helper to check for cancellation after a prompt.
+function ensure<T>(result: T | symbol): T {
+    if (isCancel(result)) {
+        cancel('Operation cancelled.')
+        process.exit(0)
     }
+    return result as T
+}
+
+// Helper to run a task with a spinner.
+function runTask(taskDescription: string, task: () => void) {
+    const s = spinner()
+    s.start(taskDescription)
+    try {
+        task()
+        s.stop(`${taskDescription} completed successfully.`)
+    } catch (err) {
+        s.stop(`${taskDescription} failed.`)
+        console.error(err)
+        process.exit(1)
+    }
+}
+
+async function main() {
+    intro(pc.inverse('create-janudocs'))
 
     const cwd = process.cwd()
+    const projectName = ensure(
+        await text({
+            message: 'What is your project name?',
+            placeholder: 'my-janudocs',
+            validate: (input) => {
+                const projectDir = resolve(cwd, input)
+                return existsSync(projectDir)
+                    ? `Directory "${input}" already exists. Choose a different name.`
+                    : undefined
+            },
+        })
+    )
+
     const projectDir = resolve(cwd, projectName)
+
+    const template = ensure(
+        await select({
+            message: 'Choose a starter template:',
+            options: [
+                { label: 'Default', value: 'default' },
+                { label: 'Full', value: 'full' },
+            ],
+        })
+    )
+
+    const devTools = ensure(
+        await multiselect({
+            message: 'Add optional developer tools.',
+            options: [
+                { label: 'ESLint', value: 'eslint', hint: 'recommended' },
+                { label: 'Prettier', value: 'prettier' },
+                { label: 'Tailwind CSS', value: 'tailwindcss' },
+            ],
+        })
+    )
+
+    const packageManager = ensure(
+        await select({
+            message: 'Which package manager do you want to use?',
+            options: [
+                { label: 'bun', value: 'bun' },
+                { label: 'npm', value: 'npm' },
+                { label: 'pnpm', value: 'pnpm' },
+                { label: 'yarn', value: 'yarn' },
+            ],
+        })
+    )
+
     const templateDir = resolve(import.meta.dir, '../templates', template)
 
-    if (existsSync(projectDir)) {
-      console.log(pc.red(`✖ Directory "${projectName}" already exists.`))
-      process.exit(1)
-    }
+    runTask('Scaffolding project', () => {
+        mkdirSync(projectDir, { recursive: true })
+        cpSync(templateDir, projectDir, { recursive: true })
+    })
 
-    console.log(pc.green(`\n✅ Creating project: ${projectName}`))
-    mkdirSync(projectDir, { recursive: true })
+    installDependencies(
+        projectDir,
+        devTools as ('eslint' | 'prettier' | 'tailwindcss')[],
+        packageManager as any
+    )
 
-    try {
-      cpSync(templateDir, projectDir, { recursive: true })
-      console.log(pc.green(`🎉 Project created in ${pc.bold(projectDir)}`))
-    } catch (err) {
-      console.error(pc.red('Failed to copy template files:'), err)
-    }
-  })
-
-export const run = () => {
-  program.parse(process.argv)
+    outro(pc.green(`Project setup complete at: ${projectDir}`))
+    console.log()
 }
+
+export { main }
