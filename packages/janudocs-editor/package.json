@@ -1,14 +1,35 @@
 {
     "name": "@janudocs/editor",
-    "version": "0.1.0",
+    "description": "Janudocs Editor - A React-based documentation editor for Janudocs",
+    "author": "Andrew Christian Young",
+    "version": "0.0.0",
+    "license": "MIT",
     "type": "module",
     "main": "src/server.ts",
+    "keywords": [
+        "janudocs",
+        "editor",
+        "documentation",
+        "react",
+        "typescript",
+        "cli",
+        "framework"
+    ],
+    "bugs": {
+        "url": "https://github.com/andrewcwhy/janudocs/issues"
+    },
+    "homepage": "https://github.com/andrewcwhy/janudocs#readme",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/andrewcwhy/janudocs.git",
+        "directory": "packages/janudocs"
+    },
+    "bin": {
+        "janudocs-editor": "./bin/index.ts"
+    },
     "scripts": {
         "build": "bun run build.ts",
         "editor": "bun run src/server.ts"
-    },
-    "bin": {
-        "janudocs-editor": "./bin/cli.ts"
     },
     "dependencies": {
         "react": "^19.0.0",

@@ -1,16 +1,10 @@
 {
+    "extends": "../../tsconfig.base.json",
     "compilerOptions": {
-        "target": "ESNext",
-        "module": "ESNext",
-        "moduleResolution": "bundler",
-        "jsx": "react-jsx",
-        "strict": true,
-        "esModuleInterop": true,
-        "allowImportingTsExtensions": true,
         "baseUrl": "./",
         "paths": {
             "@/*": ["src/*"]
         }
     },
-    "include": ["src", "bin/cli.ts", "build.ts"]
+    "include": ["src", "bin/index.ts", "build.ts"]
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import PreviewPane from './PreviewPane'
-import Toolbar from './Toolbar'
+import PreviewPane from '@/components/PreviewPane'
+import Toolbar from '@/components/Toolbar'
 
 export default function Editor({ file }: { file: string | null }) {
     const [markdown, setMarkdown] = useState('')
@@ -21,6 +21,7 @@ export default function Editor({ file }: { file: string | null }) {
             <div className="flex flex-1 gap-4">
                 <textarea
                     className="w-1/2 h-full border p-2"
+                    placeholder="Start typing your markdown here..."
                     value={markdown}
                     onChange={(e) => setMarkdown(e.target.value)}
                 />

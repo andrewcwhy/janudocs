@@ -2,7 +2,7 @@
     "name": "janudocs",
     "description": "Core functionality for the Janudocs documentation framework",
     "author": "Andrew Christian Young",
-    "version": "1.0.0",
+    "version": "0.0.0",
     "license": "MIT",
     "type": "module",
     "keywords": [
@@ -13,25 +13,22 @@
         "cli",
         "framework"
     ],
-    "bin": {
-        "janudocs": "bin/index.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/andrewcwhy/janudocs.git",
-        "directory": "packages/janudocs"
-    },
     "bugs": {
         "url": "https://github.com/andrewcwhy/janudocs/issues"
     },
     "homepage": "https://github.com/andrewcwhy/janudocs#readme",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/andrewcwhy/janudocs.git",
+        "directory": "packages/janudocs"
+    },
+    "bin": {
+        "janudocs": "bin/index.ts"
+    },
     "scripts": {
         "build": "tsc",
         "dev": "tsc --watch"
     },
     "dependencies": {},
-    "devDependencies": {},
-    "engines": {
-        "bun": ">=1.0.0"
-    }
+    "devDependencies": {}
 }

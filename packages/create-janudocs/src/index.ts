@@ -11,7 +11,7 @@ import {
 import pc from 'picocolors'
 import { existsSync, mkdirSync, cpSync } from 'fs'
 import { resolve } from 'path'
-import { installDependencies } from './setupDependencies'
+import { installDependencies } from '@/setupDependencies'
 
 // Helper to check for cancellation after a prompt.
 function ensure<T>(result: T | symbol): T {

@@ -1,109 +1,171 @@
 import { useEffect, useState } from 'react'
 
-interface FileExplorerProps {
-    onSelect: (filePath: string) => void
-}
-
-interface FileNode {
+type FileEntry = {
     name: string
-    path: string
-    isDirectory: boolean
-    children?: FileNode[]
+    type: 'file' | 'directory'
 }
 
-export default function FileExplorer({ onSelect }: FileExplorerProps) {
-    const [tree, setTree] = useState<FileNode[]>([])
+function FileNode({
+    path,
+    name,
+    type,
+    selectedFile,
+    onSelect,
+    refresh,
+}: {
+    path: string
+    name: string
+    type: 'file' | 'directory'
+    selectedFile: string | null
+    onSelect: (path: string) => void
+    refresh: () => void
+}) {
+    const [expanded, setExpanded] = useState(false)
+    const [children, setChildren] = useState<FileEntry[]>([])
 
-    useEffect(() => {
-        fetchTree('')
-    }, [])
-
-    const fetchTree = async (relativePath: string) => {
-        const res = await fetch(
-            `/api/files?path=${encodeURIComponent(relativePath)}`
-        )
+    const loadChildren = async () => {
+        const res = await fetch(`/api/files?path=${encodeURIComponent(path)}`)
         const data = await res.json()
-        const entries: FileNode[] = data.files.map((name: string) => ({
-            name,
-            path: relativePath ? `${relativePath}/${name}` : name,
-            isDirectory: !name.endsWith('.md'),
-        }))
-        setTree((prev) => {
-            if (!relativePath) return entries
-            return updateNode(prev, relativePath, entries)
-        })
+        setChildren(data.files)
     }
 
-    const updateNode = (
-        nodes: FileNode[],
-        path: string,
-        children: FileNode[]
-    ): FileNode[] => {
-        return nodes.map((node) => {
-            if (node.path === path) {
-                return { ...node, children }
-            }
-            if (node.isDirectory && node.children) {
-                return {
-                    ...node,
-                    children: updateNode(node.children, path, children),
-                }
-            }
-            return node
-        })
-    }
-
-    const toggleFolder = async (node: FileNode) => {
-        if (!node.children) {
-            await fetchTree(node.path)
+    const toggle = async () => {
+        if (type === 'directory') {
+            if (!expanded) await loadChildren()
+            setExpanded(!expanded)
         } else {
-            // Collapse
-            setTree((prev) => collapseNode(prev, node.path))
+            onSelect(path)
         }
     }
 
-    const collapseNode = (nodes: FileNode[], path: string): FileNode[] => {
-        return nodes.map((node) => {
-            if (node.path === path) {
-                const { children, ...rest } = node
-                return { ...rest } // remove children to collapse
+    const createFile = async () => {
+        const filename = prompt('Enter new file name (e.g. file.md)')
+        if (!filename) return
+
+        await fetch(
+            `/api/files?path=${encodeURIComponent(path + '/' + filename)}`,
+            {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ isDirectory: false }),
             }
-            if (node.children) {
-                return { ...node, children: collapseNode(node.children, path) }
-            }
-            return node
-        })
+        )
+
+        await loadChildren()
+        setExpanded(true)
     }
 
-    const renderTree = (nodes: FileNode[]) => (
-        <ul className="pl-2">
-            {nodes.map((node) => (
-                <li key={node.path}>
-                    {node.isDirectory ? (
-                        <div
-                            className="cursor-pointer font-medium text-blue-600 hover:underline"
-                            onClick={() => toggleFolder(node)}
-                        >
-                            📁 {node.name}
-                        </div>
-                    ) : (
-                        <div
-                            className="cursor-pointer hover:underline"
-                            onClick={() => onSelect(node.path)}
-                        >
-                            📝 {node.name}
-                        </div>
-                    )}
-                    {node.children && renderTree(node.children)}
+    const createFolder = async () => {
+        const folderName = prompt('Enter new folder name:')
+        if (!folderName) return
+
+        await fetch(
+            `/api/files?path=${encodeURIComponent(path + '/' + folderName)}`,
+            {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ isDirectory: true }),
+            }
+        )
+
+        await loadChildren()
+        setExpanded(true)
+    }
+
+    const deleteEntry = async () => {
+        const confirmed = confirm(`Delete "${name}"?`)
+        if (!confirmed) return
+
+        await fetch(`/api/files?path=${encodeURIComponent(path)}`, {
+            method: 'DELETE',
+        })
+
+        refresh()
+    }
+
+    return (
+        <div>
+            <div
+                className={`cursor-pointer select-none hover:underline flex items-center justify-between ${
+                    selectedFile === path ? 'font-bold text-blue-600' : ''
+                }`}
+            >
+                <span onClick={toggle}>
+                    {type === 'directory' ? (expanded ? '📂' : '📁') : '📄'}{' '}
+                    {name}
+                </span>
+                <button
+                    onClick={deleteEntry}
+                    className="text-red-500 text-xs ml-2"
+                >
+                    🗑️
+                </button>
+            </div>
+
+            {expanded && type === 'directory' && (
+                <div className="ml-4 space-y-1">
+                    <button
+                        onClick={createFile}
+                        className="text-green-600 text-xs hover:underline mr-2"
+                    >
+                        + File
+                    </button>
+                    <button
+                        onClick={createFolder}
+                        className="text-yellow-600 text-xs hover:underline"
+                    >
+                        + Folder
+                    </button>
+                    {children.map((child) => (
+                        <FileNode
+                            key={child.name}
+                            path={`${path}/${child.name}`}
+                            name={child.name}
+                            type={child.type}
+                            selectedFile={selectedFile}
+                            onSelect={onSelect}
+                            refresh={loadChildren}
+                        />
+                    ))}
+                </div>
+            )}
+        </div>
+    )
+}
+
+export default function FileExplorer({
+    onSelect,
+}: {
+    onSelect: (file: string) => void
+}) {
+    const [files, setFiles] = useState<FileEntry[]>([])
+    const [selected, setSelected] = useState<string | null>(null)
+
+    const loadRoot = () => {
+        fetch('/api/files?path=.')
+            .then((res) => res.json())
+            .then((data) => setFiles(data.files))
+    }
+
+    useEffect(loadRoot, [])
+
+    return (
+        <ul className="space-y-1 text-sm">
+            {files.map((file) => (
+                <li key={file.name}>
+                    <FileNode
+                        path={file.name}
+                        name={file.name}
+                        type={file.type}
+                        selectedFile={selected}
+                        onSelect={(f) => {
+                            setSelected(f)
+                            onSelect(f)
+                        }}
+                        refresh={loadRoot}
+                    />
                 </li>
             ))}
         </ul>
-    )
-
-    return (
-        <div className="text-sm">
-            <h2 className="font-bold mb-2">📂 Project Files</h2>
-            {renderTree(tree)}
-        </div>
     )
 }

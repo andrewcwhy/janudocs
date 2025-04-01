@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import FileExplorer from './components/FileExplorer'
-import Editor from './components/Editor'
+import FileExplorer from '@/components/FileExplorer'
+import Editor from '@/components/Editor'
 
 export default function App() {
     const [selectedFile, setSelectedFile] = useState<string | null>(null)
