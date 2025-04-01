@@ -6,4 +6,4 @@ await build({
     target: 'browser',
 })
 
-console.log('✅ React app built to public/main.js')
+console.log('React app built to public/main.js')

@@ -113,7 +113,7 @@ serve({
     },
 })
 
-console.log(`📝 Janudocs Editor running at http://localhost:${port}`)
+console.log(`Janudocs Editor running at http://localhost:${port}`)
 
 function getContentType(ext: string): string | undefined {
     return {

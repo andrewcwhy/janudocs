@@ -11,6 +11,6 @@
         "moduleResolution": "bundler",
         "strict": true,
         "noFallthroughCasesInSwitch": true,
-        "noUncheckedIndexedAccess": true,
+        "noUncheckedIndexedAccess": true
     }
 }

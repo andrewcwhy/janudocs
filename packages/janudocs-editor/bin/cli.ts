@@ -1,17 +1,17 @@
+#!/usr/bin/env node
+
 import { spawn } from 'child_process'
 import { fileURLToPath } from 'url'
 import path from 'path'
 
-// This file is located at: packages/janudocs-editor/bin/index.ts
-// We want to run:         packages/janudocs-editor/src/server.ts
-
+// Importing the Bun runtime to run the server
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-// ✅ Join from /bin to /src/server.ts
+// Path to the server file
 const serverPath = path.join(__dirname, '../src/server.ts')
 
-// Run the Bun server
+// Spawn the server process using Bun
 spawn('bun', [serverPath], {
     stdio: 'inherit',
     cwd: process.cwd(),
