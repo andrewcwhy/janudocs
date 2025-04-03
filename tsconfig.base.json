@@ -13,5 +13,4 @@
         "noFallthroughCasesInSwitch": true,
         "noUncheckedIndexedAccess": true
     }
-    
 }

@@ -1,3 +1,5 @@
+import Button from '@/components/ui/Button'
+
 export default function Toolbar({
     file,
     content,
@@ -50,30 +52,18 @@ export default function Toolbar({
 
     return (
         <div className="flex gap-2 mb-2">
-            <button
-                onClick={save}
-                className="bg-blue-600 text-white px-3 py-1 rounded"
-            >
+            <Button variant="primary" onClick={save}>
                 Save
-            </button>
-            <button
-                onClick={rename}
-                className="bg-yellow-500 text-white px-3 py-1 rounded"
-            >
+            </Button>
+            <Button variant="warning" onClick={rename}>
                 Rename
-            </button>
-            <button
-                onClick={create}
-                className="bg-green-600 text-white px-3 py-1 rounded"
-            >
+            </Button>
+            <Button variant="success" onClick={create}>
                 New File
-            </button>
-            <button
-                onClick={del}
-                className="bg-red-600 text-white px-3 py-1 rounded"
-            >
+            </Button>
+            <Button variant="danger" onClick={del}>
                 Delete
-            </button>
+            </Button>
         </div>
     )
 }
