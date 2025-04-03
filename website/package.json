@@ -4,23 +4,23 @@
     "author": "Andrew Christian Young",
     "version": "0.0.0",
     "private": true,
+    "type": "module",
     "scripts": {
-        "build": "tsc -p tsconfig.app.json && bunx --bun vite build",
+        "build": "bunx --bun vite build",
         "dev": "bunx --bun vite",
         "preview": "vite preview",
         "gen": "bun run scripts/generateDocsManifest.ts"
     },
     "dependencies": {
+        "@mdx-js/react": "^3.1.0",
         "react-icons": "^5.5.0",
         "react-markdown": "^10.1.0",
-        "react-router": "^7.4.0",
+        "react-router": "^7.4.1",
         "remark-gfm": "^4.0.1",
-        "tailwindcss": "^4.0.14"
+        "tailwindcss": "^4.1.0"
     },
     "devDependencies": {
-        "@tailwindcss/vite": "^4.0.14",
         "@vitejs/plugin-react": "^4.3.4",
-        "eslint-plugin-react-refresh": "^0.4.19",
-        "vite": "^6.2.2"
+        "vite": "^6.2.4"
     }
 }

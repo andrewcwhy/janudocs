@@ -12,6 +12,8 @@ export default defineConfig({
         },
     },
     server: {
+        // Easter egg lol
+        // Birthdate: 09/07/2005
         port: 9705,
     },
 })

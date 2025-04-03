@@ -32,13 +32,13 @@
             "label": "Frameworks",
             "description": "Frameworks",
             "path": "writing",
-            "files": ["file1.md", "markdown.md"],
-            "count": 2
+            "files": ["browser-support.mdx", "file1.md", "markdown.md"],
+            "count": 3
         }
     ],
     "looseFiles": [
         {
-            "files": ["introduction.md", "loose-file.md", "testing.md"],
+            "files": ["configuration.mdx", "introduction.md", "loose-file.md"],
             "count": 3
         }
     ]

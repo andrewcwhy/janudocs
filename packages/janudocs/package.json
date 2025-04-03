@@ -22,13 +22,25 @@
         "url": "https://github.com/andrewcwhy/janudocs.git",
         "directory": "packages/janudocs"
     },
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
     "bin": {
-        "janudocs": "bin/index.ts"
+        "janudocs": "bin/index.js"
     },
     "scripts": {
-        "build": "tsc",
-        "dev": "tsc --watch"
+        "build": "bun build src/index.ts --outdir dist --target node"
     },
-    "dependencies": {},
-    "devDependencies": {}
+    "dependencies": {
+        "commander": "^13.1.0"
+    },
+    "devDependencies": {
+        "@types/react-dom": "^19.1.1"
+    }
 }

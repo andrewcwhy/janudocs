@@ -1,8 +1,5 @@
-// Type for controlling sidebar open/close state
-export type SidebarState = 'expanded' | 'collapsed'
-
-// Type for text transformations
 export type TextTransform = 'capitalize' | 'uppercase' | 'lowercase' | 'none'
+export type ViewState = 'expanded' | 'collapsed'
 
 // General reusable settings for text styles
 interface TextStyleConfig {
@@ -15,7 +12,7 @@ export interface JanudocsConfig {
             // Whether categories can be toggled open/closed
             togglable: boolean
             // Default state for categories
-            defaultState: SidebarState
+            viewState: ViewState
             // Text transform for category labels
             textStyle: TextStyleConfig
             descriptions: {
@@ -39,7 +36,7 @@ const config: JanudocsConfig = {
     sidebar: {
         categories: {
             togglable: true,
-            defaultState: 'expanded',
+            viewState: 'expanded',
             textStyle: { textTransform: 'capitalize' },
             descriptions: {
                 show: true,

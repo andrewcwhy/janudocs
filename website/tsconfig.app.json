@@ -28,5 +28,5 @@
             "@/*": ["src/*"]
         }
     },
-    "include": ["src", "scripts", "janudocs.config.ts"]
+    "include": ["src"]
 }

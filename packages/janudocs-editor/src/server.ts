@@ -8,20 +8,21 @@ import {
     rename,
     rm,
     readFile,
-} from 'fs/promises'
+} from 'node:fs/promises'
 import path from 'path'
 
-const rootDir = process.cwd() // user's project root
-const publicDir = path.join(import.meta.dir, '../public')
-const port = 3001
+// Constants
+const ROOT_DIR: string = process.cwd()
+const PUBLIC_DIR: string = path.join(import.meta.dir, '../public')
+const PORT: number = 3001
 
 serve({
-    port,
+    port: PORT,
     async fetch(req) {
         const url = new URL(req.url)
         const pathname = decodeURIComponent(url.pathname)
         const queryPath = decodeURIComponent(url.searchParams.get('path') || '')
-        const fullPath = path.join(rootDir, queryPath)
+        const fullPath = path.join(ROOT_DIR, queryPath)
 
         // 📁 File API
         if (pathname.startsWith('/api/files')) {
@@ -77,7 +78,7 @@ serve({
                 // Rename file or folder
                 if (req.method === 'PATCH') {
                     const { newPath } = await req.json()
-                    const newFullPath = path.join(rootDir, newPath)
+                    const newFullPath = path.join(ROOT_DIR, newPath)
                     await rename(fullPath, newFullPath)
                     return new Response('Renamed')
                 }
@@ -87,9 +88,9 @@ serve({
             }
         }
 
-        // 🌐 Static file serving
+        // Static file serving
         const filePath = path.join(
-            publicDir,
+            PUBLIC_DIR,
             pathname === '/' ? 'index.html' : pathname
         )
         const file = Bun.file(filePath)
@@ -106,15 +107,23 @@ serve({
         }
 
         // Fallback to SPA routing (React)
-        const fallback = Bun.file(path.join(publicDir, 'index.html'))
+        const fallback = Bun.file(path.join(PUBLIC_DIR, 'index.html'))
         return new Response(fallback, {
             headers: { 'Content-Type': 'text/html' },
         })
     },
 })
 
-console.log(`Janudocs Editor running at http://localhost:${port}`)
+// Graceful shutdown
+process.on('SIGINT', () => {
+    console.log('\nJanudocs Editor stopped by user.')
+    process.exit(0)
+})
 
+// Log server start
+console.log(`Janudocs Editor running at http://localhost:${PORT}`)
+
+// Helper function to get content type based on file extension
 function getContentType(ext: string): string | undefined {
     return {
         '.js': 'application/javascript',

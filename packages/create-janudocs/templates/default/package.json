@@ -3,10 +3,13 @@
     "description": "My Janudocs app",
     "private": true,
     "scripts": {
-        "build": "",
-        "dev": ""
+        "build": "janudocs build",
+        "clear": "janudocs clear",
+        "generate": "janudocs generate"
     },
     "dependencies": {
+        "@mdx-js/react": "^3.1.0",
+        "janudocs": "workspace:*",
         "react": "^19.1.0",
         "react-dom": "^19.1.0",
         "react-router": "^7.4.1"
