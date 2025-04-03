@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
 
-import { main } from '../src/index.js'
+import { main } from '../src/index.ts'
 
 main()

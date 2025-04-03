@@ -23,10 +23,9 @@
         "directory": "packages/create-janudocs"
     },
     "bin": {
-        "create-janudocs": "bin/index.js"
+        "create-janudocs": "bin/index.ts"
     },
     "scripts": {
-        "build": "tsc --build",
         "create-janudocs": "create-janudocs"
     },
     "dependencies": {

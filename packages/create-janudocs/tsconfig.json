@@ -6,6 +6,5 @@
             "@/*": ["./src/*"]
         }
     },
-    "include": ["bin", "src"],
-    "exclude": ["templates"]
+    "include": ["src"],
 }

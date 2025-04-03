@@ -1,5 +1,5 @@
 {
-    "name": "@janudocs/editor",
+    "name": "janudocs-editor",
     "description": "Janudocs Editor - A React-based live browser editor",
     "author": "Andrew Christian Young",
     "version": "0.0.0",
@@ -24,7 +24,7 @@
         "directory": "packages/janudocs"
     },
     "bin": {
-        "janudocs-editor": "bin/index.js"
+        "janudocs-editor": "bin/index.ts"
     },
     "scripts": {
         "build": "tailwindcss -i ./src/styles/index.css -o ./public/styles.css --minify && bun run scripts/build.ts",
