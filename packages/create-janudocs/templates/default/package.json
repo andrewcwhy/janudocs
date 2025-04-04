@@ -2,6 +2,7 @@
     "name": "my-janudocs-app",
     "description": "My Janudocs app",
     "private": true,
+    "type": "module",
     "scripts": {
         "build": "janudocs build",
         "clear": "janudocs clear",
@@ -9,12 +10,13 @@
     },
     "dependencies": {
         "@mdx-js/react": "^3.1.0",
-        "janudocs": "workspace:*",
+        "@janudocs/core": "link:@janudocs/core",
         "react": "^19.1.0",
         "react-dom": "^19.1.0",
         "react-router": "^7.4.1"
     },
     "devDependencies": {
+        "@janudocs/tsconfig": "link:@janudocs/tsconfig",
         "@types/react": "^19.0.12",
         "@types/react-dom": "^19.0.4",
         "typescript": "^5.8.2"

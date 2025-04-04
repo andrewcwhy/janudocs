@@ -9,8 +9,15 @@ import {
     spinner,
 } from '@clack/prompts'
 import pc from 'picocolors'
-import { existsSync, mkdirSync, cpSync } from 'fs'
-import { resolve } from 'path'
+import {
+    existsSync,
+    mkdirSync,
+    cpSync,
+    readdirSync,
+    statSync,
+    copyFileSync,
+} from 'fs'
+import path, { resolve } from 'path'
 import { installDependencies } from '@/setupDependencies'
 
 // Helper to check for cancellation after a prompt.
@@ -33,6 +40,24 @@ function runTask(taskDescription: string, task: () => void) {
         s.stop(`${taskDescription} failed.`)
         console.error(err)
         process.exit(1)
+    }
+}
+
+// Recursively copy files from shared into target without overwriting existing files
+function copySharedFiles(source: string, target: string) {
+    const entries = readdirSync(source)
+    for (const entry of entries) {
+        const srcPath = path.join(source, entry)
+        const destPath = path.join(target, entry)
+
+        if (statSync(srcPath).isDirectory()) {
+            if (!existsSync(destPath)) mkdirSync(destPath)
+            copySharedFiles(srcPath, destPath)
+        } else {
+            if (!existsSync(destPath)) {
+                copyFileSync(srcPath, destPath)
+            }
+        }
     }
 }
 
@@ -90,10 +115,12 @@ async function main() {
     )
 
     const templateDir = resolve(import.meta.dir, '../templates', template)
+    const sharedDir = resolve(import.meta.dir, '../templates/shared')
 
     runTask('Scaffolding project', () => {
         mkdirSync(projectDir, { recursive: true })
         cpSync(templateDir, projectDir, { recursive: true })
+        copySharedFiles(sharedDir, projectDir)
     })
 
     installDependencies(

@@ -45,7 +45,7 @@ async function generateManifest() {
             }
 
             const files = (await readdir(fullPath)).filter((f) =>
-                f.endsWith('.md')
+                f.endsWith('.md') || f.endsWith('.mdx')
             )
             if (files.length === 0) continue
 
@@ -59,7 +59,10 @@ async function generateManifest() {
             })
         }
 
-        if (entry.isFile() && entry.name.endsWith('.md')) {
+        if (
+            entry.isFile() &&
+            (entry.name.endsWith('.md') || entry.name.endsWith('.mdx'))
+        ) {
             looseFilesList.push(entry.name)
         }
     }

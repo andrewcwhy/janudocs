@@ -83,7 +83,7 @@ export default function Sidebar() {
                         {isOpen && (
                             <ul className="flex flex-col gap-2">
                                 {cat.files.map((file) => {
-                                    const routePath = `/docs/${cat.path}/${file.replace('.md', '')}`
+                                    const routePath = `/docs/${cat.path}/${removeFileExtension(file)}`
                                     const isActive =
                                         location.pathname === routePath
                                     const displayName = formatFileName(file)

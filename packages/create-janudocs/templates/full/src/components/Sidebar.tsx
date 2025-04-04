@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router'
 import { FiChevronDown, FiChevronRight } from 'react-icons/fi'
 import { useDocsManifest } from '@/hooks/useDocsManifest'
-import config from '../../janudocs.config'
+import config from '../../../shared/janudocs.config'
 import { formatFileName, removeFileExtension } from '@/utils/stringUtils'
 
 export default function Sidebar() {

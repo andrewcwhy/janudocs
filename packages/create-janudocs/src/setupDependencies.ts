@@ -50,7 +50,7 @@ export function installDependencies(
         },
         npm: {
             deps: `npm install ${deps.join(' ')}`,
-            devDeps: `npm install -D ${devDeps.join(' ')}`,
+            devDeps: `npm install ${devDeps.join(' ')} -D`,
         },
         yarn: {
             deps: `yarn add ${deps.join(' ')}`,
