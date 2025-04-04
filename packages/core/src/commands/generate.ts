@@ -13,7 +13,7 @@ interface Category {
     position?: number
 }
 
-async function generateManifest() {
+export async function generateDocsManifest() {
     const entries = await readdir(docsPath, { withFileTypes: true })
 
     const categories: Category[] = []
@@ -83,8 +83,3 @@ async function generateManifest() {
         `✅ Manifest created with ${categories.length} categories and ${looseFilesList.length} loose files.`
     )
 }
-
-generateManifest().catch((err) => {
-    console.error('❌ Manifest generation failed:', err)
-    process.exit(1)
-})

@@ -1,59 +1,45 @@
 {
-  "categories": [
-    {
-      "label": "Getting Started",
-      "description": "Introductory guides",
-      "path": "getting-started",
-      "files": [
-        "installation.md",
-        "intro.md"
-      ],
-      "count": 2
-    },
-    {
-      "label": "Guides",
-      "description": "Detailed guides",
-      "path": "guides",
-      "files": [
-        "css.md",
-        "react.md",
-        "test-your.md"
-      ],
-      "count": 3
-    },
-    {
-      "label": "JavaScript",
-      "description": "JavaScript",
-      "path": "javascript",
-      "files": [
-        "arrays.md",
-        "comments.md",
-        "const.md",
-        "let.md",
-        "numbers.md",
-        "objects.md"
-      ],
-      "count": 6
-    },
-    {
-      "label": "Frameworks",
-      "description": "Frameworks",
-      "path": "frameworks",
-      "files": [
-        "file1.md",
-        "markdown.md"
-      ],
-      "count": 2
-    }
-  ],
-  "looseFiles": [
-    {
-      "files": [
-        "hi.mdx",
-        "introduction.md",
-        "loose-file.md"
-      ],
-      "count": 3
-    }
-  ]
+    "categories": [
+        {
+            "label": "Getting Started",
+            "description": "Introductory guides",
+            "path": "getting-started",
+            "files": ["installation.md", "intro.md"],
+            "count": 2
+        },
+        {
+            "label": "Guides",
+            "description": "Detailed guides",
+            "path": "guides",
+            "files": ["css.md", "react.md", "test-your.md"],
+            "count": 3
+        },
+        {
+            "label": "JavaScript",
+            "description": "JavaScript",
+            "path": "javascript",
+            "files": [
+                "arrays.md",
+                "comments.md",
+                "const.md",
+                "let.md",
+                "numbers.md",
+                "objects.md"
+            ],
+            "count": 6
+        },
+        {
+            "label": "Frameworks",
+            "description": "Frameworks",
+            "path": "frameworks",
+            "files": ["file1.md", "markdown.md"],
+            "count": 2
+        }
+    ],
+    "looseFiles": [
+        {
+            "files": ["hi.mdx", "introduction.md", "loose-file.md"],
+            "count": 3
+        }
+    ]
 }
