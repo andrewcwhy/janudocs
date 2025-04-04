@@ -8,12 +8,15 @@ const { version } = require('package.json')
 export function setupCLI() {
     const program = new Command()
 
-    program.name('janudocs').description('The Janudocs CLI').version(version)
+    program.name('janudocs')
+    .description('The Janudocs CLI')
+    .version(version)
 
     program
         .command('generate')
         .alias('gen')
         .description('Generate the docs manifest')
+        .action(generateDocsManifest)
 
     return program
 }
