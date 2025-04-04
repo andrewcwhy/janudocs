@@ -1,4 +1,4 @@
-import { JanudocsConfig } from '../types/config'
+import { JanudocsConfig } from '@/types/config'
 
 export const defaultConfig: JanudocsConfig = {
     sidebar: {

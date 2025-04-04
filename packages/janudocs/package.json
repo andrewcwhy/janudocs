@@ -28,8 +28,9 @@
             "types": "./dist/index.d.ts"
         }
     },
+    "types": "./dist/index.d.ts",
     "scripts": {
-        "build": "bun build src/index.ts --outdir dist --target node"
+        "build": "bun build src/index.ts --outdir dist --target node && tsc --emitDeclarationOnly"
     },
     "dependencies": {
         "commander": "^13.1.0"

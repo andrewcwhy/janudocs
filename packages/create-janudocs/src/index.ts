@@ -61,6 +61,7 @@ async function main() {
             options: [
                 { label: 'Default', value: 'default' },
                 { label: 'Full', value: 'full' },
+                { label: 'Vite', value: 'vite' },
             ],
         })
     )

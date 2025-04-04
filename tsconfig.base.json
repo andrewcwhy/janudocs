@@ -11,6 +11,9 @@
         "moduleResolution": "bundler",
         "strict": true,
         "noFallthroughCasesInSwitch": true,
-        "noUncheckedIndexedAccess": true
-    }
+        "noUncheckedIndexedAccess": true,
+        "declaration": true,
+        "declarationDir": "./dist"
+    },
+    "exclude": ["node_modules"]
 }

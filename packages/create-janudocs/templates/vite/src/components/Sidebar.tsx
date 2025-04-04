@@ -15,7 +15,7 @@ export default function Sidebar() {
     const { sidebar } = config
     const {
         togglable,
-        defaultState,
+        viewState,
         descriptions,
         textStyle: categoryTextStyle,
     } = sidebar.categories
@@ -24,10 +24,10 @@ export default function Sidebar() {
     useEffect(() => {
         const initialOpen: Record<string, boolean> = {}
         manifest.categories.forEach((cat) => {
-            initialOpen[cat.path] = defaultState === 'expanded'
+            initialOpen[cat.path] = viewState === 'expanded'
         })
         setOpenCategories(initialOpen)
-    }, [manifest.categories, defaultState])
+    }, [manifest.categories, viewState])
 
     const toggleCategory = (path: string) => {
         if (!togglable) return
