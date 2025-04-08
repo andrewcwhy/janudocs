@@ -1,11 +1,13 @@
 import { Routes, Route } from 'react-router'
-import DocsViewer from '@/components/DocsViewer'
 import About from '@/pages/About'
 import Home from '@/pages/Home'
 import BaseLayout from '@/components/Layout'
 import Contact from '@/pages/Contact'
 import NotFound from '@/pages/NotFound'
-import DocsLayout from '@/components/DocsLayout'
+
+// Docs components
+import DocsLayout from '@/components/docs/Layout'
+import DocsViewer from '@/components/docs/Renderer'
 
 export default function App() {
     return (

@@ -26,6 +26,9 @@
             "types": "./dist/index.d.ts"
         }
     },
+    "bin": {
+        "janudocs": "bin/index.ts"
+    },
     "types": "./dist/index.d.ts",
     "scripts": {
         "build": "bun build src/index.ts --outdir dist --target node && tsc --emitDeclarationOnly"

@@ -10,7 +10,7 @@ interface DocCategory {
 }
 
 // Define the structure of a loose file group
-interface LooseFileGroup {
+interface Miscellaneous {
     files: string[]
     count: number
 }
@@ -18,7 +18,7 @@ interface LooseFileGroup {
 // Define the structure of the documentation manifest
 interface DocsManifest {
     categories: DocCategory[]
-    looseFiles: LooseFileGroup[]
+    looseFiles: Miscellaneous[]
 }
 
 // Custom hook to fetch and manage the documentation manifest

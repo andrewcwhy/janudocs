@@ -2,7 +2,7 @@ import { useCallback, useEffect } from 'react'
 import { NavLink } from 'react-router'
 import { FiGithub, FiMoreVertical, FiX, FiSearch } from 'react-icons/fi'
 import SearchBar from '@/components/SearchBar'
-import { useToggle } from '@/hooks/useToggle'
+import { useToggle } from '@/hooks/ui/useToggle'
 
 interface LinkProps {
     label: string
@@ -62,7 +62,7 @@ export default function NavBar() {
     // Mobile menu component
     const MobileMenu = () =>
         isMenuOpen && (
-            <ul className="absolute top-full inset-x-0 bg-white shadow-md border-t border-gray-200 flex flex-col gap-4 p-4 md:hidden">
+            <ul className="absolute top-full inset-x-0 z-40 bg-white shadow-md border-t border-gray-200 flex flex-col gap-4 p-4 md:hidden">
                 {menuLinks}
             </ul>
         )

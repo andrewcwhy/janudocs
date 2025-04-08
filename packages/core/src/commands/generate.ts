@@ -4,7 +4,7 @@ import path from 'path'
 const docsPath = path.resolve('docs')
 const outputPath = path.join(docsPath, 'manifest.json')
 
-interface Category {
+interface CategoryProps {
     label: string
     description: string
     path: string
@@ -16,7 +16,7 @@ interface Category {
 export async function generateDocsManifest() {
     const entries = await readdir(docsPath, { withFileTypes: true })
 
-    const categories: Category[] = []
+    const categories: CategoryProps[] = []
     const looseFilesList: string[] = []
 
     for (const entry of entries) {

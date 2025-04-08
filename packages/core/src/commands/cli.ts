@@ -5,12 +5,10 @@ import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 const { version } = require('package.json')
 
-export function setupCLI() {
+export function createCli() {
     const program = new Command()
 
-    program.name('janudocs')
-    .description('The Janudocs CLI')
-    .version(version)
+    program.name('janudocs').description('The Janudocs CLI').version(version)
 
     program
         .command('generate')

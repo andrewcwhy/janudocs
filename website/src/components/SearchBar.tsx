@@ -9,10 +9,10 @@ import {
 } from 'react-icons/fi'
 
 // Internal Imports
-import { useDocsManifest } from '@/hooks/useDocsManifest'
-import { useClickAway } from '@/hooks/useClickAway'
-import { useLockBodyScroll } from '@/hooks/useLockBodyScroll'
-import { formatFileName } from '@/utils/stringUtils'
+import { useDocsManifest } from '@/hooks/docs/useManifest'
+import { useClickAway } from '@/hooks/ui/useClickAway'
+import { useLockBodyScroll } from '@/hooks/ui/useLockBodyScroll'
+import { formatFileName } from '@/utils/formatFileName'
 
 // Interfaces
 interface SearchResult {

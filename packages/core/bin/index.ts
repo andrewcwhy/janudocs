@@ -1,4 +1,4 @@
 #!/usr/bin/env bun
-import { setupCLI } from '@/commands/cli'
+import { createCli } from '@/commands/cli'
 
-setupCLI().parse(process.argv)
+createCli().parse(process.argv)

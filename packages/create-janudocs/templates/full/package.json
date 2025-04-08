@@ -5,9 +5,9 @@
     "type": "module",
     "scripts": {
         "build": "tsc",
-        "clear": "janudocs clear",
         "editor": "janudocs-editor",
-        "generate": "janudocs generate"
+        "generate": "janudocs generate",
+        "gen": "janudocs gen"
     },
     "dependencies": {
         "@mdx-js/react": "^3.1.0",

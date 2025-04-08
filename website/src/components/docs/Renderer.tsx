@@ -57,7 +57,7 @@ const components = {
     a: (props) => <a className="text-blue-600 underline" {...props} />,
 }
 
-export default function DocsViewer() {
+export default function DocsRenderer() {
     const { category, doc } = useParams()
     const [content, setContent] = useState<{
         type: 'mdx' | 'md'

@@ -1,24 +1,25 @@
 import { useEffect, useState } from 'react'
 
 // Define the structure of a documentation category
-interface DocCategory {
+interface CategoryProps {
     label: string
     description: string
     path: string
     files: string[]
     count: number
+    position?: number
 }
 
 // Define the structure of a loose file group
-interface LooseFileGroup {
+interface MiscellaneousProps {
     files: string[]
     count: number
 }
 
 // Define the structure of the documentation manifest
 interface DocsManifest {
-    categories: DocCategory[]
-    looseFiles: LooseFileGroup[]
+    categories: CategoryProps[]
+    looseFiles: MiscellaneousProps[]
 }
 
 // Custom hook to fetch and manage the documentation manifest

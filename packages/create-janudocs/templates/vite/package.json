@@ -9,11 +9,13 @@
         "build": "bunx --bun vite build",
         "dev": "bunx --bun vite",
         "preview": "vite preview",
-        "gen": "bun run scripts/generateDocsManifest.ts"
+        "generate": "janudocs generate",
+        "gen": "janudocs gen"
     },
     "dependencies": {
         "@mdx-js/react": "^3.1.0",
         "@janudocs/core": "link:@janudocs/core",
+        "react": "^19.1.0",
         "react-icons": "^5.5.0",
         "react-markdown": "^10.1.0",
         "react-router": "^7.4.1",

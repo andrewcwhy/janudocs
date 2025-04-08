@@ -2,11 +2,13 @@ import { JanudocsConfig } from '@/types/config'
 
 export const defaultConfig: JanudocsConfig = {
     sidebar: {
+        position: 'left',
+        collapsible: true,
         categories: {
-            togglable: true,
-            viewState: 'expanded',
+            collapsible: true,
+            initialState: 'expanded',
             descriptions: {
-                show: true,
+                enabled: true,
                 textStyle: {
                     textTransform: 'capitalize',
                 },
