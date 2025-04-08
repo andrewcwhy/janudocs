@@ -10,7 +10,7 @@
     "format": "prettier --write .",
     "gen": "janudocs gen",
     "generate": "janudocs generate",
-    "lint": "eslint .",
+    "lint": "eslint ."
   },
   "dependencies": {
     "bun-plugin-tailwind": "^0.0.15",

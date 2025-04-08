@@ -34,6 +34,6 @@
         "picocolors": "^1.1.1"
     },
     "devDependencies": {
-        "@clack/prompts": "^0.10.0"
+        "@clack/prompts": "^0.10.1"
     }
 }

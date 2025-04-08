@@ -34,9 +34,14 @@
         "build": "bun build src/index.ts --outdir dist --target node && tsc --emitDeclarationOnly"
     },
     "dependencies": {
-        "commander": "^13.1.0"
+        "commander": "^13.1.0",
+        "react-router": "^7.5.0"
     },
     "devDependencies": {
         "@types/react-dom": "^19.1.1"
+    },
+    "peerDependencies": {
+        "react": "^19.1.0",
+        "react-dom": "^19.1.0"
     }
 }

@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 
-export default function Home() {
+export default function Landing() {
     return (
         <>
             {/* Hero */}

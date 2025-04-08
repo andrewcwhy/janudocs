@@ -97,7 +97,6 @@ async function main() {
             options: [
                 { label: 'ESLint', value: 'eslint', hint: 'recommended' },
                 { label: 'Prettier', value: 'prettier' },
-                { label: 'Tailwind CSS', value: 'tailwindcss' },
             ],
         })
     )
@@ -106,7 +105,7 @@ async function main() {
         await select({
             message: 'Which package manager do you want to use?',
             options: [
-                { label: 'bun', value: 'bun' },
+                { label: 'bun', value: 'bun', hint: 'recommended' },
                 { label: 'npm', value: 'npm' },
                 { label: 'pnpm', value: 'pnpm' },
                 { label: 'yarn', value: 'yarn' },
@@ -125,7 +124,7 @@ async function main() {
 
     installDependencies(
         projectDir,
-        devTools as ('eslint' | 'prettier' | 'tailwindcss')[],
+        devTools as ('eslint' | 'prettier')[],
         packageManager as any
     )
 

@@ -5,7 +5,7 @@ import fs from 'fs'
 import path from 'path'
 
 type PackageManager = 'bun' | 'npm' | 'yarn' | 'pnpm'
-type DevTools = ('eslint' | 'prettier' | 'tailwindcss')[]
+type DevTools = ('eslint' | 'prettier')[]
 
 const defaultPackageManager: PackageManager = 'bun'
 
@@ -17,13 +17,12 @@ export function installDependencies(
     // Begin the installation session
     intro(pc.bold(pc.cyan('Installing Dependencies...')))
 
-    const deps = []
-    const devDeps = []
+    const deps: string[] = []
+    const devDeps: string[] = []
 
     const using = {
         eslint: devTools.includes('eslint'),
         prettier: devTools.includes('prettier'),
-        tailwindcss: devTools.includes('tailwindcss'),
     }
 
     if (packageManager === 'bun') {
@@ -46,10 +45,6 @@ export function installDependencies(
         if (using.eslint) {
             devDeps.push('eslint-config-prettier')
         }
-    }
-
-    if (using.tailwindcss) {
-        deps.push('tailwindcss')
     }
 
     log.step(`Package manager selected: ${pc.bold(pc.blue(packageManager))}`)

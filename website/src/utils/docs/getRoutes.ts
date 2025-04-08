@@ -1,4 +1,4 @@
-import manifest from '../../../website/docs/manifest.json'
+import manifest from '../../../docs/manifest.json'
 
 export interface RouteProps {
     href: string
