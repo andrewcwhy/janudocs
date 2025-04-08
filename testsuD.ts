@@ -14,11 +14,10 @@ export function installDependencies(
     devTools: DevTools = [],
     packageManager: PackageManager
 ) {
-    // Begin the installation session
     intro(pc.bold(pc.cyan('Installing Dependencies...')))
 
-    const deps = []
-    const devDeps = []
+    const deps: string[] = []
+    const devDeps: string[] = []
 
     const using = {
         eslint: devTools.includes('eslint'),
@@ -54,57 +53,45 @@ export function installDependencies(
 
     log.step(`Package manager selected: ${pc.bold(pc.blue(packageManager))}`)
 
-    const commands = {
-        bun: {
-            deps: `bun add ${deps.join(' ')}`,
-            devDeps: `bun add -d ${devDeps.join(' ')}`,
-        },
-        npm: {
-            deps: `npm install ${deps.join(' ')}`,
-            devDeps: `npm install ${devDeps.join(' ')} -D`,
-        },
-        yarn: {
-            deps: `yarn add ${deps.join(' ')}`,
-            devDeps: `yarn add -D ${devDeps.join(' ')}`,
-        },
-        pnpm: {
-            deps: `pnpm add ${deps.join(' ')}`,
-            devDeps: `pnpm add -D ${devDeps.join(' ')}`,
-        },
+    if (!deps.length && !devDeps.length) {
+        log.info(
+            pc.dim('No optional dependencies selected. Skipping install step.')
+        )
+        return
     }
 
     const s = spinner()
     s.start(pc.cyan('Installing dependencies'))
 
     try {
-        const packageJSONPath = path.join(projectDir, 'package.json')
+        const pkgJsonPath = path.join(projectDir, 'package.json')
+        if (!fs.existsSync(pkgJsonPath)) {
+            throw new Error(`package.json not found in ${projectDir}`)
+        }
 
-        execSync(commands[packageManager].deps, {
-            cwd: projectDir,
-            stdio: 'inherit',
-        })
+        const packageJson = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf-8'))
 
-        execSync(commands[packageManager].devDeps, {
-            cwd: projectDir,
-            stdio: 'inherit',
-        })
+        // Add dependencies
+        packageJson.dependencies = {
+            ...(packageJson.dependencies || {}),
+            ...deps.reduce((acc, dep) => ({ ...acc, [dep]: 'latest' }), {}),
+        }
 
-        const packageJSON = JSON.parse(
-            fs.readFileSync(packageJSONPath, 'utf-8')
-        )
+        packageJson.devDependencies = {
+            ...(packageJson.devDependencies || {}),
+            ...devDeps.reduce((acc, dep) => ({ ...acc, [dep]: 'latest' }), {}),
+        }
 
-        // Add scripts to package.json
-        packageJSON.scripts = packageJSON.scripts || {}
-        // Add ESLint script
+        // Add scripts
+        packageJson.scripts = packageJson.scripts || {}
         if (using.eslint) {
-            packageJSON.scripts.lint = 'eslint .'
+            packageJson.scripts.lint = 'eslint .'
         }
-        // Add Prettier script
         if (using.prettier) {
-            packageJSON.scripts.format = 'prettier --write .'
+            packageJson.scripts.format = 'prettier --write .'
         }
 
-        fs.writeFileSync(packageJSONPath, JSON.stringify(packageJSON, null, 2))
+        fs.writeFileSync(pkgJsonPath, JSON.stringify(packageJson, null, 2))
 
         if (deps.length) {
             note(
@@ -119,6 +106,18 @@ export function installDependencies(
                 pc.magenta('Dev Dependencies')
             )
         }
+
+        // Now install
+        const installCmd =
+            packageManager === 'bun'
+                ? 'bun install'
+                : `${packageManager} install`
+
+        log.info(pc.dim(`Running: ${installCmd}`))
+        execSync(installCmd, {
+            cwd: projectDir,
+            stdio: 'inherit',
+        })
 
         s.stop(pc.green('All dependencies installed successfully.'))
     } catch (err) {
