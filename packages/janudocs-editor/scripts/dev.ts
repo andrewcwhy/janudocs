@@ -13,7 +13,7 @@ import path from 'path'
 
 // Constants
 const ROOT_DIR: string = process.cwd()
-const PUBLIC_DIR: string = path.join(import.meta.dir, '../public')
+const PUBLIC_DIR: string = path.join(import.meta.dir, '../dist')
 const PORT: number = 3001
 
 serve({

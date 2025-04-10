@@ -95,7 +95,7 @@ async function main() {
         await multiselect({
             message: 'Add optional developer tools.',
             options: [
-                { label: 'ESLint', value: 'eslint', hint: 'recommended' },
+                { label: 'ESLint', value: 'eslint', hint: 'my favorite' },
                 { label: 'Prettier', value: 'prettier' },
             ],
         })

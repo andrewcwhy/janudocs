@@ -6,5 +6,5 @@
             "@/*": ["./src/*"]
         }
     },
-    "include": ["bin", "src"]
+    "include": ["bin", "src", "scripts/dev.ts"]
 }

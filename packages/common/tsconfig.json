@@ -1,3 +1,0 @@
-{
-    "include": ["src", "../../website/src/utils", "../../website/src/hooks"]
-}

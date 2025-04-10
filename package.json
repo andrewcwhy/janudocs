@@ -19,12 +19,12 @@
         "react-dom": "^19.1.0"
     },
     "devDependencies": {
-        "@eslint/js": "^9.23.0",
-        "@types/bun": "^1.2.8",
+        "@eslint/js": "^9.24.0",
+        "@types/bun": "^1.2.9",
         "@types/react": "^19.1.0",
-        "@types/react-dom": "^19.1.1",
-        "bun": "^1.2.8",
-        "eslint": "^9.23.0",
+        "@types/react-dom": "^19.1.2",
+        "bun": "^1.2.9",
+        "eslint": "^9.24.0",
         "eslint-config-prettier": "^10.1.1",
         "eslint-plugin-react": "^7.37.5",
         "eslint-plugin-react-hooks": "^5.2.0",
@@ -32,7 +32,7 @@
         "globals": "^16.0.0",
         "husky": "^9.1.7",
         "prettier": "3.5.3",
-        "typescript": "^5.8.2",
-        "typescript-eslint": "^8.29.0"
+        "typescript": "^5.8.3",
+        "typescript-eslint": "^8.29.1"
     }
 }

@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
+import mdx from '@mdx-js/rollup'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react-swc'
-import mdx from '@mdx-js/rollup'
 import path from 'path'
 
 // https://vite.dev/config/
