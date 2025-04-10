@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build": "tsc -b && vite build",
+    "bifront": "bifront dev",
+    "build": "janudocs build",
     "dev": "vite",
-    "editor": "janudocs-editor",
     "format": "prettier --write .",
     "gen": "janudocs gen",
     "generate": "janudocs generate",

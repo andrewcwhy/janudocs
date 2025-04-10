@@ -3,8 +3,7 @@ import { Link, useLocation } from 'react-router'
 import clsx from 'clsx'
 
 import config from '../../janudocs.config'
-import { useDocsManifest } from '@/hooks'
-import { useToggle } from '@/hooks'
+import { useDocsManifest, useToggle} from '@/hooks'
 
 import {
     FiChevronDown,

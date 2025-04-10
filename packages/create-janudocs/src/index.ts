@@ -95,7 +95,8 @@ async function main() {
         await multiselect({
             message: 'Add optional developer tools.',
             options: [
-                { label: 'ESLint', value: 'eslint', hint: 'my favorite' },
+                { label: 'Bifront', value: 'bifront', hint: 'recommended' },
+                { label: 'ESLint', value: 'eslint' },
                 { label: 'Prettier', value: 'prettier' },
             ],
         })
@@ -105,7 +106,7 @@ async function main() {
         await select({
             message: 'Which package manager do you want to use?',
             options: [
-                { label: 'bun', value: 'bun', hint: 'recommended' },
+                { label: 'bun', value: 'bun', hint: 'my favorite' },
                 { label: 'npm', value: 'npm' },
                 { label: 'pnpm', value: 'pnpm' },
                 { label: 'yarn', value: 'yarn' },

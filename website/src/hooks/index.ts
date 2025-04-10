@@ -1,4 +1,6 @@
-export * from './ui/useToggle'
+export * from './ui/useClickAway'
+export * from './ui/useHideOnScroll'
 export * from './ui/useLockBodyScroll'
 export * from './ui/useScrollDirection'
+export * from './ui/useToggle'
 export * from './docs/useManifest'

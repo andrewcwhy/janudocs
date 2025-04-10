@@ -1,45 +1,57 @@
 {
-    "categories": [
-        {
-            "label": "Frameworks",
-            "description": "More about Janudocs framework",
-            "path": "frameworks",
-            "files": ["markdown.md"],
-            "count": 1
-        },
-        {
-            "label": "JavaScript",
-            "description": "All about JavaScript",
-            "path": "javascript",
-            "files": [
-                "arrays.md",
-                "comments.md",
-                "const.md",
-                "let.md",
-                "numbers.md",
-                "objects.md"
-            ],
-            "count": 6
-        },
-        {
-            "label": "Guides",
-            "description": "Detailed guides on Janudocs",
-            "path": "guides",
-            "files": ["css.md", "react.md", "test-your.md"],
-            "count": 3
-        },
-        {
-            "label": "Getting Started",
-            "description": "Get started with Janudocs",
-            "path": "getting-started",
-            "files": ["installation.md", "intro.md"],
-            "count": 2
-        }
-    ],
-    "looseFiles": [
-        {
-            "files": ["introduction.md", "loose-file.md"],
-            "count": 2
-        }
-    ]
+  "categories": [
+    {
+      "label": "Frameworks",
+      "description": "More about Janudocs framework",
+      "path": "frameworks",
+      "files": [
+        "markdown.md"
+      ],
+      "count": 1
+    },
+    {
+      "label": "JavaScript",
+      "description": "All about JavaScript",
+      "path": "javascript",
+      "files": [
+        "arrays.md",
+        "comments.md",
+        "const.md",
+        "let.md",
+        "numbers.md",
+        "objects.md"
+      ],
+      "count": 6
+    },
+    {
+      "label": "Guides",
+      "description": "Detailed guides on Janudocs",
+      "path": "guides",
+      "files": [
+        "css.md",
+        "react.md",
+        "test-your.md"
+      ],
+      "count": 3
+    },
+    {
+      "label": "Getting Started",
+      "description": "Get started with Janudocs",
+      "path": "getting-started",
+      "files": [
+        "installation.md",
+        "intro.md"
+      ],
+      "count": 2
+    }
+  ],
+  "looseFiles": [
+    {
+      "files": [
+        "introduction.md",
+        "loose-file.md"
+      ],
+      "count": 2
+    }
+  ]
 }

@@ -4,10 +4,34 @@ import pc from 'picocolors'
 import fs from 'fs'
 import path from 'path'
 
-type PackageManager = 'bun' | 'npm' | 'yarn' | 'pnpm'
-type DevTools = ('eslint' | 'prettier')[]
+type PackageManager = 'bun' | 'npm' | 'yarn' | 'pnpm' 
+type DevTools = ('bifront' | 'eslint' | 'prettier')[]
 
 const defaultPackageManager: PackageManager = 'bun'
+
+const lockfileNames: Record<PackageManager, string> = {
+    bun: 'bun.lock',
+    npm: 'package-lock.json',
+    yarn: 'yarn.lock',
+    pnpm: 'pnpm-lock.yaml',
+}
+
+const defaultScripts: {
+    "build": "janudocs build",
+    "dev": "janudocs dev",
+}
+
+const defaultDependencies: {
+    @janudocs/core,
+    clsx,
+    react,
+    react-dom,
+}
+
+const defaultDevDependencies: {
+    @janudocs/tsconfig,
+    typescript,
+}
 
 export function installDependencies(
     projectDir: string,
@@ -27,6 +51,10 @@ export function installDependencies(
     if (packageManager === 'bun') {
         log.step('Detected Bun — adding @types/bun to devDependencies.')
         devDeps.push('@types/bun')
+    }
+
+    if (using.bifront) {
+        devDeps.push('bifront')
     }
 
     if (using.eslint) {

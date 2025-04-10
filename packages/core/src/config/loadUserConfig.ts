@@ -1,6 +1,6 @@
 import path from 'path'
 import { pathToFileURL } from 'url'
-import { defaultConfig } from '@/config/defaults'
+import { defaultConfig } from '@/config/defaultConfig'
 import type { JanudocsConfig } from '@/types/config'
 
 export async function loadUserConfig(

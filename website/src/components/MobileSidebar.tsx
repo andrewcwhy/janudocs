@@ -4,9 +4,7 @@ import { FiMenu, FiX, FiChevronDown, FiChevronRight } from 'react-icons/fi'
 import { IoIosArrowForward } from 'react-icons/io'
 import clsx from 'clsx'
 
-import { useToggle } from '@/hooks'
-import { useLockBodyScroll } from '@/hooks'
-import { useDocsManifest } from '@/hooks'
+import { useDocsManifest, useLockBodyScroll, useToggle } from '@/hooks'
 import { formatFileName, removeFileExtension } from '@/utils'
 import config from '../../janudocs.config'
 
