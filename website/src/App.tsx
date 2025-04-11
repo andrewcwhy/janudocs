@@ -4,6 +4,7 @@ import Landing from '@/pages/Landing'
 import BaseLayout from '@/components/Layout'
 import Contact from '@/pages/Contact'
 import NotFound from '@/pages/NotFound'
+import CategoryTOC from '@/pages/CategoryTOC'
 
 // Docs components
 import DocsLayout from '@/components/docs/Layout'
@@ -19,10 +20,12 @@ export default function App() {
                 <Route path="*" element={<NotFound />} />
 
                 <Route path="docs" element={<DocsLayout />}>
-                    {/* Route for loose (root-level) files */}
-                    <Route path=":doc" element={<DocsRenderer />} />
+                    {/* Route for categorized ToC */}
+                    <Route path=":category" element={<CategoryTOC />} />
                     {/* Route for categorized files */}
                     <Route path=":category/:doc" element={<DocsRenderer />} />
+                    {/* Route for loose (root-level) files */}
+                    <Route path=":doc" element={<DocsRenderer />} />
                 </Route>
             </Route>
         </Routes>

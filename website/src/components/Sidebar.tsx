@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router'
 import clsx from 'clsx'
 
 import config from '../../janudocs.config'
-import { useDocsManifest, useToggle} from '@/hooks'
+import { useDocsManifest, useToggle } from '@/hooks'
 
 import {
     FiChevronDown,
@@ -11,14 +11,8 @@ import {
     FiArrowLeftCircle,
     FiArrowRightCircle,
 } from 'react-icons/fi'
-import type { IconType } from 'react-icons'
 
 import { formatFileName, removeFileExtension } from '@/utils'
-
-interface SidebarCategory {
-    label: string
-    description: string
-}
 
 export default function Sidebar() {
     const { manifest } = useDocsManifest()
@@ -80,60 +74,71 @@ export default function Sidebar() {
     }
 
     return (
-        // Sidebar component
         <aside
             className={clsx(
                 'hidden md:flex sticky top-16 h-[calc(100vh-4rem)] z-30 w-2xs flex-col justify-between bg-white',
                 sidebarPositionClass
             )}
         >
-            {/* Sidebar navigation */}
             <nav className="flex-1 flex overflow-y-auto p-6 flex-col gap-6">
                 {manifest.categories.map((cat) => {
                     if (!cat.files?.length) return null
                     const isOpen = openCategories[cat.path]
+                    const categoryKey = cat.path
 
                     return (
-                        <div key={cat.path} className="flex flex-col gap-3">
-                            {/* Category header */}
-                            <header title="Toggle category">
-                                {/* Category toggle button */}
-                                <button
-                                    onClick={() => toggleCategory(cat.path)}
-                                    className={`w-full flex justify-between items-center font-medium text-gray-700 hover:text-blue-600 transition-colors ${categoryTextStyle?.textTransform}`}
-                                    disabled={!categoriesCollapsible}
+                        <div key={categoryKey} className="flex flex-col gap-3">
+                            <header className="flex items-start justify-between gap-2">
+                                {/* Category label navigates to ToC */}
+                                <Link
+                                    to={`/docs/${cat.path}`}
+                                    className={clsx(
+                                        'flex-1 font-medium text-gray-700 hover:text-blue-600 transition-colors',
+                                        categoryTextStyle?.textTransform
+                                    )}
+                                    title={cat.description || undefined}
                                 >
-                                    {/* Category label */}
-                                    <span title={cat.description || undefined}>
-                                        {cat.label}
-                                    </span>
-                                    {/* Toggle icon */}
-                                    {categoriesCollapsible &&
-                                        (isOpen ? (
+                                    {cat.label}
+                                </Link>
+
+                                {/* Toggle button only toggles open/close */}
+                                {categoriesCollapsible && (
+                                    <button
+                                        onClick={() => toggleCategory(cat.path)}
+                                        aria-label="Toggle category"
+                                        title="Toggle category"
+                                        className="p-1 text-gray-500 hover:text-blue-600"
+                                    >
+                                        {isOpen ? (
                                             <FiChevronDown />
                                         ) : (
                                             <FiChevronRight />
-                                        ))}
-                                </button>
-
-                                {/* Render category description if enabled */}
-                                {descriptions.enabled && cat.description && (
-                                    <p
-                                        className={`text-sm text-gray-500 ${descriptions.textStyle?.textTransform}`}
-                                    >
-                                        {cat.description}
-                                    </p>
+                                        )}
+                                    </button>
                                 )}
                             </header>
 
-                            {/* Render category files if the category is open */}
+                            {/* Description (optional) */}
+                            {descriptions.enabled && cat.description && (
+                                <p
+                                    className={`text-sm text-gray-500 ${descriptions.textStyle?.textTransform}`}
+                                >
+                                    {cat.description}
+                                </p>
+                            )}
+
+                            {/* Files in category */}
                             {isOpen && (
                                 <ul className="flex flex-col gap-3">
                                     {cat.files.map((file) => {
                                         const routePath = `/docs/${cat.path}/${removeFileExtension(file)}`
                                         const isActive =
                                             location.pathname === routePath
-                                        const displayName = formatFileName(file)
+                                        const key = `${cat.path}/${file}`
+                                        const customTitle =
+                                            manifest.titles?.[key]
+                                        const displayName =
+                                            customTitle ?? formatFileName(file)
 
                                         return (
                                             <li key={file}>
@@ -159,13 +164,15 @@ export default function Sidebar() {
                     )
                 })}
 
-                {/* Render loose files if they exist */}
+                {/* Loose files */}
                 {manifest.looseFiles?.[0]?.files?.length > 0 && (
                     <ul className="flex flex-col gap-3">
                         {manifest.looseFiles[0].files.map((file) => {
                             const routePath = `/docs/${removeFileExtension(file)}`
                             const isActive = location.pathname === routePath
-                            const displayName = formatFileName(file)
+                            const customTitle = manifest.titles?.[file]
+                            const displayName =
+                                customTitle ?? formatFileName(file)
 
                             return (
                                 <li key={file}>
@@ -188,7 +195,7 @@ export default function Sidebar() {
                 )}
             </nav>
 
-            {/* Collapse button */}
+            {/* Collapse sidebar button */}
             {sidebarCollapsible && (
                 <button
                     onClick={toggleSidebar}

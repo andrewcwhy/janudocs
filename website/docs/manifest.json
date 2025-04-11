@@ -1,57 +1,63 @@
 {
   "categories": [
     {
-      "label": "Frameworks",
-      "description": "More about Janudocs framework",
-      "path": "frameworks",
-      "files": [
-        "markdown.md"
-      ],
-      "count": 1
-    },
-    {
-      "label": "JavaScript",
-      "description": "All about JavaScript",
-      "path": "javascript",
-      "files": [
-        "arrays.md",
-        "comments.md",
-        "const.md",
-        "let.md",
-        "numbers.md",
-        "objects.md"
-      ],
-      "count": 6
-    },
-    {
-      "label": "Guides",
-      "description": "Detailed guides on Janudocs",
-      "path": "guides",
-      "files": [
-        "css.md",
-        "react.md",
-        "test-your.md"
-      ],
-      "count": 3
-    },
-    {
       "label": "Getting Started",
-      "description": "Get started with Janudocs",
+      "description": "Begin your journey with Janudocs by setting up and exploring the basics.",
       "path": "getting-started",
       "files": [
         "installation.md",
-        "intro.md"
+        "project-structure.md"
       ],
       "count": 2
+    },
+    {
+      "label": "Guides",
+      "description": "Tutorials and walkthroughs to help you master Janudocs.",
+      "path": "guides",
+      "files": [
+        "routing.md",
+        "styling.md"
+      ],
+      "count": 2
+    },
+    {
+      "label": "Configuration",
+      "description": "Learn how to configure Janudocs project.",
+      "path": "configuration",
+      "files": [
+        "janudocs.config.ts.md",
+        "typescript.md"
+      ],
+      "count": 2
+    },
+    {
+      "label": "File Conventions",
+      "description": "Learn how Janudocs structures and organizes files across your project.",
+      "path": "file-conventions",
+      "files": [
+        "category.json.md",
+        "manifest.json.md"
+      ],
+      "count": 2
+    },
+    {
+      "label": "CLI",
+      "description": "Janudocs Command Line Interface (CLI) tools.",
+      "path": "cli",
+      "files": [
+        "create-janudocs.md"
+      ],
+      "count": 1
     }
   ],
   "looseFiles": [
     {
       "files": [
+        "architecture.md",
         "introduction.md",
-        "loose-file.md"
+        "upgrade.md"
       ],
-      "count": 2
+      "count": 3
     }
   ]
 }

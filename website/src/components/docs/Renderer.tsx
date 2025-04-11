@@ -1,10 +1,12 @@
 import { useParams } from 'react-router'
 import { useEffect, useState } from 'react'
-import ReactMarkdown from 'react-markdown'
+import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import rehypeRaw from 'rehype-raw'
 import { MDXProvider } from '@mdx-js/react'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
-// Tailwind-styled components for both MDX and Markdown
 const components = {
     h1: (props) => <h1 className="text-4xl font-bold mb-4" {...props} />,
     h2: (props) => (
@@ -25,26 +27,27 @@ const components = {
             {...props}
         />
     ),
-    code: (props) => {
-        const { className, children, ...rest } = props
-        const isInline = !className
+    code: ({ className, children, ...rest }) => {
+        const match = /language-(\w+)/.exec(className || '')
+        const language = match?.[1]
 
-        return isInline ? (
+        return language ? (
+            <SyntaxHighlighter
+                style={tomorrow}
+                language={language}
+                PreTag="div"
+                customStyle={{ marginBottom: '1rem', borderRadius: '0.5rem' }}
+                {...rest}
+            >
+                {String(children).replace(/\n$/, '')}
+            </SyntaxHighlighter>
+        ) : (
             <code
                 className="bg-gray-100 rounded px-1 py-0.5 text-sm font-mono"
                 {...rest}
             >
                 {children}
             </code>
-        ) : (
-            <pre className="bg-gray-900 text-white rounded p-4 overflow-x-auto mb-4">
-                <code
-                    className={`font-mono text-sm ${className ?? ''}`}
-                    {...rest}
-                >
-                    {children}
-                </code>
-            </pre>
         )
     },
     table: (props) => (
@@ -57,12 +60,13 @@ const components = {
     a: (props) => <a className="text-blue-600 underline" {...props} />,
 }
 
+type Content =
+    | { type: 'md'; component: string }
+    | { type: 'mdx'; component: React.ElementType }
+
 export default function DocsRenderer() {
     const { category, doc } = useParams()
-    const [content, setContent] = useState<{
-        type: 'mdx' | 'md'
-        component: any
-    } | null>(null)
+    const [content, setContent] = useState<Content | null>(null)
     const [error, setError] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState(true)
 
@@ -83,52 +87,47 @@ export default function DocsRenderer() {
                 : `/docs/${doc}`
             const urls = [`${basePath}.mdx`, `${basePath}.md`]
 
-            // Try both extensions in parallel
-            const promises = urls.map(async (url) => {
-                try {
-                    if (url.endsWith('.mdx')) {
-                        const module = await import(/* @vite-ignore */ url)
-                        return {
-                            type: 'mdx' as const,
-                            component: module.default,
+            try {
+                const results = await Promise.allSettled(
+                    urls.map(async (url) => {
+                        if (url.endsWith('.mdx')) {
+                            const module = await import(/* @vite-ignore */ url)
+                            return {
+                                type: 'mdx' as const,
+                                component: module.default,
+                            }
+                        } else {
+                            const res = await fetch(url)
+                            if (!res.ok) throw new Error('Not found')
+                            const text = await res.text()
+                            return { type: 'md' as const, component: text }
                         }
-                    } else {
-                        const response = await fetch(url)
-                        if (!response.ok) throw new Error('Not found')
-                        const text = await response.text()
-                        return { type: 'md' as const, component: text }
-                    }
-                } catch {
-                    return null
+                    })
+                )
+
+                const successful = results.find(
+                    (r): r is PromiseFulfilledResult<Content> =>
+                        r.status === 'fulfilled'
+                )
+
+                if (successful) {
+                    setContent(successful.value)
+                } else {
+                    setError('Document not found. Please check the URL.')
                 }
-            })
-
-            const results = await Promise.all(promises)
-            const successfulLoad = results.find((result) => result !== null)
-
-            if (successfulLoad) {
-                setContent(successfulLoad)
-            } else {
-                setError('Document not found. Please check the URL.')
+            } catch {
+                setError('An error occurred while loading the document.')
+            } finally {
+                setIsLoading(false)
             }
-
-            setIsLoading(false)
         }
 
         loadDocument()
     }, [category, doc])
 
-    if (isLoading) {
-        return <div className="p-4">Loading document...</div>
-    }
-
-    if (error) {
-        return <div className="p-4 text-red-500">{error}</div>
-    }
-
-    if (!content) {
-        return <div className="p-4">No content to display</div>
-    }
+    if (isLoading) return <div className="p-4">Loading document...</div>
+    if (error) return <div className="p-4 text-red-500">{error}</div>
+    if (!content) return <div className="p-4">No content to display</div>
 
     return (
         <div className="p-4">
@@ -137,12 +136,13 @@ export default function DocsRenderer() {
                     <content.component />
                 </MDXProvider>
             ) : (
-                <ReactMarkdown
+                <Markdown
                     remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeRaw]}
                     components={components}
                 >
                     {content.component}
-                </ReactMarkdown>
+                </Markdown>
             )}
         </div>
     )

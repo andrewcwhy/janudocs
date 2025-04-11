@@ -10,6 +10,7 @@
         "remark-emoji": "^5.0.1",
         "remark-frontmatter": "^5.0.0",
         "remark-gfm": "^4.0.1",
-        "unified": "^11.0.5"
+        "unified": "^11.0.5",
+        "vfile": "^6.0.3"
     }
 }

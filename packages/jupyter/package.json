@@ -5,16 +5,19 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "exports": {
-      ".": {
-        "import": "./dist/index.js",
-        "types": "./dist/index.d.ts"
-      }
+        ".": {
+            "import": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
     },
     "scripts": {
-      "build": "tsc",
-      "dev": "tsc --watch"
+        "build": "tsc",
+        "dev": "tsc --watch"
     },
-    "keywords": ["janudocs", "jupyter", "plugin"],
+    "keywords": [
+        "janudocs",
+        "jupyter",
+        "plugin"
+    ],
     "license": "MIT"
-  }
-  
+}
