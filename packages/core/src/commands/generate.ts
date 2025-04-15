@@ -4,20 +4,10 @@ import path from 'path'
 const docsPath = path.resolve('docs')
 const outputPath = path.join(docsPath, 'manifest.json')
 
-interface CategoryProps {
-    label: string
-    description: string
-    path: string
-    files: string[]
-    count: number
-    position?: number
-}
-
 export async function generateDocsManifest() {
     const entries = await readdir(docsPath, { withFileTypes: true })
 
-    const categories: CategoryProps[] = []
-    const looseFilesList: string[] = []
+    const docs: any[] = []
 
     for (const entry of entries) {
         const fullPath = path.join(docsPath, entry.name)
@@ -44,42 +34,51 @@ export async function generateDocsManifest() {
                 )
             }
 
-            const files = (await readdir(fullPath)).filter((f) =>
-                f.endsWith('.md')
-            )
+            const files = (await readdir(fullPath))
+                .filter((f) => f.endsWith('.md') || f.endsWith('.mdx'))
+                .map((f) => f.replace(/\.(mdx|md)$/, ''))
+
             if (files.length === 0) continue
 
-            categories.push({
+            docs.push({
+                type: 'category',
                 label,
                 description,
-                path: entry.name,
+                link: {
+                    type: 'toc',
+                    title,
+                },
                 files,
-                count: files.length,
                 position,
             })
         }
 
-        if (entry.isFile() && entry.name.endsWith('.md')) {
-            looseFilesList.push(entry.name)
+        if (
+            entry.isFile() &&
+            (entry.name.endsWith('.md') || entry.name.endsWith('.mdx'))
+        ) {
+            const filename = entry.name.replace(/\.(mdx|md)$/, '')
+            docs.push({
+                type: 'doc',
+                label: filename,
+                file: [filename],
+            })
         }
     }
 
-    categories.sort(
-        (a, b) => (a.position ?? Infinity) - (b.position ?? Infinity)
-    )
+    // sort categories by position, push docs after
+    const sorted = [
+        ...docs
+            .filter((d) => d.type === 'category')
+            .sort((a, b) => (a.position ?? Infinity) - (b.position ?? Infinity))
+            .map(({ position, ...rest }) => rest),
+        ...docs.filter((d) => d.type === 'doc'),
+    ]
 
     const manifest = {
-        categories: categories.map(({ position, ...rest }) => rest),
-        looseFiles: [
-            {
-                files: looseFilesList,
-                count: looseFilesList.length,
-            },
-        ],
+        docs: sorted,
     }
 
     await writeFile(outputPath, JSON.stringify(manifest, null, 2))
-    console.log(
-        `✅ Manifest created with ${categories.length} categories and ${looseFilesList.length} loose files.`
-    )
+    console.log(`✅ Manifest created with ${sorted.length} entries.`)
 }

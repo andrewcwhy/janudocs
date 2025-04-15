@@ -1,6 +1,6 @@
 // External Imports
 import { useState, useEffect, useRef, useMemo } from 'react'
-import { Link, useNavigate } from 'react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import {
     FiSearch,
     FiArrowUp,
@@ -9,7 +9,7 @@ import {
 } from 'react-icons/fi'
 
 // Internal Imports
-import { useClickAway, useDocsManifest, useLockBodyScroll } from '@/hooks'
+import { useClickAway, useManifest, useLockBodyScroll } from '@/hooks'
 import { formatFileName } from '@/utils'
 
 // Interfaces
@@ -37,7 +37,7 @@ export default function SearchBar({ isOpen, onClose }: SearchBarProps) {
     const [activeIndex, setActiveIndex] = useState(0)
 
     // Hooks
-    const { manifest } = useDocsManifest()
+    const { manifest } = useManifest()
     const navigate = useNavigate()
 
     // Disable body scroll when modal is open

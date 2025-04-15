@@ -1,57 +1,61 @@
 import { useEffect, useState } from 'react'
 
-// Define the structure of a documentation category
-interface CategoryProps {
-    label: string
+export interface DocEntry {
+    id: string
+    title: string
     description: string
     path: string
-    files: string[]
-    count: number
-    position?: number
+    slug: string
+    permalink: string
 }
 
-// Define the structure of a loose file group
-interface MiscellaneousProps {
-    files: string[]
-    count: number
+export interface CategoryGeneratedIndex {
+    title: string
+    description: string
+    slug: string
+    permalink: string
 }
 
-// Define the structure of the documentation manifest
-interface DocsManifest {
-    categories: CategoryProps[]
-    looseFiles: MiscellaneousProps[]
+export interface CategorizedDocGroup {
+    label: string
+    position: number
+    categoryGeneratedIndex: CategoryGeneratedIndex
+    files: DocEntry[]
 }
 
-// Custom hook to fetch and manage the documentation manifest
-export function useDocsManifest() {
-    // State to store the manifest data
-    const [manifest, setManifest] = useState<DocsManifest>({
-        categories: [],
-        looseFiles: [],
-    })
-    // State to track loading status
+export interface Manifest {
+    categorizedDocs: CategorizedDocGroup[]
+    looseDocs: DocEntry[]
+}
+
+export function useManifest(): {
+    manifest: Manifest | null
+    loading: boolean
+    error: string | null
+} {
+    const [manifest, setManifest] = useState<Manifest | null>(null)
     const [loading, setLoading] = useState(true)
-    // State to track errors
-    const [error, setError] = useState<Error | null>(null)
+    const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
-        fetch('/docs/manifest.json')
-            .then((res) => {
-                if (!res.ok) throw new Error(`HTTP error ${res.status}`)
-                return res.json()
-            })
-            .then((data) => {
-                setManifest({
-                    categories: data.categories ?? [],
-                    looseFiles: data.looseFiles ?? [],
-                })
+        async function loadManifest() {
+            setLoading(true)
+            try {
+                const res = await fetch('/docs/manifest.json')
+                if (!res.ok) throw new Error('Failed to load manifest.json')
+                const data: Manifest = await res.json()
+                setManifest(data)
+                setError(null)
+            } catch (err: any) {
+                console.error('Failed to load docs/manifest.json:', err)
+                setError(err.message || 'Unknown error')
+                setManifest(null)
+            } finally {
                 setLoading(false)
-            })
-            .catch((err) => {
-                console.error('Failed to load docs manifest:', err)
-                setError(err)
-                setLoading(false)
-            })
+            }
+        }
+
+        loadManifest()
     }, [])
 
     return { manifest, loading, error }

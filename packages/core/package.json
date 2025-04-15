@@ -27,7 +27,7 @@
         }
     },
     "bin": {
-        "janudocs": "bin/cli.ts"
+        "janudocs": "bin/index.ts"
     },
     "types": "./dist/index.d.ts",
     "scripts": {

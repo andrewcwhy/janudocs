@@ -1,11 +1,17 @@
-import { useParams } from 'react-router'
-import { useEffect, useState } from 'react'
-import Markdown from 'react-markdown'
+import { useEffect, useMemo, useState } from 'react'
+import { useLocation } from '@tanstack/react-router'
+import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 import { MDXProvider } from '@mdx-js/react'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { useManifest } from '@/hooks'
+
+// Import available MD and MDX files statically
+const mdFiles = import.meta.glob('/docs/**/*.md', {
+    query: '?raw',
+    import: 'default',
+})
+const mdxFiles = import.meta.glob('/docs/**/*.mdx')
 
 const components = {
     h1: (props) => <h1 className="text-4xl font-bold mb-4" {...props} />,
@@ -27,29 +33,21 @@ const components = {
             {...props}
         />
     ),
-    code: ({ className, children, ...rest }) => {
-        const match = /language-(\w+)/.exec(className || '')
-        const language = match?.[1]
-
-        return language ? (
-            <SyntaxHighlighter
-                style={tomorrow}
-                language={language}
-                PreTag="div"
-                customStyle={{ marginBottom: '1rem', borderRadius: '0.5rem' }}
-                {...rest}
-            >
-                {String(children).replace(/\n$/, '')}
-            </SyntaxHighlighter>
-        ) : (
+    code: ({ className, children, ...rest }) =>
+        !className ? (
             <code
                 className="bg-gray-100 rounded px-1 py-0.5 text-sm font-mono"
                 {...rest}
             >
                 {children}
             </code>
-        )
-    },
+        ) : (
+            <pre className="bg-gray-900 text-white rounded p-4 overflow-x-auto mb-4">
+                <code className={`font-mono text-sm ${className}`} {...rest}>
+                    {children}
+                </code>
+            </pre>
+        ),
     table: (props) => (
         <table className="table-auto w-full border mb-4" {...props} />
     ),
@@ -60,74 +58,52 @@ const components = {
     a: (props) => <a className="text-blue-600 underline" {...props} />,
 }
 
-type Content =
-    | { type: 'md'; component: string }
-    | { type: 'mdx'; component: React.ElementType }
+export default function Renderer() {
+    const { pathname } = useLocation()
+    const { manifest, loading: manifestLoading } = useManifest()
 
-export default function DocsRenderer() {
-    const { category, doc } = useParams()
-    const [content, setContent] = useState<Content | null>(null)
+    const [content, setContent] = useState<null | {
+        type: 'mdx' | 'md'
+        component: any
+    }>(null)
     const [error, setError] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState(true)
 
+    const normalizedPath = pathname.replace(/^\/docs/, '') // e.g. /cli/scripts → /cli/scripts
+    const mdxKey = `/docs${normalizedPath}.mdx`
+    const mdKey = `/docs${normalizedPath}.md`
+
     useEffect(() => {
-        const loadDocument = async () => {
-            setIsLoading(true)
+        const load = async () => {
             setError(null)
             setContent(null)
-
-            if (!doc) {
-                setError('No document specified')
-                setIsLoading(false)
-                return
-            }
-
-            const basePath = category
-                ? `/docs/${category}/${doc}`
-                : `/docs/${doc}`
-            const urls = [`${basePath}.mdx`, `${basePath}.md`]
+            setIsLoading(true)
 
             try {
-                const results = await Promise.allSettled(
-                    urls.map(async (url) => {
-                        if (url.endsWith('.mdx')) {
-                            const module = await import(/* @vite-ignore */ url)
-                            return {
-                                type: 'mdx' as const,
-                                component: module.default,
-                            }
-                        } else {
-                            const res = await fetch(url)
-                            if (!res.ok) throw new Error('Not found')
-                            const text = await res.text()
-                            return { type: 'md' as const, component: text }
-                        }
-                    })
-                )
-
-                const successful = results.find(
-                    (r): r is PromiseFulfilledResult<Content> =>
-                        r.status === 'fulfilled'
-                )
-
-                if (successful) {
-                    setContent(successful.value)
+                if (mdxKey in mdxFiles) {
+                    const mod = await mdxFiles[mdxKey]() // Dynamic import
+                    setContent({ type: 'mdx', component: mod.default })
+                } else if (mdKey in mdFiles) {
+                    const text = await mdFiles[mdKey]() // Raw content
+                    setContent({ type: 'md', component: text })
                 } else {
-                    setError('Document not found. Please check the URL.')
+                    throw new Error('Document not found')
                 }
-            } catch {
-                setError('An error occurred while loading the document.')
-            } finally {
-                setIsLoading(false)
+            } catch (err) {
+                console.error(err)
+                setError('Document not found or failed to load')
             }
+
+            setIsLoading(false)
         }
 
-        loadDocument()
-    }, [category, doc])
+        load()
+    }, [mdxKey, mdKey])
 
-    if (isLoading) return <div className="p-4">Loading document...</div>
+    if (manifestLoading || isLoading)
+        return <div className="p-4">Loading...</div>
     if (error) return <div className="p-4 text-red-500">{error}</div>
-    if (!content) return <div className="p-4">No content to display</div>
+    if (!content) return <div className="p-4">No content available</div>
 
     return (
         <div className="p-4">
@@ -136,13 +112,13 @@ export default function DocsRenderer() {
                     <content.component />
                 </MDXProvider>
             ) : (
-                <Markdown
+                <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     rehypePlugins={[rehypeRaw]}
                     components={components}
                 >
                     {content.component}
-                </Markdown>
+                </ReactMarkdown>
             )}
         </div>
     )

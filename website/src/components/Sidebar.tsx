@@ -1,26 +1,25 @@
+// External Imports
 import { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router'
+import { Link } from '@tanstack/react-router'
 import clsx from 'clsx'
 
+// Internal Imports
 import config from '../../janudocs.config'
-import { useDocsManifest, useToggle } from '@/hooks'
-
+import { useManifest, useToggle } from '@/hooks'
 import {
     FiChevronDown,
     FiChevronRight,
     FiArrowLeftCircle,
     FiArrowRightCircle,
 } from 'react-icons/fi'
-
 import { formatFileName, removeFileExtension } from '@/utils'
 
 export default function Sidebar() {
-    const { manifest } = useDocsManifest()
+    const { manifest } = useManifest()
     const [openCategories, setOpenCategories] = useState<
         Record<string, boolean>
     >({})
     const [isSidebarCollapsed, toggleSidebar] = useToggle()
-    const location = useLocation()
 
     const { sidebar } = config
     const {
@@ -32,16 +31,18 @@ export default function Sidebar() {
             descriptions,
             textStyle: categoryTextStyle,
         },
-        items: { highlightActive, textStyle: itemTextStyle },
+        items: { textStyle: itemTextStyle },
     } = sidebar
 
     useEffect(() => {
         const initialOpen: Record<string, boolean> = {}
-        manifest.categories.forEach((cat) => {
-            initialOpen[cat.path] = initialState === 'expanded'
+        manifest?.categorizedDocs?.forEach((cat) => {
+            initialOpen[
+                cat.categoryGeneratedIndex.slug.replace('/category/', '')
+            ] = initialState === 'expanded'
         })
         setOpenCategories(initialOpen)
-    }, [manifest.categories, initialState])
+    }, [manifest, initialState])
 
     const toggleCategory = (path: string) => {
         if (!categoriesCollapsible) return
@@ -81,30 +82,41 @@ export default function Sidebar() {
             )}
         >
             <nav className="flex-1 flex overflow-y-auto p-6 flex-col gap-6">
-                {manifest.categories.map((cat) => {
-                    if (!cat.files?.length) return null
-                    const isOpen = openCategories[cat.path]
-                    const categoryKey = cat.path
+                {/* Categorized Docs */}
+                {manifest?.categorizedDocs?.map((cat) => {
+                    const key = cat.categoryGeneratedIndex.slug.replace(
+                        '/category/',
+                        ''
+                    )
+                    const isOpen = openCategories[key]
 
                     return (
-                        <div key={categoryKey} className="flex flex-col gap-3">
+                        <div key={key} className="flex flex-col gap-3">
                             <header className="flex items-start justify-between gap-2">
-                                {/* Category label navigates to ToC */}
                                 <Link
-                                    to={`/docs/${cat.path}`}
+                                    to="/docs/category/$category"
+                                    params={{
+                                        category:
+                                            cat.categoryGeneratedIndex.slug.replace(
+                                                '/category/',
+                                                ''
+                                            ),
+                                    }}
                                     className={clsx(
                                         'flex-1 font-medium text-gray-700 hover:text-blue-600 transition-colors',
                                         categoryTextStyle?.textTransform
                                     )}
-                                    title={cat.description || undefined}
+                                    title={
+                                        cat.categoryGeneratedIndex
+                                            .description || undefined
+                                    }
                                 >
                                     {cat.label}
                                 </Link>
 
-                                {/* Toggle button only toggles open/close */}
                                 {categoriesCollapsible && (
                                     <button
-                                        onClick={() => toggleCategory(cat.path)}
+                                        onClick={() => toggleCategory(key)}
                                         aria-label="Toggle category"
                                         title="Toggle category"
                                         className="p-1 text-gray-500 hover:text-blue-600"
@@ -118,84 +130,75 @@ export default function Sidebar() {
                                 )}
                             </header>
 
-                            {/* Description (optional) */}
-                            {descriptions.enabled && cat.description && (
-                                <p
-                                    className={`text-sm text-gray-500 ${descriptions.textStyle?.textTransform}`}
-                                >
-                                    {cat.description}
-                                </p>
-                            )}
+                            {descriptions.enabled &&
+                                cat.categoryGeneratedIndex.description && (
+                                    <p
+                                        className={`text-sm text-gray-500 ${descriptions.textStyle?.textTransform}`}
+                                    >
+                                        {cat.categoryGeneratedIndex.description}
+                                    </p>
+                                )}
 
-                            {/* Files in category */}
                             {isOpen && (
                                 <ul className="flex flex-col gap-3">
-                                    {cat.files.map((file) => {
-                                        const routePath = `/docs/${cat.path}/${removeFileExtension(file)}`
-                                        const isActive =
-                                            location.pathname === routePath
-                                        const key = `${cat.path}/${file}`
-                                        const customTitle =
-                                            manifest.titles?.[key]
-                                        const displayName =
-                                            customTitle ?? formatFileName(file)
-
-                                        return (
-                                            <li key={file}>
-                                                <Link
-                                                    to={routePath}
-                                                    className={clsx(
-                                                        'block pl-4 text-sm border-l-2 transition-colors',
-                                                        itemTextStyle?.textTransform,
-                                                        highlightActive &&
-                                                            isActive
-                                                            ? 'border-blue-600 text-blue-600 font-medium'
-                                                            : 'border-gray-200 text-gray-700 hover:text-blue-600 hover:border-gray-300'
-                                                    )}
-                                                >
-                                                    {displayName}
-                                                </Link>
-                                            </li>
-                                        )
-                                    })}
+                                    {cat.files.map((file) => (
+                                        <li key={file.id}>
+                                            <Link
+                                                to="/docs/$category/$doc"
+                                                params={{
+                                                    category: key,
+                                                    doc: removeFileExtension(
+                                                        file.id
+                                                            .split('/')
+                                                            .pop()!
+                                                    ),
+                                                }}
+                                                className={clsx(
+                                                    'block pl-4 text-sm border-l-2 transition-colors border-gray-200 hover:text-blue-600 hover:border-gray-300',
+                                                    itemTextStyle?.textTransform
+                                                )}
+                                                activeProps={{
+                                                    className:
+                                                        'border-blue-600 text-blue-600 font-medium',
+                                                }}
+                                            >
+                                                {formatFileName(file.title)}
+                                            </Link>
+                                        </li>
+                                    ))}
                                 </ul>
                             )}
                         </div>
                     )
                 })}
 
-                {/* Loose files */}
-                {manifest.looseFiles?.[0]?.files?.length > 0 && (
+                {/* Loose Docs */}
+                {(manifest?.looseDocs ?? []).length > 0 && (
                     <ul className="flex flex-col gap-3">
-                        {manifest.looseFiles[0].files.map((file) => {
-                            const routePath = `/docs/${removeFileExtension(file)}`
-                            const isActive = location.pathname === routePath
-                            const customTitle = manifest.titles?.[file]
-                            const displayName =
-                                customTitle ?? formatFileName(file)
-
-                            return (
-                                <li key={file}>
-                                    <Link
-                                        to={routePath}
-                                        className={clsx(
-                                            'block text-sm transition-colors',
-                                            itemTextStyle?.textTransform,
-                                            highlightActive && isActive
-                                                ? 'border-blue-600 text-blue-600 font-medium'
-                                                : 'border-gray-200 text-gray-700 hover:text-blue-600 hover:border-gray-300'
-                                        )}
-                                    >
-                                        {displayName}
-                                    </Link>
-                                </li>
-                            )
-                        })}
+                        {manifest?.looseDocs.map((file) => (
+                            <li key={file.id}>
+                                <Link
+                                    to="/docs/$doc"
+                                    params={{
+                                        doc: removeFileExtension(file.id),
+                                    }}
+                                    className={clsx(
+                                        'block text-sm transition-colors border-gray-200 text-gray-700 hover:text-blue-600 hover:border-gray-300',
+                                        itemTextStyle?.textTransform
+                                    )}
+                                    activeProps={{
+                                        className:
+                                            'border-blue-600 text-blue-600 font-medium',
+                                    }}
+                                >
+                                    {formatFileName(file.title)}
+                                </Link>
+                            </li>
+                        ))}
                     </ul>
                 )}
             </nav>
 
-            {/* Collapse sidebar button */}
             {sidebarCollapsible && (
                 <button
                     onClick={toggleSidebar}

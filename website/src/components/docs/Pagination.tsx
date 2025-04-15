@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router'
+import { Link, useLocation } from '@tanstack/react-router'
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi'
 import type { IconType } from 'react-icons'
 

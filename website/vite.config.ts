@@ -1,15 +1,21 @@
 import { defineConfig } from 'vite'
 import mdx from '@mdx-js/rollup'
-import tailwindcss from '@tailwindcss/vite'
-import react from '@vitejs/plugin-react-swc'
-import path from 'path'
+import tailwindCSS from '@tailwindcss/vite'
+import viteReactSWC from '@vitejs/plugin-react-swc'
+import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
+import { resolve } from 'node:path'
 
 // https://vite.dev/config/
 export default defineConfig({
-    plugins: [mdx(), react(), tailwindcss()],
+    plugins: [
+        mdx(),
+        TanStackRouterVite({ target: 'react', autoCodeSplitting: true }),
+        viteReactSWC(),
+        tailwindCSS(),
+    ],
     resolve: {
         alias: {
-            '@': path.resolve(__dirname, './src'),
+            '@': resolve(__dirname, './src'),
         },
     },
     server: {

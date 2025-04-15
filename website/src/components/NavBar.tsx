@@ -1,26 +1,26 @@
 import { useCallback, useEffect } from 'react'
-import { NavLink } from 'react-router'
+import { Link, useRouterState } from '@tanstack/react-router'
 import { FiGithub, FiMoreVertical, FiX, FiSearch } from 'react-icons/fi'
 import SearchBar from '@/components/SearchBar'
 import { useToggle } from '@/hooks'
+import clsx from 'clsx'
 
 interface LinkProps {
     label: string
     path: string
 }
 
-// Links for the navigation bar
 const links: LinkProps[] = [
     { label: 'About', path: '/about' },
     { label: 'Contact', path: '/contact' },
-    { label: 'Docs', path: '/docs/getting-started/installation' },
+    { label: 'Docs', path: '/docs' },
 ]
 
 export default function NavBar() {
     const [isMenuOpen, toggleMenu] = useToggle()
     const [isSearchOpen, toggleSearch] = useToggle()
+    const routerState = useRouterState()
 
-    // Hot keys for search
     const handleKeyDown = useCallback(
         (e: KeyboardEvent) => {
             if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
@@ -28,7 +28,6 @@ export default function NavBar() {
                 toggleSearch()
             }
             if (e.key === 'Escape') {
-                // Only close if it's open
                 if (isSearchOpen) toggleSearch()
             }
         },
@@ -42,48 +41,49 @@ export default function NavBar() {
 
     const menuLinks = links.map((link) => (
         <li key={link.label}>
-            <NavLink
+            <Link
                 to={link.path}
-                className="hover:text-blue-600"
+                className={clsx(
+                    'hover:text-amber-400 transition-colors',
+                    routerState.location.pathname.startsWith('/docs')
+                )}
+                activeProps={{ className: 'text-amber-400' }}
                 onClick={toggleMenu}
             >
                 {link.label}
-            </NavLink>
+            </Link>
         </li>
     ))
 
-    // Desktop menu component
     const DesktopMenu = () => (
-        <ul className="hidden md:flex gap-6 text-gray-700 text-sm">
+        <ul className="hidden md:flex gap-6 text-slate-300 text-sm">
             {menuLinks}
         </ul>
     )
 
-    // Mobile menu component
     const MobileMenu = () =>
         isMenuOpen && (
-            <ul className="absolute top-full inset-x-0 z-40 bg-white shadow-md border-t border-gray-200 flex flex-col gap-4 p-4 md:hidden">
+            <ul className="absolute top-full inset-x-0 z-40 bg-slate-800 border-t border-slate-700 shadow-lg text-slate-100 flex flex-col gap-4 p-4 md:hidden">
                 {menuLinks}
             </ul>
         )
 
-    // Search button components
     const SearchButton = () => (
         <>
             {/* Desktop */}
             <button
                 aria-label="Open Search"
-                className="hidden md:flex items-center gap-2 text-gray-600 hover:text-gray-800 text-sm border px-3 py-1 rounded shadow-sm"
+                className="hidden md:flex items-center gap-2 text-slate-300 hover:text-white text-sm border border-slate-600 px-3 py-1 rounded shadow-sm"
                 onClick={toggleSearch}
             >
                 <FiSearch /> Search{' '}
-                <span className="text-xs text-gray-400">(Ctrl + K)</span>
+                <span className="text-xs text-slate-400">(Ctrl + K)</span>
             </button>
 
             {/* Mobile */}
             <button
                 aria-label="Open Search"
-                className="md:hidden text-gray-600 hover:text-gray-800"
+                className="md:hidden text-slate-300 hover:text-white"
                 onClick={toggleSearch}
             >
                 <FiSearch size={22} />
@@ -93,39 +93,33 @@ export default function NavBar() {
 
     return (
         <>
-            <nav
-                className="bg-white/60 backdrop-blur p-4 flex items-center justify-between
-             h-16"
-            >
-                {/* Left section */}
+            <nav className="bg-slate-900/90 backdrop-blur-lg px-6 py-4 flex items-center justify-between border-b border-slate-700 h-16 z-50 relative">
+                {/* Left: Logo + Links */}
                 <div className="flex items-center gap-8">
-                    <NavLink
+                    <Link
                         to="/"
-                        className="text-xl font-bold text-gray-800 hover:text-blue-600"
+                        className="text-xl font-bold text-amber-400 hover:text-white transition"
                     >
                         Janudocs
-                    </NavLink>
+                    </Link>
                     <DesktopMenu />
                 </div>
 
-                {/* Right section */}
+                {/* Right: Buttons */}
                 <div className="flex items-center gap-4">
-                    {/* Search button */}
                     <SearchButton />
 
-                    {/* GitHub link */}
                     <a
                         href="https://github.com/andrewcwhy/janudocs"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-600 hover:text-gray-800"
+                        className="text-slate-300 hover:text-white transition"
                     >
                         <FiGithub size={20} />
                     </a>
 
-                    {/* Mobile menu toggle button */}
                     <button
-                        className="md:hidden text-gray-600 hover:text-gray-800"
+                        className="md:hidden text-slate-300 hover:text-white"
                         onClick={toggleMenu}
                         aria-label="Toggle menu"
                     >
@@ -137,11 +131,11 @@ export default function NavBar() {
                     </button>
                 </div>
 
-                {/* Mobile Menu */}
+                {/* Mobile nav */}
                 <MobileMenu />
             </nav>
 
-            {/* Search bar modal */}
+            {/* Global Search Modal */}
             <SearchBar isOpen={isSearchOpen} onClose={toggleSearch} />
         </>
     )

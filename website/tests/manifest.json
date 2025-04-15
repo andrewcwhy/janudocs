@@ -1,0 +1,121 @@
+{
+    "categorizedDocs": [
+        {
+            "label": "CLI",
+            "position": 1,
+            "categoryGeneratedIndex": {
+                "title": "CLI",
+                "description": "Janudocs Command Line Interface (CLI) tools.",
+                "slug": "/category/cli",
+                "permalink": "/docs/category/cli"
+            },
+            "files": [
+                {
+                    "id": "cli/create-janudocs",
+                    "title": "create-janudocs",
+                    "description": "Create a new Janudocs project.",
+                    "path": "/cli/create-janudocs",
+                    "slug": "/cli/create-janudocs",
+                    "permalink": "/docs/cli/create-janudocs"
+                },
+                {
+                    "id": "cli/scripts",
+                    "title": "Scripts",
+                    "description": "Scripts for Janudocs.",
+                    "path": "/cli/scripts",
+                    "slug": "/cli/scripts",
+                    "permalink": "/docs/cli/scripts"
+                }
+            ]
+        },
+        {
+            "label": "Configuration",
+            "position": 2,
+            "categoryGeneratedIndex": {
+                "title": "Configuration",
+                "description": "Janudocs configuration files.",
+                "slug": "/category/configuration",
+                "permalink": "/docs/category/configuration"
+            },
+            "files": [
+                {
+                    "id": "configuration/janudocs.config.ts",
+                    "title": "janudocs.config.ts",
+                    "description": "Configuration file for Janudocs.",
+                    "path": "/configuration/janudocs.config.ts",
+                    "slug": "/configuration/janudocs.config.ts",
+                    "permalink": "/docs/configuration/janudocs.config.ts"
+                },
+                {
+                    "id": "configuration/typescript",
+                    "title": "TypeScript",
+                    "description": "TypeScript configuration for Janudocs.",
+                    "path": "/configuration/typescript",
+                    "slug": "/configuration/typescript",
+                    "permalink": "/docs/configuration/typescript"
+                }
+            ]
+        },
+        {
+            "label": "Getting Started",
+            "position": 3,
+            "categoryGeneratedIndex": {
+                "title": "Getting Started",
+                "description": "Getting started with Janudocs.",
+                "slug": "/category/getting-started",
+                "permalink": "/docs/category/getting-started"
+            },
+            "files": [
+                {
+                    "id": "getting-started/installation",
+                    "title": "Installation",
+                    "description": "Installation instructions for Janudocs.",
+                    "path": "/getting-started/installation",
+                    "slug": "/getting-started/installation",
+                    "permalink": "/docs/getting-started/installation"
+                },
+                {
+                    "id": "getting-started/project-structure",
+                    "title": "Project Structure",
+                    "description": "Project structure for Janudocs.",
+                    "path": "/getting-started/project-structure",
+                    "slug": "/getting-started/project-structure",
+                    "permalink": "/docs/getting-started/project-structure"
+                }
+            ]
+        }
+    ],
+    "looseDocs": [
+        {
+            "id": "architecture",
+            "title": "Janudocs Architecture",
+            "description": "Overview of Janudocs architecture.",
+            "path": "/architecture",
+            "slug": "/architecture",
+            "permalink": "/docs/architecture"
+        },
+        {
+            "id": "introduction",
+            "title": "Introduction to Janudocs",
+            "description": "The intro to Janudocs.",
+            "path": "/introduction",
+            "slug": "/introduction",
+            "permalink": "/docs/introduction"
+        },
+        {
+            "id": "upgrade",
+            "title": "Upgrade Janudocs",
+            "description": "Upgrade Janudocs to the Latest Version.",
+            "path": "/upgrade",
+            "slug": "/upgrade",
+            "permalink": "/docs/upgrade"
+        }
+    ]
+}
+
+// Notes:
+// - Every document has a unique id. By default, a document id is the name of the document (without the extension) relative to the root docs directory.
+// - By default, a document's URL location is its file path relative to the docs folder.
+
+
+// - Filesystem structure: each folder creates a sidebar category, and each file creates a doc link.

@@ -1,6 +1,6 @@
-import { Outlet } from 'react-router'
+import { Outlet } from '@tanstack/react-router'
 import Sidebar from '@/components/Sidebar'
-import MobileSidebar from '@/components/MobileSidebar'
+import MobileSidebar from '@/components/MobileHeader'
 import { useScrollDirection } from '@/hooks'
 import Pagination from '@/components/docs/Pagination'
 
