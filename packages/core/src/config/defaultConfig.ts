@@ -1,6 +1,17 @@
 import { JanudocsConfig } from '@/types/config'
 
 export const defaultConfig: JanudocsConfig = {
+    title: 'Janudocs',
+    url: 'https://janudocs.com',
+    navbar: {
+        title: 'Janudocs',
+        items: {
+            highlightActive: true,
+            textStyle: {
+                textTransform: 'capitalize',
+            },
+        },
+    },
     sidebar: {
         position: 'left',
         collapsible: true,

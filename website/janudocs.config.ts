@@ -1,6 +1,11 @@
 import { defineConfig } from '@janudocs/core'
 
 export default defineConfig({
+    title: 'Janudocs',
+    url: 'https://janudocs.com',
+    navbar: {
+        title: 'Janudocs',
+    }
     sidebar: {
         position: 'left',
         collapsible: true,
