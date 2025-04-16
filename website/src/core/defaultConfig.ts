@@ -1,15 +1,18 @@
-import { defineConfig } from '@/core/defineConfig'
+import type { JanudocsConfig } from './config'
 
-export default defineConfig({
-    title: 'Janudocs',
-    url: 'https://janudocs.com',
+export const defaultConfig: JanudocsConfig = {
+    title: 'Welcome to My Janudocs Site',
+    url: 'https://my-janudocs-site.com',
+    tagline: 'My Janudocs site for documentation.',
 
     componentsConfig: {
         navbar: {
-            title: 'Janudocs',
+            title: 'My Janudocs Site',
             items: {
                 highlightActive: true,
-                textStyle: { textTransform: 'capitalize' },
+                textStyle: {
+                    textTransform: 'capitalize',
+                },
             },
         },
 
@@ -20,7 +23,7 @@ export default defineConfig({
                 collapsible: true,
                 initialState: 'expanded',
                 descriptions: {
-                    enabled: false,
+                    enabled: true,
                     textStyle: {
                         textTransform: 'capitalize',
                     },
@@ -43,4 +46,4 @@ export default defineConfig({
                 `Built with ❤️ using Janudocs by ACY.`,
         },
     },
-})
+}

@@ -16,10 +16,11 @@ export const Route = createFileRoute('/about')({
 })
 
 function About() {
+
     return (
         <>
             <header>
-                <h1>About Janudocs</h1>
+                <h1></h1>
                 <p></p>
             </header>
         </>

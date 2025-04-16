@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 
+import { useJanudocsContext } from '@/core/useJanudocsContext'
+
 export const Route = createFileRoute('/')({
     component: App,
     head: () => ({
@@ -14,11 +16,12 @@ export const Route = createFileRoute('/')({
 })
 
 function App() {
+    const { siteConfig } = useJanudocsContext()
     return (
         <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-gray-100">
             <header className="px-6 py-20 text-center">
                 <h1 className="text-5xl font-extrabold tracking-tight text-white mb-4">
-                    Janudocs
+                    {siteConfig.title}
                 </h1>
                 <p className="text-xl max-w-2xl mx-auto text-gray-300">
                     A documentation framework.

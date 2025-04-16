@@ -21,7 +21,6 @@ export default function Sidebar() {
     >({})
     const [isSidebarCollapsed, toggleSidebar] = useToggle()
 
-    const { sidebar } = config
     const {
         position,
         collapsible: sidebarCollapsible,
@@ -32,7 +31,7 @@ export default function Sidebar() {
             textStyle: categoryTextStyle,
         },
         items: { textStyle: itemTextStyle },
-    } = sidebar
+    } = config.sidebar
 
     useEffect(() => {
         const initialOpen: Record<string, boolean> = {}

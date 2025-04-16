@@ -11,11 +11,6 @@ interface DescriptionConfig {
     textStyle: TextStyleConfig
 }
 
-interface SiteConfig {
-    title: string
-    url: string
-}
-
 interface NavBarConfig {
     title: string
     items: {
@@ -43,7 +38,18 @@ interface SidebarConfig {
     }
 }
 
-export interface JanudocsConfig {
+interface FooterConfig {
+    copyright: string
+}
+
+export interface ComponentsConfig {
     navbar: NavBarConfig
     sidebar: SidebarConfig
+    footer: FooterConfig
+}
+
+export type JanudocsConfig = {
+    title: string
+    url: string
+    componentsConfig: ComponentsConfig
 }

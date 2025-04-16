@@ -3,6 +3,9 @@ import { Link, useRouterState } from '@tanstack/react-router'
 import { FiGithub, FiMoreVertical, FiX, FiSearch } from 'react-icons/fi'
 import SearchBar from '@/components/SearchBar'
 import { useToggle } from '@/hooks'
+
+import { useJanudocsContext } from '@/core/useJanudocsContext'
+
 import clsx from 'clsx'
 
 interface LinkProps {
@@ -20,6 +23,8 @@ export default function NavBar() {
     const [isMenuOpen, toggleMenu] = useToggle()
     const [isSearchOpen, toggleSearch] = useToggle()
     const routerState = useRouterState()
+
+    const { siteConfig } = useJanudocsContext()
 
     const handleKeyDown = useCallback(
         (e: KeyboardEvent) => {
@@ -92,6 +97,7 @@ export default function NavBar() {
     )
 
     return (
+        
         <>
             <nav className="bg-slate-900/90 backdrop-blur-lg px-6 py-4 flex items-center justify-between border-b border-slate-700 h-16 z-50 relative">
                 {/* Left: Logo + Links */}
@@ -100,7 +106,7 @@ export default function NavBar() {
                         to="/"
                         className="text-xl font-bold text-amber-400 hover:text-white transition"
                     >
-                        Janudocs
+                        {siteConfig.componentsConfig.navbar.title}
                     </Link>
                     <DesktopMenu />
                 </div>
@@ -114,6 +120,8 @@ export default function NavBar() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-slate-300 hover:text-white transition"
+                        title="GitHub Repository"
+                        aria-label="Visit GitHub Repository"
                     >
                         <FiGithub size={20} />
                     </a>

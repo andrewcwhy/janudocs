@@ -34,12 +34,12 @@
         "build": "bun build src/index.ts --outdir dist --target node && tsc --emitDeclarationOnly"
     },
     "dependencies": {
+        "@tanstack/react-router": "^1.116.0",
         "commander": "^13.1.0",
-        "gray-matter": "^4.0.3",
-        "react-router": "^7.5.0"
+        "gray-matter": "^4.0.3"
     },
     "devDependencies": {
-        "@types/react-dom": "^19.1.1"
+        "@types/react-dom": "^19.1.2"
     },
     "peerDependencies": {
         "react": "^19.1.0",

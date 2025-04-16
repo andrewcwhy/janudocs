@@ -1,11 +1,12 @@
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
+import { JanudocsContextProvider } from '@janudocs/core'
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
 
-import './index.css'
+import '@/styles/index.css'
 
 // Set up a Router instance
 const router = createRouter({
@@ -27,7 +28,9 @@ if (rootElement && !rootElement.innerHTML) {
     const root = ReactDOM.createRoot(rootElement)
     root.render(
         <StrictMode>
-            <RouterProvider router={router} />
+            <JanudocsContextProvider>
+                <RouterProvider router={router} />
+            </JanudocsContextProvider>
         </StrictMode>
     )
 }

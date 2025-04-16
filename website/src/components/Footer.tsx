@@ -1,10 +1,14 @@
 import { Link } from '@tanstack/react-router'
 
+import { useJanudocsContext } from '@/core/useJanudocsContext'
+
 export default function Footer() {
+    const { siteConfig } = useJanudocsContext()
+
     return (
         <footer className="bg-slate-950 border-t border-slate-800 text-sm text-gray-400 px-6 py-8">
             <div className="text-center mb-4">
-                © {new Date().getFullYear()} Janudocs. Built with ❤️ ACY.
+                {siteConfig.componentsConfig.footer.copyright}
             </div>
 
             <ul className="flex justify-center gap-6 text-gray-500">

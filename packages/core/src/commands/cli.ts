@@ -1,6 +1,10 @@
 import { Command } from 'commander'
-import { generateDocsManifest } from '@/commands/generate'
 import { createRequire } from 'module'
+
+import { build } from './build'
+import { clear } from './clear'
+import { dev } from './dev'
+import { generate } from './generate'
 
 const require = createRequire(import.meta.url)
 const { version } = require('package.json')
@@ -10,11 +14,16 @@ export function createCli() {
 
     program.name('janudocs').description('The Janudocs CLI').version(version)
 
+    program.command('build').description('Build the documentation site')
+
+    program.command('clear')
+
+    program.command('dev').description('Start the development server')
+
     program
         .command('generate')
         .alias('gen')
         .description('Generate the docs manifest')
-        .action(generateDocsManifest)
 
     return program
 }
