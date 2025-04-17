@@ -16,11 +16,10 @@ export const Route = createFileRoute('/about')({
 })
 
 function About() {
-
     return (
         <>
             <header>
-                <h1></h1>
+                <h1>About</h1>
                 <p></p>
             </header>
         </>

@@ -1,12 +1,10 @@
 import { useCallback, useEffect } from 'react'
-import { Link, useRouterState } from '@tanstack/react-router'
+import { Link } from '@tanstack/react-router'
 import { FiGithub, FiMoreVertical, FiX, FiSearch } from 'react-icons/fi'
 import SearchBar from '@/components/SearchBar'
 import { useToggle } from '@/hooks'
 
 import { useJanudocsContext } from '@/core/useJanudocsContext'
-
-import clsx from 'clsx'
 
 interface LinkProps {
     label: string
@@ -17,12 +15,12 @@ const links: LinkProps[] = [
     { label: 'About', path: '/about' },
     { label: 'Contact', path: '/contact' },
     { label: 'Docs', path: '/docs' },
+    { label: 'Blog', path: '/blog' },
 ]
 
 export default function NavBar() {
     const [isMenuOpen, toggleMenu] = useToggle()
     const [isSearchOpen, toggleSearch] = useToggle()
-    const routerState = useRouterState()
 
     const { siteConfig } = useJanudocsContext()
 
@@ -45,13 +43,10 @@ export default function NavBar() {
     }, [handleKeyDown])
 
     const menuLinks = links.map((link) => (
-        <li key={link.label}>
+        <li key={link.path}>
             <Link
                 to={link.path}
-                className={clsx(
-                    'hover:text-amber-400 transition-colors',
-                    routerState.location.pathname.startsWith('/docs')
-                )}
+                className="hover:text-amber-400 transition-colors"
                 activeProps={{ className: 'text-amber-400' }}
                 onClick={toggleMenu}
             >
@@ -97,7 +92,6 @@ export default function NavBar() {
     )
 
     return (
-        
         <>
             <nav className="bg-slate-900/90 backdrop-blur-lg px-6 py-4 flex items-center justify-between border-b border-slate-700 h-16 z-50 relative">
                 {/* Left: Logo + Links */}

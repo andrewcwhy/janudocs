@@ -1,19 +1,21 @@
 import { defineConfig } from 'vite'
-import tailwindcss from '@tailwindcss/vite'
-import react from '@vitejs/plugin-react-swc'
-import path from 'path'
+import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
+import { resolve } from 'node:path'
+import mdx from '@mdx-js/rollup'
+import tailwindCSS from '@tailwindcss/vite'
+import viteReactSWC from '@vitejs/plugin-react-swc'
 
 // https://vite.dev/config/
 export default defineConfig({
-    plugins: [react(), tailwindcss()],
+    plugins: [
+        mdx(),
+        TanStackRouterVite({ target: 'react', autoCodeSplitting: true }),
+        viteReactSWC(),
+        tailwindCSS(),
+    ],
     resolve: {
         alias: {
-            '@': path.resolve(__dirname, './src'),
+            '@': resolve(__dirname, './src'),
         },
-    },
-    server: {
-        // Easter egg lol
-        // Birthdate: 09/07/2005
-        port: 9705,
     },
 })

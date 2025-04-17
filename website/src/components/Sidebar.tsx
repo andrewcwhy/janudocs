@@ -31,7 +31,7 @@ export default function Sidebar() {
             textStyle: categoryTextStyle,
         },
         items: { textStyle: itemTextStyle },
-    } = config.sidebar
+    } = config.componentsConfig.sidebar
 
     useEffect(() => {
         const initialOpen: Record<string, boolean> = {}

@@ -23,19 +23,21 @@ export function JanudocsContextProvider({
     children: ReactNode
 }): JSX.Element {
     const [config, setConfig] = useState<JanudocsConfig>(defaultConfig)
-    
+
     useEffect(() => {
         // Load the config when the component mounts
-        loadUserConfig().then(loadedConfig => {
-            setConfig(loadedConfig)
-        }).catch(error => {
-            console.error("Failed to load user config:", error)
-        })
+        loadUserConfig()
+            .then((loadedConfig) => {
+                setConfig(loadedConfig)
+            })
+            .catch((error) => {
+                console.error('Failed to load user config:', error)
+            })
     }, [])
-    
+
     const contextValue: JanudocsContext = {
         siteConfig: config,
     }
-    
+
     return <Context.Provider value={contextValue}>{children}</Context.Provider>
 }

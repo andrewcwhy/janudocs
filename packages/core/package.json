@@ -20,6 +20,9 @@
         "url": "https://github.com/andrewcwhy/janudocs.git",
         "directory": "packages/core"
     },
+    "files": [
+        "dist"
+    ],
     "exports": {
         ".": {
             "import": "./dist/index.js",
@@ -34,9 +37,8 @@
         "build": "bun build src/index.ts --outdir dist --target node && tsc --emitDeclarationOnly"
     },
     "dependencies": {
-        "@tanstack/react-router": "^1.116.0",
         "commander": "^13.1.0",
-        "gray-matter": "^4.0.3"
+        "lodash-es": "^4.17.21"
     },
     "devDependencies": {
         "@types/react-dom": "^19.1.2"

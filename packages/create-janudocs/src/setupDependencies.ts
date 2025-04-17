@@ -23,6 +23,8 @@ const defaultScripts: {
 
 const defaultDependencies: {
     @janudocs/core,
+    @janudocs/mdx,
+    @tanstack/react-router,
     clsx,
     react,
     react-dom,
@@ -30,6 +32,7 @@ const defaultDependencies: {
 
 const defaultDevDependencies: {
     @janudocs/tsconfig,
+    @tanstack/router-plugin,
     typescript,
 }
 
@@ -57,9 +60,14 @@ export function installDependencies(
         devDeps.push('bifront')
     }
 
+    // If the user selects ESLint, add the devDependencies for ESLint
     if (using.eslint) {
         devDeps.push(
+            '@eslint/css',
             '@eslint/js',
+            '@eslint/json',
+            '@eslint/markdown',
+            '@tanstack/eslint-plugin-router',
             'eslint',
             'eslint-plugin-react',
             'globals',

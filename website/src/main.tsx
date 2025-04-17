@@ -1,18 +1,21 @@
 import { StrictMode } from 'react'
-import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
-import { JanudocsContextProvider } from '@janudocs/core'
+import { JanudocsContextProvider } from '@/core/JanudocsContext'
+import ReactDOM from 'react-dom/client'
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
 
 import '@/styles/index.css'
 
-// Set up a Router instance
+// Create a new router instance
 const router = createRouter({
     routeTree,
+    context: {},
     defaultPreload: 'intent',
     scrollRestoration: true,
+    defaultStructuralSharing: true,
+    defaultPreloadStaleTime: 0,
 })
 
 // Register the router instance for type safety

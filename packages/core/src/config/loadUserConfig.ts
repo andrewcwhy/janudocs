@@ -28,8 +28,10 @@ export async function loadUserConfig(
                         ...defaultConfig.componentsConfig.navbar.items,
                         ...userConfig.componentsConfig?.navbar?.items,
                         textStyle: {
-                            ...defaultConfig.componentsConfig.navbar.items.textStyle,
-                            ...userConfig.componentsConfig?.navbar?.items?.textStyle,
+                            ...defaultConfig.componentsConfig.navbar.items
+                                .textStyle,
+                            ...userConfig.componentsConfig?.navbar?.items
+                                ?.textStyle,
                         },
                     },
                 },
@@ -41,26 +43,32 @@ export async function loadUserConfig(
                         ...defaultConfig.componentsConfig.sidebar.categories,
                         ...userConfig.componentsConfig?.sidebar?.categories,
                         descriptions: {
-                            ...defaultConfig.componentsConfig.sidebar.categories.descriptions,
-                            ...userConfig.componentsConfig?.sidebar?.categories?.descriptions,
+                            ...defaultConfig.componentsConfig.sidebar.categories
+                                .descriptions,
+                            ...userConfig.componentsConfig?.sidebar?.categories
+                                ?.descriptions,
                             textStyle: {
-                                ...defaultConfig.componentsConfig.sidebar.categories.descriptions
-                                    .textStyle,
-                                ...userConfig.componentsConfig?.sidebar?.categories?.descriptions
-                                    ?.textStyle,
+                                ...defaultConfig.componentsConfig.sidebar
+                                    .categories.descriptions.textStyle,
+                                ...userConfig.componentsConfig?.sidebar
+                                    ?.categories?.descriptions?.textStyle,
                             },
                         },
                         textStyle: {
-                            ...defaultConfig.componentsConfig.sidebar.categories.textStyle,
-                            ...userConfig.componentsConfig?.sidebar?.categories?.textStyle,
+                            ...defaultConfig.componentsConfig.sidebar.categories
+                                .textStyle,
+                            ...userConfig.componentsConfig?.sidebar?.categories
+                                ?.textStyle,
                         },
                     },
                     items: {
                         ...defaultConfig.componentsConfig.sidebar.items,
                         ...userConfig.componentsConfig?.sidebar?.items,
                         textStyle: {
-                            ...defaultConfig.componentsConfig.sidebar.items.textStyle,
-                            ...userConfig.componentsConfig?.sidebar?.items?.textStyle,
+                            ...defaultConfig.componentsConfig.sidebar.items
+                                .textStyle,
+                            ...userConfig.componentsConfig?.sidebar?.items
+                                ?.textStyle,
                         },
                     },
                 },

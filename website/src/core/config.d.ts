@@ -51,7 +51,7 @@ export interface ComponentsConfig {
 export type JanudocsConfig = {
     title: string
     url: string
-    tagline: string,
+    tagline: string
     componentsConfig: ComponentsConfig
 }
 
@@ -60,10 +60,9 @@ export type JanudocsConfig = {
  * is used to provide type-safety / IDE auto-complete on the config file.
  */
 export type Config = Overwrite<
-  DeepPartial<JanudocsConfig>,
-  {
-    title: JanudocsConfig['title'];
-    url: JanudocsConfig['url'];
-  }
+    DeepPartial<JanudocsConfig>,
+    {
+        title: JanudocsConfig['title']
+        url: JanudocsConfig['url']
+    }
 >
-  

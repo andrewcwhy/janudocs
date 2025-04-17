@@ -53,7 +53,7 @@ function App() {
                         description="Advanced routing, layouts, loaders, and performance with TanStack Router."
                     />
                     <Feature
-                        title="🧠 TypeScript"
+                        title="🧠 TypeScript + ESM"
                         description="Written in TypeScript from the core, for confidence, safety, and speed."
                     />
                     <Feature title="Hooksup" description="" />
@@ -63,12 +63,7 @@ function App() {
 
             <section className="px-6 py-16 bg-slate-900 text-center text-gray-300">
                 <h2 className="text-3xl font-semibold mb-4">Why Janudocs?</h2>
-                <p className="max-w-3xl mx-auto text-lg">
-                    Janudocs is for those who build things worth documenting.
-                    Whether you're designing a framework, crafting a library, or
-                    just vibing with your codebase — Janudocs makes sure your
-                    words are as elegant as your logic.
-                </p>
+                <p className="max-w-3xl mx-auto text-lg">Because why not?</p>
             </section>
         </main>
     )
