@@ -5,6 +5,13 @@
 	"version": "0.0.0",
 	"license": "MIT",
 	"type": "module",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"homepage": "https://github.com/andrewcwhy/janudocs/tree/main/packages/create-janudocs#readme",
 	"keywords": [
 		"janudocs",
 		"documentation",
@@ -13,17 +20,13 @@
 		"cli",
 		"framework"
 	],
-	"bugs": {
-		"url": "https://github.com/andrewcwhy/janudocs/issues"
-	},
-	"homepage": "https://github.com/andrewcwhy/janudocs/tree/main/packages/create-janudocs#readme",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/andrewcwhy/janudocs.git",
 		"directory": "packages/create-janudocs"
 	},
 	"bin": {
-		"create-janudocs": "bin/index.ts"
+		"create-janudocs": "./dist/bin/index.js"
 	},
 	"scripts": {
 		"build": "tsc --build",

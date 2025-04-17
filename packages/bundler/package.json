@@ -3,5 +3,28 @@
     "description": "Bundler for Janudocs",
     "author": "Andrew Christian Young",
     "version": "0.0.0",
-    "type": "module"
+    "license": "MIT",
+    "type": "module",
+    "exports": {
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
+    "files": [
+        "dist",
+        "LICENSE",
+        "README.md"
+    ],
+    "homepage": "https://github.com/owner/project#readme",
+    "keywords": [
+        "janudocs",
+        "bundler",
+        "typescript"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/andrewcwhy/janudocs.git",
+        "directory": "packages/bundler"
+    }
 }

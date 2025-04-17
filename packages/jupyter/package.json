@@ -3,20 +3,30 @@
 	"description": "Jupyter plugin for Janudocs",
 	"author": "Andrew Christian Young",
 	"version": "0.0.0",
+	"license": "MIT",
 	"type": "module",
-
-
-	"types": "dist/index.d.ts",
 	"exports": {
 		".": {
 			"import": "./dist/index.js",
 			"types": "./dist/index.d.ts"
 		}
 	},
-	"scripts": {
-		"build": "tsc",
-		"dev": "tsc --watch"
-	},
-	"keywords": ["janudocs", "jupyter", "plugin"],
-	"license": "MIT"
+	"files": [
+        "dist",
+        "README.md"
+    ],
+    "homepage": "https://github.com/andrewcwhy/janudocs#readme",
+	"keywords": [
+		"janudocs",
+		"jupyter",
+		"plugin",
+		"typescript",
+		"notebook",
+		"python"
+	],
+	"repository": {
+        "type": "git",
+        "url": "https://github.com/andrewcwhy/janudocs.git",
+        "directory": "packages/jupyter"
+    }
 }

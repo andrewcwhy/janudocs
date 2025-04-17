@@ -4,9 +4,17 @@
 	"author": "Andrew Christian Young",
 	"version": "0.0.0",
 	"license": "MIT",
-	"keywords": ["typescript", "tsconfig", "janudocs", "configuration"],
-	"bugs": "https://github.com/andrewcwhy/janudocs/issues",
-	"homepage": "https://github.com/andrewcwhy/janudocs#readme",
+	"type": "module",
+	"files": [
+        "dist",
+        "README.md"
+    ],
+    "homepage": "https://github.com/andrewcwhy/janudocs#readme",
+	"keywords": [
+		"janudocs",
+		"typescript",
+		"tsconfig"
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/andrewcwhy/janudocs.git",

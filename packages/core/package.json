@@ -5,6 +5,20 @@
 	"version": "0.0.0",
 	"license": "MIT",
 	"type": "module",
+	"bin": {
+		"janudocs": "./dist/bin/index.js"
+	},
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"homepage": "https://github.com/andrewcwhy/janudocs#readme",
 	"keywords": [
 		"janudocs",
 		"documentation",
@@ -13,24 +27,11 @@
 		"cli",
 		"framework"
 	],
-	"bugs": "https://github.com/andrewcwhy/janudocs/issues",
-	"homepage": "https://github.com/andrewcwhy/janudocs#readme",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/andrewcwhy/janudocs.git",
 		"directory": "packages/core"
 	},
-	"files": ["dist"],
-	"exports": {
-		".": {
-			"import": "./dist/index.js",
-			"types": "./dist/index.d.ts"
-		}
-	},
-	"bin": {
-		"janudocs": "bin/index.ts"
-	},
-	"types": "./dist/index.d.ts",
 	"scripts": {
 		"build": "bun build src/index.ts --outdir dist --target node && tsc --emitDeclarationOnly"
 	},
