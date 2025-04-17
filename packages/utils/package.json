@@ -1,0 +1,7 @@
+{
+    "name": "@janudocs/utils",
+    "description": "Utilities for Janudocs",
+    "author": "Andrew Christian Young",
+    "version": "0.0.0",
+    "type": "module"
+}

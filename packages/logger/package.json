@@ -1,0 +1,7 @@
+{
+    "name": "@janudocs/logger",
+    "description": "Logger for Janudocs",
+    "author": "Andrew Christian Young",
+    "version": "0.0.0",
+    "type": "module"
+}

@@ -1,8 +1,8 @@
-import { execSync } from 'child_process'
+import { spawn } from 'node:child_process';
 import { intro, log, note, spinner } from '@clack/prompts'
 import pc from 'picocolors'
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs/promises'
+import path from 'node:path'
 
 type PackageManager = 'bun' | 'npm' | 'yarn' | 'pnpm' 
 type DevTools = ('bifront' | 'eslint' | 'prettier')[]

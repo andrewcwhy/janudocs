@@ -189,13 +189,13 @@ export const defaultConfig: JanudocsConfig = {
 // File: janudocs/packages/core/src/config/loadUserConfig.ts
 
 
-import path from 'path'
-import { pathToFileURL } from 'url'
+import path from 'node:path'
+import { pathToFileURL } from 'node:url'
 import { defaultConfig } from '../config/defaultConfig'
 import type { JanudocsConfig } from '../types/config'
 
 export async function loadUserConfig(
-    configFile: string = 'janudocs.config.ts'
+    configFile = 'janudocs.config.ts'
 ): Promise<JanudocsConfig> {
     const absPath = path.resolve(process.cwd(), configFile)
     const fileUrl = pathToFileURL(absPath)
@@ -264,41 +264,27 @@ export async function loadUserConfig(
         return defaultConfig
     }
 }
-
-
-// File: janudocs/packages/core/package.json
-
-
-{
     "name": "@janudocs/core",
     "author": "Andrew Christian Young",
     "version": "0.0.0",
     "type": "module",
-    "exports": {
-        ".": {
+    "exports": 
+        ".": 
             "import": "./dist/index.js",
-            "types": "./dist/index.d.ts"
-        }
-    },
-    "bin": {
-        "janudocs": "bin/index.ts"
-    },
+            "types": "./dist/index.d.ts",
+    "bin": 
+        "janudocs": "bin/index.ts",
     "types": "./dist/index.d.ts",
-    "scripts": {
-        "build": "bun build src/index.ts --outdir dist --target node && tsc --emitDeclarationOnly"
-    },
-    "dependencies": {
+    "scripts": 
+        "build": "bun build src/index.ts --outdir dist --target node && tsc --emitDeclarationOnly",
+    "dependencies": 
         "commander": "^13.1.0",
-        "gray-matter": "^4.0.3"
-    },
-    "devDependencies": {
-        "@types/react-dom": "^19.1.2"
-    },
-    "peerDependencies": {
+        "gray-matter": "^4.0.3",
+    "devDependencies": 
+        "@types/react-dom": "^19.1.2",
+    "peerDependencies": 
         "react": "^19.1.0",
         "react-dom": "^19.1.0"
-    }
-}
 
 
 // File: janudocs/website/janudocs.config.ts

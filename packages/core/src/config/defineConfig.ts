@@ -1,5 +1,5 @@
-import type { JanudocsConfig } from '../types/config'
+import type { JanudocsConfig } from "../types/config";
 
-export function defineConfig(config: Partial<JanudocsConfig>) {
-    return config
+export function defineConfig(config: JanudocsConfig): JanudocsConfig {
+	return config;
 }

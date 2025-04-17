@@ -1,23 +1,22 @@
 {
-    "name": "@janudocs/jupyter",
-    "version": "0.1.0",
-    "description": "Render Jupyter Notebooks in Janudocs",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "exports": {
-        ".": {
-            "import": "./dist/index.js",
-            "types": "./dist/index.d.ts"
-        }
-    },
-    "scripts": {
-        "build": "tsc",
-        "dev": "tsc --watch"
-    },
-    "keywords": [
-        "janudocs",
-        "jupyter",
-        "plugin"
-    ],
-    "license": "MIT"
+	"name": "@janudocs/jupyter",
+	"description": "Jupyter plugin for Janudocs",
+	"author": "Andrew Christian Young",
+	"version": "0.0.0",
+	"type": "module",
+
+
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"scripts": {
+		"build": "tsc",
+		"dev": "tsc --watch"
+	},
+	"keywords": ["janudocs", "jupyter", "plugin"],
+	"license": "MIT"
 }

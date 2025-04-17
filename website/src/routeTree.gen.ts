@@ -24,232 +24,232 @@ import { Route as DocsCategoryDocImport } from './routes/docs/$category/$doc'
 // Create/Update Routes
 
 const TermsRoute = TermsImport.update({
-    id: '/terms',
-    path: '/terms',
-    getParentRoute: () => rootRoute,
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const PrivacyRoute = PrivacyImport.update({
-    id: '/privacy',
-    path: '/privacy',
-    getParentRoute: () => rootRoute,
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const ContactRoute = ContactImport.update({
-    id: '/contact',
-    path: '/contact',
-    getParentRoute: () => rootRoute,
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const AboutRoute = AboutImport.update({
-    id: '/about',
-    path: '/about',
-    getParentRoute: () => rootRoute,
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const IndexRoute = IndexImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => rootRoute,
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const DocsIndexRoute = DocsIndexImport.update({
-    id: '/docs/',
-    path: '/docs/',
-    getParentRoute: () => rootRoute,
+  id: '/docs/',
+  path: '/docs/',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const DocsDocRoute = DocsDocImport.update({
-    id: '/docs/$doc',
-    path: '/docs/$doc',
-    getParentRoute: () => rootRoute,
+  id: '/docs/$doc',
+  path: '/docs/$doc',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const DocsCategoryCategoryRoute = DocsCategoryCategoryImport.update({
-    id: '/docs/category/$category',
-    path: '/docs/category/$category',
-    getParentRoute: () => rootRoute,
+  id: '/docs/category/$category',
+  path: '/docs/category/$category',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const DocsCategoryDocRoute = DocsCategoryDocImport.update({
-    id: '/docs/$category/$doc',
-    path: '/docs/$category/$doc',
-    getParentRoute: () => rootRoute,
+  id: '/docs/$category/$doc',
+  path: '/docs/$category/$doc',
+  getParentRoute: () => rootRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
-    interface FileRoutesByPath {
-        '/': {
-            id: '/'
-            path: '/'
-            fullPath: '/'
-            preLoaderRoute: typeof IndexImport
-            parentRoute: typeof rootRoute
-        }
-        '/about': {
-            id: '/about'
-            path: '/about'
-            fullPath: '/about'
-            preLoaderRoute: typeof AboutImport
-            parentRoute: typeof rootRoute
-        }
-        '/contact': {
-            id: '/contact'
-            path: '/contact'
-            fullPath: '/contact'
-            preLoaderRoute: typeof ContactImport
-            parentRoute: typeof rootRoute
-        }
-        '/privacy': {
-            id: '/privacy'
-            path: '/privacy'
-            fullPath: '/privacy'
-            preLoaderRoute: typeof PrivacyImport
-            parentRoute: typeof rootRoute
-        }
-        '/terms': {
-            id: '/terms'
-            path: '/terms'
-            fullPath: '/terms'
-            preLoaderRoute: typeof TermsImport
-            parentRoute: typeof rootRoute
-        }
-        '/docs/$doc': {
-            id: '/docs/$doc'
-            path: '/docs/$doc'
-            fullPath: '/docs/$doc'
-            preLoaderRoute: typeof DocsDocImport
-            parentRoute: typeof rootRoute
-        }
-        '/docs/': {
-            id: '/docs/'
-            path: '/docs'
-            fullPath: '/docs'
-            preLoaderRoute: typeof DocsIndexImport
-            parentRoute: typeof rootRoute
-        }
-        '/docs/$category/$doc': {
-            id: '/docs/$category/$doc'
-            path: '/docs/$category/$doc'
-            fullPath: '/docs/$category/$doc'
-            preLoaderRoute: typeof DocsCategoryDocImport
-            parentRoute: typeof rootRoute
-        }
-        '/docs/category/$category': {
-            id: '/docs/category/$category'
-            path: '/docs/category/$category'
-            fullPath: '/docs/category/$category'
-            preLoaderRoute: typeof DocsCategoryCategoryImport
-            parentRoute: typeof rootRoute
-        }
+  interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutImport
+      parentRoute: typeof rootRoute
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactImport
+      parentRoute: typeof rootRoute
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyImport
+      parentRoute: typeof rootRoute
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsImport
+      parentRoute: typeof rootRoute
+    }
+    '/docs/$doc': {
+      id: '/docs/$doc'
+      path: '/docs/$doc'
+      fullPath: '/docs/$doc'
+      preLoaderRoute: typeof DocsDocImport
+      parentRoute: typeof rootRoute
+    }
+    '/docs/': {
+      id: '/docs/'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof DocsIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/docs/$category/$doc': {
+      id: '/docs/$category/$doc'
+      path: '/docs/$category/$doc'
+      fullPath: '/docs/$category/$doc'
+      preLoaderRoute: typeof DocsCategoryDocImport
+      parentRoute: typeof rootRoute
+    }
+    '/docs/category/$category': {
+      id: '/docs/category/$category'
+      path: '/docs/category/$category'
+      fullPath: '/docs/category/$category'
+      preLoaderRoute: typeof DocsCategoryCategoryImport
+      parentRoute: typeof rootRoute
+    }
+  }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-    '/': typeof IndexRoute
-    '/about': typeof AboutRoute
-    '/contact': typeof ContactRoute
-    '/privacy': typeof PrivacyRoute
-    '/terms': typeof TermsRoute
-    '/docs/$doc': typeof DocsDocRoute
-    '/docs': typeof DocsIndexRoute
-    '/docs/$category/$doc': typeof DocsCategoryDocRoute
-    '/docs/category/$category': typeof DocsCategoryCategoryRoute
+  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
+  '/docs/$doc': typeof DocsDocRoute
+  '/docs': typeof DocsIndexRoute
+  '/docs/$category/$doc': typeof DocsCategoryDocRoute
+  '/docs/category/$category': typeof DocsCategoryCategoryRoute
 }
 
 export interface FileRoutesByTo {
-    '/': typeof IndexRoute
-    '/about': typeof AboutRoute
-    '/contact': typeof ContactRoute
-    '/privacy': typeof PrivacyRoute
-    '/terms': typeof TermsRoute
-    '/docs/$doc': typeof DocsDocRoute
-    '/docs': typeof DocsIndexRoute
-    '/docs/$category/$doc': typeof DocsCategoryDocRoute
-    '/docs/category/$category': typeof DocsCategoryCategoryRoute
+  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
+  '/docs/$doc': typeof DocsDocRoute
+  '/docs': typeof DocsIndexRoute
+  '/docs/$category/$doc': typeof DocsCategoryDocRoute
+  '/docs/category/$category': typeof DocsCategoryCategoryRoute
 }
 
 export interface FileRoutesById {
-    __root__: typeof rootRoute
-    '/': typeof IndexRoute
-    '/about': typeof AboutRoute
-    '/contact': typeof ContactRoute
-    '/privacy': typeof PrivacyRoute
-    '/terms': typeof TermsRoute
-    '/docs/$doc': typeof DocsDocRoute
-    '/docs/': typeof DocsIndexRoute
-    '/docs/$category/$doc': typeof DocsCategoryDocRoute
-    '/docs/category/$category': typeof DocsCategoryCategoryRoute
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
+  '/docs/$doc': typeof DocsDocRoute
+  '/docs/': typeof DocsIndexRoute
+  '/docs/$category/$doc': typeof DocsCategoryDocRoute
+  '/docs/category/$category': typeof DocsCategoryCategoryRoute
 }
 
 export interface FileRouteTypes {
-    fileRoutesByFullPath: FileRoutesByFullPath
-    fullPaths:
-        | '/'
-        | '/about'
-        | '/contact'
-        | '/privacy'
-        | '/terms'
-        | '/docs/$doc'
-        | '/docs'
-        | '/docs/$category/$doc'
-        | '/docs/category/$category'
-    fileRoutesByTo: FileRoutesByTo
-    to:
-        | '/'
-        | '/about'
-        | '/contact'
-        | '/privacy'
-        | '/terms'
-        | '/docs/$doc'
-        | '/docs'
-        | '/docs/$category/$doc'
-        | '/docs/category/$category'
-    id:
-        | '__root__'
-        | '/'
-        | '/about'
-        | '/contact'
-        | '/privacy'
-        | '/terms'
-        | '/docs/$doc'
-        | '/docs/'
-        | '/docs/$category/$doc'
-        | '/docs/category/$category'
-    fileRoutesById: FileRoutesById
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/privacy'
+    | '/terms'
+    | '/docs/$doc'
+    | '/docs'
+    | '/docs/$category/$doc'
+    | '/docs/category/$category'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/privacy'
+    | '/terms'
+    | '/docs/$doc'
+    | '/docs'
+    | '/docs/$category/$doc'
+    | '/docs/category/$category'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/privacy'
+    | '/terms'
+    | '/docs/$doc'
+    | '/docs/'
+    | '/docs/$category/$doc'
+    | '/docs/category/$category'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-    IndexRoute: typeof IndexRoute
-    AboutRoute: typeof AboutRoute
-    ContactRoute: typeof ContactRoute
-    PrivacyRoute: typeof PrivacyRoute
-    TermsRoute: typeof TermsRoute
-    DocsDocRoute: typeof DocsDocRoute
-    DocsIndexRoute: typeof DocsIndexRoute
-    DocsCategoryDocRoute: typeof DocsCategoryDocRoute
-    DocsCategoryCategoryRoute: typeof DocsCategoryCategoryRoute
+  IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
+  PrivacyRoute: typeof PrivacyRoute
+  TermsRoute: typeof TermsRoute
+  DocsDocRoute: typeof DocsDocRoute
+  DocsIndexRoute: typeof DocsIndexRoute
+  DocsCategoryDocRoute: typeof DocsCategoryDocRoute
+  DocsCategoryCategoryRoute: typeof DocsCategoryCategoryRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-    IndexRoute: IndexRoute,
-    AboutRoute: AboutRoute,
-    ContactRoute: ContactRoute,
-    PrivacyRoute: PrivacyRoute,
-    TermsRoute: TermsRoute,
-    DocsDocRoute: DocsDocRoute,
-    DocsIndexRoute: DocsIndexRoute,
-    DocsCategoryDocRoute: DocsCategoryDocRoute,
-    DocsCategoryCategoryRoute: DocsCategoryCategoryRoute,
+  IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
+  PrivacyRoute: PrivacyRoute,
+  TermsRoute: TermsRoute,
+  DocsDocRoute: DocsDocRoute,
+  DocsIndexRoute: DocsIndexRoute,
+  DocsCategoryDocRoute: DocsCategoryDocRoute,
+  DocsCategoryCategoryRoute: DocsCategoryCategoryRoute,
 }
 
 export const routeTree = rootRoute
-    ._addFileChildren(rootRouteChildren)
-    ._addFileTypes<FileRouteTypes>()
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
 /* ROUTE_MANIFEST_START
 {

@@ -1,6 +1,6 @@
-import { renderNotebook } from './renderNotebook'
+import { renderNotebook } from "./renderNotebook";
 
 export default {
-    name: 'janudocs-plugin-jupyter',
-    render: renderNotebook,
-}
+	name: "janudocs-plugin-jupyter",
+	render: renderNotebook,
+};

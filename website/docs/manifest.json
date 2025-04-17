@@ -1,210 +1,210 @@
 {
-    "categorizedDocs": [
-        {
-            "label": "CLI",
-            "position": 1,
-            "categoryGeneratedIndex": {
-                "title": "CLI",
-                "description": "Janudocs Command Line Interface (CLI) tools.",
-                "slug": "/category/cli",
-                "permalink": "/docs/category/cli"
-            },
-            "files": [
-                {
-                    "id": "cli/create-janudocs",
-                    "title": "create-janudocs",
-                    "description": "",
-                    "path": "/cli/create-janudocs",
-                    "slug": "/cli/create-janudocs",
-                    "permalink": "/docs/cli/create-janudocs"
-                },
-                {
-                    "id": "cli/scripts",
-                    "title": "scripts",
-                    "description": "",
-                    "path": "/cli/scripts",
-                    "slug": "/cli/scripts",
-                    "permalink": "/docs/cli/scripts"
-                }
-            ]
-        },
-        {
-            "label": "Configuration",
-            "position": 2,
-            "categoryGeneratedIndex": {
-                "title": "Configuration",
-                "description": "Learn how to configure Janudocs project.",
-                "slug": "/category/configuration",
-                "permalink": "/docs/category/configuration"
-            },
-            "files": [
-                {
-                    "id": "configuration/janudocs-config",
-                    "title": "janudocs.config.ts",
-                    "description": "How to configure your documentation project using janudocs.config.ts.",
-                    "path": "/configuration/janudocs-config",
-                    "slug": "/configuration/janudocs-config",
-                    "permalink": "/docs/configuration/janudocs-config"
-                },
-                {
-                    "id": "configuration/typescript",
-                    "title": "TypeScript",
-                    "description": "Janudocs provides a TypeScript-first development experience with automatic setup when using create-janudocs.",
-                    "path": "/configuration/typescript",
-                    "slug": "/configuration/typescript",
-                    "permalink": "/docs/configuration/typescript"
-                }
-            ]
-        },
-        {
-            "label": "Conventions",
-            "position": 3,
-            "categoryGeneratedIndex": {
-                "title": "Conventions",
-                "description": "Learn how Janudocs structures and organizes files across your project.",
-                "slug": "/category/conventions",
-                "permalink": "/docs/category/conventions"
-            },
-            "files": [
-                {
-                    "id": "conventions/category",
-                    "title": "_category.json",
-                    "description": "Structure and usage of the `_category.json` file, which is used to define and organize categories in the documentation.",
-                    "path": "/conventions/category",
-                    "slug": "/conventions/category",
-                    "permalink": "/docs/conventions/category"
-                },
-                {
-                    "id": "conventions/manifest",
-                    "title": "manifest.json",
-                    "description": "Lists all documentation categories and files used to generate the sidebar and route structure in Janudocs.",
-                    "path": "/conventions/manifest",
-                    "slug": "/conventions/manifest",
-                    "permalink": "/docs/conventions/manifest"
-                },
-                {
-                    "id": "conventions/naming",
-                    "title": "Naming Conventions",
-                    "description": "",
-                    "path": "/conventions/naming",
-                    "slug": "/conventions/naming",
-                    "permalink": "/docs/conventions/naming"
-                }
-            ]
-        },
-        {
-            "label": "Getting Started",
-            "position": 4,
-            "categoryGeneratedIndex": {
-                "title": "Getting Started",
-                "description": "Begin your journey with Janudocs by setting up and exploring the basics.",
-                "slug": "/category/getting-started",
-                "permalink": "/docs/category/getting-started"
-            },
-            "files": [
-                {
-                    "id": "getting-started/installation",
-                    "title": "Installation",
-                    "description": "How to install and set up Janudocs.",
-                    "path": "/getting-started/installation",
-                    "slug": "/getting-started/installation",
-                    "permalink": "/docs/getting-started/installation"
-                },
-                {
-                    "id": "getting-started/project-structure",
-                    "title": "Project Structure",
-                    "description": "Understand the layout and purpose of each folder and file in a typical Janudocs project.",
-                    "path": "/getting-started/project-structure",
-                    "slug": "/getting-started/project-structure",
-                    "permalink": "/docs/getting-started/project-structure"
-                }
-            ]
-        },
-        {
-            "label": "Guides",
-            "position": 5,
-            "categoryGeneratedIndex": {
-                "title": "Guides",
-                "description": "Tutorials and walkthroughs to help you master Janudocs.",
-                "slug": "/category/guides",
-                "permalink": "/docs/category/guides"
-            },
-            "files": [
-                {
-                    "id": "guides/file-based-routing",
-                    "title": "File-Based Routing",
-                    "description": "",
-                    "path": "/guides/file-based-routing",
-                    "slug": "/guides/file-based-routing",
-                    "permalink": "/docs/guides/file-based-routing"
-                },
-                {
-                    "id": "guides/layouts",
-                    "title": "layouts",
-                    "description": "",
-                    "path": "/guides/layouts",
-                    "slug": "/guides/layouts",
-                    "permalink": "/docs/guides/layouts"
-                },
-                {
-                    "id": "guides/routing",
-                    "title": "Routing",
-                    "description": "Janudocs leverages TanStack Router to provide a fully type-safe file-based client routing system that is both lightweight and powerful. Learn how routing works in Janudocs and how to define routes in your application.",
-                    "path": "/guides/routing",
-                    "slug": "/guides/routing",
-                    "permalink": "/docs/guides/routing"
-                },
-                {
-                    "id": "guides/search",
-                    "title": "Search",
-                    "description": "",
-                    "path": "/guides/search",
-                    "slug": "/guides/search",
-                    "permalink": "/docs/guides/search"
-                },
-                {
-                    "id": "guides/styling",
-                    "title": "Styling",
-                    "description": "",
-                    "path": "/guides/styling",
-                    "slug": "/guides/styling",
-                    "permalink": "/docs/guides/styling"
-                },
-                {
-                    "id": "guides/syntax-highlighting",
-                    "title": "Syntax Highlighting",
-                    "description": "",
-                    "path": "/guides/syntax-highlighting",
-                    "slug": "/guides/syntax-highlighting",
-                    "permalink": "/docs/guides/syntax-highlighting"
-                }
-            ]
-        }
-    ],
-    "looseDocs": [
-        {
-            "id": "architecture",
-            "title": "Architecture",
-            "description": "Overview of the system architecture.",
-            "path": "/architecture",
-            "slug": "/architecture",
-            "permalink": "/docs/architecture"
-        },
-        {
-            "id": "introduction",
-            "title": "Introduction",
-            "description": "Introduction to Janudocs.",
-            "path": "/introduction",
-            "slug": "/introduction",
-            "permalink": "/docs/introduction"
-        },
-        {
-            "id": "upgrade",
-            "title": "Upgrade",
-            "description": "Learn how to upgrade your Janudocs project and dependencies to the latest version.",
-            "path": "/upgrade",
-            "slug": "/upgrade",
-            "permalink": "/docs/upgrade"
-        }
-    ]
+	"categorizedDocs": [
+		{
+			"label": "CLI",
+			"position": 1,
+			"categoryGeneratedIndex": {
+				"title": "CLI",
+				"description": "Janudocs Command Line Interface (CLI) tools.",
+				"slug": "/category/cli",
+				"permalink": "/docs/category/cli"
+			},
+			"files": [
+				{
+					"id": "cli/create-janudocs",
+					"title": "create-janudocs",
+					"description": "",
+					"path": "/cli/create-janudocs",
+					"slug": "/cli/create-janudocs",
+					"permalink": "/docs/cli/create-janudocs"
+				},
+				{
+					"id": "cli/scripts",
+					"title": "scripts",
+					"description": "",
+					"path": "/cli/scripts",
+					"slug": "/cli/scripts",
+					"permalink": "/docs/cli/scripts"
+				}
+			]
+		},
+		{
+			"label": "Configuration",
+			"position": 2,
+			"categoryGeneratedIndex": {
+				"title": "Configuration",
+				"description": "Learn how to configure Janudocs project.",
+				"slug": "/category/configuration",
+				"permalink": "/docs/category/configuration"
+			},
+			"files": [
+				{
+					"id": "configuration/janudocs-config",
+					"title": "janudocs.config.ts",
+					"description": "How to configure your documentation project using janudocs.config.ts.",
+					"path": "/configuration/janudocs-config",
+					"slug": "/configuration/janudocs-config",
+					"permalink": "/docs/configuration/janudocs-config"
+				},
+				{
+					"id": "configuration/typescript",
+					"title": "TypeScript",
+					"description": "Janudocs provides a TypeScript-first development experience with automatic setup when using create-janudocs.",
+					"path": "/configuration/typescript",
+					"slug": "/configuration/typescript",
+					"permalink": "/docs/configuration/typescript"
+				}
+			]
+		},
+		{
+			"label": "Conventions",
+			"position": 3,
+			"categoryGeneratedIndex": {
+				"title": "Conventions",
+				"description": "Learn how Janudocs structures and organizes files across your project.",
+				"slug": "/category/conventions",
+				"permalink": "/docs/category/conventions"
+			},
+			"files": [
+				{
+					"id": "conventions/category",
+					"title": "_category.json",
+					"description": "Structure and usage of the `_category.json` file, which is used to define and organize categories in the documentation.",
+					"path": "/conventions/category",
+					"slug": "/conventions/category",
+					"permalink": "/docs/conventions/category"
+				},
+				{
+					"id": "conventions/manifest",
+					"title": "manifest.json",
+					"description": "Lists all documentation categories and files used to generate the sidebar and route structure in Janudocs.",
+					"path": "/conventions/manifest",
+					"slug": "/conventions/manifest",
+					"permalink": "/docs/conventions/manifest"
+				},
+				{
+					"id": "conventions/naming",
+					"title": "Naming Conventions",
+					"description": "",
+					"path": "/conventions/naming",
+					"slug": "/conventions/naming",
+					"permalink": "/docs/conventions/naming"
+				}
+			]
+		},
+		{
+			"label": "Getting Started",
+			"position": 4,
+			"categoryGeneratedIndex": {
+				"title": "Getting Started",
+				"description": "Begin your journey with Janudocs by setting up and exploring the basics.",
+				"slug": "/category/getting-started",
+				"permalink": "/docs/category/getting-started"
+			},
+			"files": [
+				{
+					"id": "getting-started/installation",
+					"title": "Installation",
+					"description": "How to install and set up Janudocs.",
+					"path": "/getting-started/installation",
+					"slug": "/getting-started/installation",
+					"permalink": "/docs/getting-started/installation"
+				},
+				{
+					"id": "getting-started/project-structure",
+					"title": "Project Structure",
+					"description": "Understand the layout and purpose of each folder and file in a typical Janudocs project.",
+					"path": "/getting-started/project-structure",
+					"slug": "/getting-started/project-structure",
+					"permalink": "/docs/getting-started/project-structure"
+				}
+			]
+		},
+		{
+			"label": "Guides",
+			"position": 5,
+			"categoryGeneratedIndex": {
+				"title": "Guides",
+				"description": "Tutorials and walkthroughs to help you master Janudocs.",
+				"slug": "/category/guides",
+				"permalink": "/docs/category/guides"
+			},
+			"files": [
+				{
+					"id": "guides/file-based-routing",
+					"title": "File-Based Routing",
+					"description": "",
+					"path": "/guides/file-based-routing",
+					"slug": "/guides/file-based-routing",
+					"permalink": "/docs/guides/file-based-routing"
+				},
+				{
+					"id": "guides/layouts",
+					"title": "layouts",
+					"description": "",
+					"path": "/guides/layouts",
+					"slug": "/guides/layouts",
+					"permalink": "/docs/guides/layouts"
+				},
+				{
+					"id": "guides/routing",
+					"title": "Routing",
+					"description": "Janudocs leverages TanStack Router to provide a fully type-safe file-based client routing system that is both lightweight and powerful. Learn how routing works in Janudocs and how to define routes in your application.",
+					"path": "/guides/routing",
+					"slug": "/guides/routing",
+					"permalink": "/docs/guides/routing"
+				},
+				{
+					"id": "guides/search",
+					"title": "Search",
+					"description": "",
+					"path": "/guides/search",
+					"slug": "/guides/search",
+					"permalink": "/docs/guides/search"
+				},
+				{
+					"id": "guides/styling",
+					"title": "Styling",
+					"description": "",
+					"path": "/guides/styling",
+					"slug": "/guides/styling",
+					"permalink": "/docs/guides/styling"
+				},
+				{
+					"id": "guides/syntax-highlighting",
+					"title": "Syntax Highlighting",
+					"description": "",
+					"path": "/guides/syntax-highlighting",
+					"slug": "/guides/syntax-highlighting",
+					"permalink": "/docs/guides/syntax-highlighting"
+				}
+			]
+		}
+	],
+	"looseDocs": [
+		{
+			"id": "architecture",
+			"title": "Architecture",
+			"description": "Overview of the system architecture.",
+			"path": "/architecture",
+			"slug": "/architecture",
+			"permalink": "/docs/architecture"
+		},
+		{
+			"id": "introduction",
+			"title": "Introduction",
+			"description": "Introduction to Janudocs.",
+			"path": "/introduction",
+			"slug": "/introduction",
+			"permalink": "/docs/introduction"
+		},
+		{
+			"id": "upgrade",
+			"title": "Upgrade",
+			"description": "Learn how to upgrade your Janudocs project and dependencies to the latest version.",
+			"path": "/upgrade",
+			"slug": "/upgrade",
+			"permalink": "/docs/upgrade"
+		}
+	]
 }

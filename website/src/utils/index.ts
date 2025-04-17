@@ -1,2 +1,2 @@
-export * from './formatFileName'
-export * from './docs/getRoutes'
+export * from "./formatFileName";
+export * from "./docs/getRoutes";

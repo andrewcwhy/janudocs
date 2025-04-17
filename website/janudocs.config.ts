@@ -1,60 +1,73 @@
-import { defineConfig } from '@/core/defineConfig'
+import { defineConfig } from "@/core/defineConfig";
 
 export default defineConfig({
-    title: 'Janudocs',
-    url: 'https://janudocs.com',
-    tagline: 'Janudocs for documentation.',
+	metaData: {
+		title: "Janudocs",
+		description: "Janudocs for documentation.",
+		url: "https://janudocs.com",
+	},
 
-    componentsConfig: {
-        navbar: {
-            title: 'Janudocs',
-            logo: {
-                alt: 'Janudocs Logo',
-                src: '',
-            },
-            items: {
-                highlightActive: true,
-                textStyle: { textTransform: 'capitalize' },
-            },
-        },
+	themeConfig: {
+		navbar: {
+			title: "Janudocs",
+			logo: {
+				alt: "Janudocs Logo",
+				src: "",
+			},
+			items: {
+				highlightActive: true,
+				textStyle: { textTransform: "capitalize" },
+			},
+		},
 
-        sidebar: {
-            position: 'left',
-            collapsible: true,
-            categories: {
-                collapsible: true,
-                initialState: 'expanded',
-                descriptions: {
-                    enabled: false,
-                    textStyle: {
-                        textTransform: 'capitalize',
-                    },
-                },
-                textStyle: {
-                    textTransform: 'capitalize',
-                },
-            },
-            items: {
-                highlightActive: true,
-                textStyle: {
-                    textTransform: 'capitalize',
-                },
-            },
-        },
+		sidebar: {
+			position: "left",
+			collapsible: true,
+			categories: {
+				collapsible: true,
+				initialState: "expanded",
+				descriptions: {
+					enabled: false,
+					textStyle: {
+						textTransform: "capitalize",
+					},
+				},
+				textStyle: {
+					textTransform: "capitalize",
+				},
+			},
+			items: {
+				highlightActive: true,
+				textStyle: {
+					textTransform: "capitalize",
+				},
+			},
+		},
 
-        footer: {
-            copyright:
-                `© ${new Date().getFullYear()} My Janudocs Site. ` +
-                `Built with ❤️ using Janudocs by ACY.`,
-        },
-    },
+		footer: {
+			copyright: `© ${new Date().getFullYear()} My Janudocs Site. Built with ❤️ using Janudocs by ACY.`,
+		},
+	},
 
-    docs: {
-        /*
-         * Change this to match your repository.
-         * Remove this to remove the "Edit this page" link on documenation pages.
-         */
-        editUrl:
-            'https://github.com/andrewcwhy/janudocs/tree/main/packages/create-janudocs/templates/shared/',
-    },
-})
+	socialLinks: [
+		{
+			platform: "GitHub",
+			icon: "FiGithub",
+			url: "https://github.com/andrewcwhy/janudocs",
+		},
+		{
+			platform: "LinkedIn",
+			icon: "FaLinkedIn",
+			url: "https://www.linkedin.com/in/youngandrewchristian",
+		},
+	],
+
+	docs: {
+		/*
+		 * Change this to match your repository.
+		 * Remove this to remove the "Edit this page" link on documenation pages.
+		 */
+		editUrl:
+			"https://github.com/andrewcwhy/janudocs/tree/main/packages/create-janudocs/templates/shared/",
+	},
+});

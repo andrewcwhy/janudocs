@@ -1,20 +1,15 @@
 {
-    "name": "@janudocs/tsconfig",
-    "description": "TypeScript configuration for Janudocs",
-    "author": "Andrew Christian Young",
-    "version": "0.0.0",
-    "license": "MIT",
-    "keywords": [
-        "typescript",
-        "tsconfig",
-        "janudocs",
-        "configuration"
-    ],
-    "bugs": "https://github.com/andrewcwhy/janudocs/issues",
-    "homepage": "https://github.com/andrewcwhy/janudocs#readme",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/andrewcwhy/janudocs.git",
-        "directory": "packages/tsconfig"
-    }
+	"name": "@janudocs/tsconfig",
+	"description": "TypeScript configuration for Janudocs",
+	"author": "Andrew Christian Young",
+	"version": "0.0.0",
+	"license": "MIT",
+	"keywords": ["typescript", "tsconfig", "janudocs", "configuration"],
+	"bugs": "https://github.com/andrewcwhy/janudocs/issues",
+	"homepage": "https://github.com/andrewcwhy/janudocs#readme",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/andrewcwhy/janudocs.git",
+		"directory": "packages/tsconfig"
+	}
 }

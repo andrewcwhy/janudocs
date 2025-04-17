@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-import { createCli } from '@/commands/cli'
+import { createCli } from "@/commands/cli";
 
-createCli().parse(process.argv)
+createCli().parse(process.argv);

@@ -1,50 +1,48 @@
 {
-    "name": "@janudocs/core",
-    "description": "Core functionality for the Janudocs documentation framework",
-    "author": "Andrew Christian Young",
-    "version": "0.0.0",
-    "license": "MIT",
-    "type": "module",
-    "keywords": [
-        "janudocs",
-        "documentation",
-        "react",
-        "typescript",
-        "cli",
-        "framework"
-    ],
-    "bugs": "https://github.com/andrewcwhy/janudocs/issues",
-    "homepage": "https://github.com/andrewcwhy/janudocs#readme",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/andrewcwhy/janudocs.git",
-        "directory": "packages/core"
-    },
-    "files": [
-        "dist"
-    ],
-    "exports": {
-        ".": {
-            "import": "./dist/index.js",
-            "types": "./dist/index.d.ts"
-        }
-    },
-    "bin": {
-        "janudocs": "bin/index.ts"
-    },
-    "types": "./dist/index.d.ts",
-    "scripts": {
-        "build": "bun build src/index.ts --outdir dist --target node && tsc --emitDeclarationOnly"
-    },
-    "dependencies": {
-        "commander": "^13.1.0",
-        "lodash-es": "^4.17.21"
-    },
-    "devDependencies": {
-        "@types/react-dom": "^19.1.2"
-    },
-    "peerDependencies": {
-        "react": "^19.1.0",
-        "react-dom": "^19.1.0"
-    }
+	"name": "@janudocs/core",
+	"description": "Core functionality for the Janudocs documentation framework",
+	"author": "Andrew Christian Young",
+	"version": "0.0.0",
+	"license": "MIT",
+	"type": "module",
+	"keywords": [
+		"janudocs",
+		"documentation",
+		"react",
+		"typescript",
+		"cli",
+		"framework"
+	],
+	"bugs": "https://github.com/andrewcwhy/janudocs/issues",
+	"homepage": "https://github.com/andrewcwhy/janudocs#readme",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/andrewcwhy/janudocs.git",
+		"directory": "packages/core"
+	},
+	"files": ["dist"],
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"bin": {
+		"janudocs": "bin/index.ts"
+	},
+	"types": "./dist/index.d.ts",
+	"scripts": {
+		"build": "bun build src/index.ts --outdir dist --target node && tsc --emitDeclarationOnly"
+	},
+	"dependencies": {
+		"commander": "^13.1.0",
+		"lodash-es": "^4.17.21"
+	},
+	"devDependencies": {
+		"@types/react-dom": "^19.1.2"
+	},
+	"peerDependencies": {
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0"
+	}
 }

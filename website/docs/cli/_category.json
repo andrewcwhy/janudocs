@@ -1,5 +1,5 @@
 {
-    "label": "CLI",
-    "description": "Janudocs Command Line Interface (CLI) tools.",
-    "position": 1
+	"label": "CLI",
+	"description": "Janudocs Command Line Interface (CLI) tools.",
+	"position": 1
 }

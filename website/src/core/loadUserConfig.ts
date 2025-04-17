@@ -1,85 +1,90 @@
-import path from 'path'
-import { pathToFileURL } from 'url'
-import { defaultConfig } from './defaultConfig'
-import type { JanudocsConfig } from './config'
+import path from "node:path";
+import { pathToFileURL } from "node:url";
+import { defaultConfig } from "./defaultConfig";
+import type { JanudocsConfig } from "./config";
 
 export async function loadUserConfig(
-    configFile: string = 'janudocs.config.ts'
+	configFile = "janudocs.config.ts",
 ): Promise<JanudocsConfig> {
-    const absPath = path.resolve(process.cwd(), configFile)
-    const fileUrl = pathToFileURL(absPath)
+	const absPath = path.resolve(process.cwd(), configFile);
+	const fileUrl = pathToFileURL(absPath);
 
-    try {
-        const mod = await import(fileUrl.href)
-        const userConfig = mod.default as Partial<JanudocsConfig>
+	try {
+		const mod = await import(fileUrl.href);
+		const userConfig = mod.default as Partial<JanudocsConfig>;
 
-        return {
-            ...defaultConfig,
-            ...userConfig,
+		return {
+			...defaultConfig,
+			...userConfig,
 
-            title: userConfig.title ?? defaultConfig.title,
-            url: userConfig.url ?? defaultConfig.url,
+			metaData: {
+				title: userConfig.title ?? defaultConfig.title,
+				description: userConfig.description ?? defaultConfig.description,
+				url: userConfig.url ?? defaultConfig.url,
+			},
 
-            componentsConfig: {
-                navbar: {
-                    ...defaultConfig.componentsConfig.navbar,
-                    ...userConfig.componentsConfig?.navbar,
-                    items: {
-                        ...defaultConfig.componentsConfig.navbar.items,
-                        ...userConfig.componentsConfig?.navbar?.items,
-                        textStyle: {
-                            ...defaultConfig.componentsConfig.navbar.items
-                                .textStyle,
-                            ...userConfig.componentsConfig?.navbar?.items
-                                ?.textStyle,
-                        },
-                    },
-                },
+			themeConfig: {
+				navbar: {
+					...defaultConfig.themeConfig.navbar,
+					...userConfig.themeConfig?.navbar,
+					items: {
+						...defaultConfig.themeConfig.navbar.items,
+						...userConfig.themeConfig?.navbar?.items,
+						textStyle: {
+							...defaultConfig.themeConfig.navbar.items.textStyle,
+							...userConfig.themeConfig?.navbar?.items?.textStyle,
+						},
+					},
+				},
 
-                sidebar: {
-                    ...defaultConfig.componentsConfig.sidebar,
-                    ...userConfig.componentsConfig?.sidebar,
-                    categories: {
-                        ...defaultConfig.componentsConfig.sidebar.categories,
-                        ...userConfig.componentsConfig?.sidebar?.categories,
-                        descriptions: {
-                            ...defaultConfig.componentsConfig.sidebar.categories
-                                .descriptions,
-                            ...userConfig.componentsConfig?.sidebar?.categories
-                                ?.descriptions,
-                            textStyle: {
-                                ...defaultConfig.componentsConfig.sidebar
-                                    .categories.descriptions.textStyle,
-                                ...userConfig.componentsConfig?.sidebar
-                                    ?.categories?.descriptions?.textStyle,
-                            },
-                        },
-                        textStyle: {
-                            ...defaultConfig.componentsConfig.sidebar.categories
-                                .textStyle,
-                            ...userConfig.componentsConfig?.sidebar?.categories
-                                ?.textStyle,
-                        },
-                    },
-                    items: {
-                        ...defaultConfig.componentsConfig.sidebar.items,
-                        ...userConfig.componentsConfig?.sidebar?.items,
-                        textStyle: {
-                            ...defaultConfig.componentsConfig.sidebar.items
-                                .textStyle,
-                            ...userConfig.componentsConfig?.sidebar?.items
-                                ?.textStyle,
-                        },
-                    },
-                },
+				sidebar: {
+					...defaultConfig.themeConfig.sidebar,
+					...userConfig.themeConfig?.sidebar,
+					categories: {
+						...defaultConfig.themeConfig.sidebar.categories,
+						...userConfig.themeConfig?.sidebar?.categories,
+						descriptions: {
+							...defaultConfig.themeConfig.sidebar.categories.descriptions,
+							...userConfig.themeConfig?.sidebar?.categories?.descriptions,
+							textStyle: {
+								...defaultConfig.themeConfig.sidebar.categories.descriptions
+									.textStyle,
+								...userConfig.themeConfig?.sidebar?.categories?.descriptions
+									?.textStyle,
+							},
+						},
+						textStyle: {
+							...defaultConfig.themeConfig.sidebar.categories.textStyle,
+							...userConfig.themeConfig?.sidebar?.categories?.textStyle,
+						},
+					},
+					items: {
+						...defaultConfig.themeConfig.sidebar.items,
+						...userConfig.themeConfig?.sidebar?.items,
+						textStyle: {
+							...defaultConfig.themeConfig.sidebar.items.textStyle,
+							...userConfig.themeConfig?.sidebar?.items?.textStyle,
+						},
+					},
+				},
 
-                footer: {
-                    ...defaultConfig.componentsConfig.footer,
-                    ...userConfig.componentsConfig?.footer,
-                },
-            },
-        }
-    } catch {
-        return defaultConfig
-    }
+				footer: {
+					...defaultConfig.themeConfig.footer,
+					...userConfig.themeConfig?.footer,
+				},
+			},
+
+			socialLinks: [
+				...(userConfig.socialLinks ?? []),
+				...(defaultConfig.socialLinks ?? []),
+			],
+
+			docs: {
+				...defaultConfig.docs,
+				...userConfig.docs,
+			},
+		};
+	} catch {
+		return defaultConfig;
+	}
 }
