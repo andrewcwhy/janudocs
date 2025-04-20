@@ -70,6 +70,7 @@ export default function NavBar() {
 		<>
 			{/* Desktop */}
 			<button
+				type="button"
 				aria-label="Open Search"
 				className="hidden md:flex items-center gap-2 text-slate-300 hover:text-white text-sm border border-slate-600 px-3 py-1 rounded shadow-sm"
 				onClick={toggleSearch}
@@ -80,6 +81,7 @@ export default function NavBar() {
 
 			{/* Mobile */}
 			<button
+				type="button"
 				aria-label="Open Search"
 				className="md:hidden text-slate-300 hover:text-white"
 				onClick={toggleSearch}
@@ -91,7 +93,7 @@ export default function NavBar() {
 
 	return (
 		<>
-			<nav className="bg-slate-900/90 backdrop-blur-lg px-6 py-4 flex items-center justify-between border-b border-slate-700 h-16 z-50 relative">
+			<nav className="fixed top-0 inset-x-0 bg-slate-900/90 backdrop-blur-lg px-6 py-4 flex items-center justify-between border-b border-slate-700 h-16 z-50">
 				{/* Left: Logo + Links */}
 				<div className="flex items-center gap-8">
 					<Link

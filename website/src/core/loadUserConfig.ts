@@ -1,6 +1,5 @@
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import { defaultConfig } from "./defaultConfig";
 import type { JanudocsConfig } from "./config";
 
 export async function loadUserConfig(
@@ -14,7 +13,6 @@ export async function loadUserConfig(
 		const userConfig = mod.default as Partial<JanudocsConfig>;
 
 		return {
-			...defaultConfig,
 			...userConfig,
 
 			metaData: {
@@ -25,26 +23,20 @@ export async function loadUserConfig(
 
 			themeConfig: {
 				navbar: {
-					...defaultConfig.themeConfig.navbar,
 					...userConfig.themeConfig?.navbar,
 					items: {
-						...defaultConfig.themeConfig.navbar.items,
 						...userConfig.themeConfig?.navbar?.items,
 						textStyle: {
-							...defaultConfig.themeConfig.navbar.items.textStyle,
 							...userConfig.themeConfig?.navbar?.items?.textStyle,
 						},
 					},
 				},
 
 				sidebar: {
-					...defaultConfig.themeConfig.sidebar,
-					...userConfig.themeConfig?.sidebar,
+\					...userConfig.themeConfig?.sidebar,
 					categories: {
-						...defaultConfig.themeConfig.sidebar.categories,
 						...userConfig.themeConfig?.sidebar?.categories,
 						descriptions: {
-							...defaultConfig.themeConfig.sidebar.categories.descriptions,
 							...userConfig.themeConfig?.sidebar?.categories?.descriptions,
 							textStyle: {
 								...defaultConfig.themeConfig.sidebar.categories.descriptions
@@ -79,10 +71,17 @@ export async function loadUserConfig(
 				...(defaultConfig.socialLinks ?? []),
 			],
 
+			presets: [
+			blog: {
+				...defaultConfig.blog,
+				...userConfig.blog,
+			},
+
 			docs: {
 				...defaultConfig.docs,
 				...userConfig.docs,
 			},
+		],
 		};
 	} catch {
 		return defaultConfig;

@@ -1,4 +1,5 @@
 {
+	"include": ["**/*.ts", "**/*.tsx"],
 	"compilerOptions": {
 		/* Language & Syntax */
 		"target": "ESNext",
@@ -9,9 +10,10 @@
 		"verbatimModuleSyntax": true,
 
 		/* Module Resolution (ESM only) */
-		"declaration": true,
-		"isolatedModules": true,
 		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noEmit": true,
 
 		/* Type Checking & Linting */
 		"strict": true,
@@ -21,11 +23,14 @@
 		"noFallthroughCasesInSwitch": true,
 		"noUncheckedSideEffectImports": true,
 		"forceConsistentCasingInFileNames": true,
-        
-		"esModuleInterop": true,
-		"allowJs": true,
-		"noUncheckedIndexedAccess": true,
-        
-	},
-	"exclude": ["node_modules"]
+
+		/* Paths & Aliases */
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./src/*"]
+		},
+
+		/* Types (Vite-aware) */
+		"types": ["vite/client"]
+	}
 }

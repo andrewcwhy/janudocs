@@ -1,10 +1,7 @@
-// packages/core/src/context/JanudocsContext.tsx
-
 import React, { type ReactNode } from "react";
 import type { JanudocsContext } from "./context";
 import { defaultConfig } from "./defaultConfig";
 
-// Create a single Context instance with a real default value
 const contextValue: JanudocsContext = {
 	siteConfig: defaultConfig,
 };

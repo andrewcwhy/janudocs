@@ -21,10 +21,12 @@
 		"@tanstack/react-router": "^1.116.0",
 		"@tanstack/react-router-devtools": "^1.116.0",
 		"clsx": "^2.1.1",
+		"gray-matter": "^4.0.3",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
 		"react-icons": "^5.5.0",
 		"react-syntax-highlighter": "^15.6.1",
+		"rehype-raw": "^7.0.0",
 		"tailwindcss": "^4.1.4"
 	},
 	"devDependencies": {

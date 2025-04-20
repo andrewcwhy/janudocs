@@ -1,12 +1,21 @@
-import { spawn } from 'node:child_process';
 import { intro, log, note, spinner } from '@clack/prompts'
 import pc from 'picocolors'
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import execa from 'execa'
+import _ from 'lodash-es'
 
+// User must select a package manager
 type PackageManager = 'bun' | 'npm' | 'yarn' | 'pnpm' 
-type DevTools = ('bifront' | 'eslint' | 'prettier')[]
+// Optional tools for the project
+type DevTools = ('bifront' | 'biome')[]
 
+type CLIOptions = {
+    packageManager?: PackageManager; // Package manager to use (bun, npm, yarn, pnpm)
+    skipInstall?: boolean; // Ask user if they want to install dependencies
+}
+
+// The default package manager is Bun
 const defaultPackageManager: PackageManager = 'bun'
 
 const lockfileNames: Record<PackageManager, string> = {
@@ -16,11 +25,7 @@ const lockfileNames: Record<PackageManager, string> = {
     pnpm: 'pnpm-lock.yaml',
 }
 
-const defaultScripts: {
-    "build": "janudocs build",
-    "dev": "janudocs dev",
-}
-
+// Thesse are the default dependencies for a Janudocs project
 const defaultDependencies: {
     @janudocs/core,
     @janudocs/mdx,
@@ -30,6 +35,7 @@ const defaultDependencies: {
     react-dom,
 }
 
+// These are the default devDependencies for a Janudocs project
 const defaultDevDependencies: {
     @janudocs/tsconfig,
     @tanstack/router-plugin,
@@ -46,41 +52,11 @@ export function installDependencies(
     const deps: string[] = []
     const devDeps: string[] = []
 
-    const using = {
-        eslint: devTools.includes('eslint'),
-        prettier: devTools.includes('prettier'),
-    }
-
     if (packageManager === 'bun') {
         log.step('Detected Bun — adding @types/bun to devDependencies.')
         devDeps.push('@types/bun')
     }
 
-    if (using.bifront) {
-        devDeps.push('bifront')
-    }
-
-    // If the user selects ESLint, add the devDependencies for ESLint
-    if (using.eslint) {
-        devDeps.push(
-            '@eslint/css',
-            '@eslint/js',
-            '@eslint/json',
-            '@eslint/markdown',
-            '@tanstack/eslint-plugin-router',
-            'eslint',
-            'eslint-plugin-react',
-            'globals',
-            'typescript-eslint'
-        )
-    }
-
-    if (using.prettier) {
-        devDeps.push('prettier')
-        if (using.eslint) {
-            devDeps.push('eslint-config-prettier')
-        }
-    }
 
     log.step(`Package manager selected: ${pc.bold(pc.blue(packageManager))}`)
 

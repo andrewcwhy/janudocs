@@ -1,17 +1,14 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "@tanstack/react-router";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import { MDXProvider } from "@mdx-js/react";
 import { useManifest } from "@/hooks";
 
-// Import available MD and MDX files statically
 const mdFiles = import.meta.glob("/docs/**/*.md", {
 	query: "?raw",
 	import: "default",
 });
-const mdxFiles = import.meta.glob("/docs/**/*.mdx");
 
 const components = {
 	h1: (props) => <h1 className="text-4xl font-bold mb-4" {...props} />,
@@ -61,9 +58,9 @@ export default function Renderer() {
 	const [error, setError] = useState<string | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
 
-	const normalizedPath = pathname.replace(/^\/docs/, ""); // e.g. /cli/scripts → /cli/scripts
-	const mdxKey = `/docs${normalizedPath}.mdx`;
+	const normalizedPath = pathname.replace(/^\/docs/, "");
 	const mdKey = `/docs${normalizedPath}.md`;
+	const mdxPath = `${normalizedPath}.mdx`; // ✅ no 'docs/' prefix here
 
 	useEffect(() => {
 		const load = async () => {
@@ -71,26 +68,36 @@ export default function Renderer() {
 			setContent(null);
 			setIsLoading(true);
 
-			try {
-				if (mdxKey in mdxFiles) {
-					const mod = await mdxFiles[mdxKey](); // Dynamic import
-					setContent({ type: "mdx", component: mod.default });
-				} else if (mdKey in mdFiles) {
-					const text = await mdFiles[mdKey](); // Raw content
+			// 1. Try Markdown
+			if (mdKey in mdFiles) {
+				try {
+					const text = await mdFiles[mdKey]();
 					setContent({ type: "md", component: text });
-				} else {
-					throw new Error("Document not found");
+					setIsLoading(false);
+					return;
+				} catch (err) {
+					console.error("Markdown load failed", err);
 				}
+			}
+
+			// 2. Try MDX via plugin
+			try {
+				const mod = await import("@janudocs/mdx");
+				const { loadMdx, mdxToReact } = mod;
+				console.log("Trying to load MDX:", mdxPath);
+				const { code } = await loadMdx(mdxPath);
+				const Comp = await mdxToReact(code);
+				setContent({ type: "mdx", component: Comp });
 			} catch (err) {
-				console.error(err);
-				setError("Document not found or failed to load");
+				console.warn("MDX support not available or file not found", err);
+				setError("Document not found or MDX plugin missing");
 			}
 
 			setIsLoading(false);
 		};
 
 		load();
-	}, [mdxKey, mdKey]);
+	}, [mdKey, mdxPath]);
 
 	if (manifestLoading || isLoading)
 		return <div className="p-4">Loading...</div>;
@@ -99,11 +106,7 @@ export default function Renderer() {
 
 	return (
 		<div className="p-4">
-			{content.type === "mdx" ? (
-				<MDXProvider components={components}>
-					<content.component />
-				</MDXProvider>
-			) : (
+			{content.type === "md" ? (
 				<ReactMarkdown
 					remarkPlugins={[remarkGfm]}
 					rehypePlugins={[rehypeRaw]}
@@ -111,6 +114,8 @@ export default function Renderer() {
 				>
 					{content.component}
 				</ReactMarkdown>
+			) : (
+				<content.component />
 			)}
 		</div>
 	);

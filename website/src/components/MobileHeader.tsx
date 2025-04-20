@@ -14,14 +14,10 @@ export default function MobileHeader() {
 	const [openCategories, setOpenCategories] = useState<Record<string, boolean>>(
 		{},
 	);
-	const location = useLocation();
-	const { category, doc } = useParams();
 
 	useLockBodyScroll(isSidebarOpen);
 
-	const categoryName = formatFileName(category);
-	const fileName = formatFileName(doc);
-
+	// Mobiles sidebar configurations
 	const {
 		categories: {
 			collapsible: categoriesCollapsible,
@@ -29,8 +25,8 @@ export default function MobileHeader() {
 			descriptions,
 			textStyle: categoryTextStyle,
 		},
-		items: { highlightActive, textStyle: itemTextStyle },
-	} = config.sidebar;
+		items: { textStyle: itemTextStyle },
+	} = config.themeConfig.sidebar;
 
 	useEffect(() => {
 		const initialOpen: Record<string, boolean> = {};
@@ -87,35 +83,37 @@ export default function MobileHeader() {
 											(isOpen ? <FiChevronDown /> : <FiChevronRight />)}
 									</button>
 
-									{descriptions.enabled && cat.description && (
-										<p
-											className={`text-xs text-gray-500 ${descriptions.textStyle?.textTransform}`}
-										>
-											{cat.description}
-										</p>
-									)}
+									{descriptions.enabled &&
+								cat.categoryGeneratedIndex.description && (
+									<p
+										className={`text-sm text-gray-500 ${descriptions.textStyle?.textTransform}`}
+									>
+										{cat.categoryGeneratedIndex.description}
+									</p>
+								)}
 
+									{/* Categorized docs */}
 									{isOpen && (
 										<ul className="pl-4 flex flex-col gap-2">
-											{cat.files.map((file) => {
-												const routePath = `/docs/${cat.path}/${removeFileExtension(file)}`;
-												const isActive = location.pathname === routePath;
-												const displayName = formatFileName(file);
-
-												return (
-													<li key={file}>
+											{cat.docs.map((doc) => {
+													<li key={doc.id}>
 														<Link
-															to={routePath}
+															to="/docs/$/category/$doc"
+															params={{
+																category:,
+																doc:,
+															}}
 															onClick={toggleSidebar}
-															className={clsx(
-																"block text-sm border-l-2 pl-2 transition-colors",
-																itemTextStyle?.textTransform,
-																highlightActive && isActive
-																	? "border-blue-600 text-blue-600 font-medium"
-																	: "border-gray-200 text-gray-700 hover:text-blue-600 hover:border-gray-300",
-															)}
+												className={clsx(
+													"block pl-4 text-sm border-l-2 transition-colors border-gray-200 hover:text-blue-600 hover:border-gray-300",
+													itemTextStyle?.textTransform,
+												)}
+												activeProps={{
+													className:
+														"border-blue-600 text-blue-600 font-medium",
+												}}
 														>
-															{displayName}
+															{doc.title}
 														</Link>
 													</li>
 												);
@@ -126,27 +124,26 @@ export default function MobileHeader() {
 							);
 						})}
 
-						{manifest.looseFiles?.[0]?.files?.length > 0 && (
+						{/* Loose docs */}
+						{(manifest?.looseDocs ?? []).length > 0 && (
 							<ul className="pl-2 flex flex-col gap-2">
-								{manifest.looseFiles[0].files.map((file) => {
-									const routePath = `/docs/${removeFileExtension(file)}`;
-									const isActive = location.pathname === routePath;
-									const displayName = formatFileName(file);
-
-									return (
-										<li key={file}>
+								{manifest?.looseDocs.map((doc) => (
+										<li key={doc.id}>
 											<Link
-												to={routePath}
+												to="/docs/$doc"
+												params={{
+													doc: removeFileExtension(doc.id),
+												}}
 												onClick={toggleSidebar}
-												className={clsx(
-													"block text-sm pl-2 transition-colors",
-													itemTextStyle?.textTransform,
-													highlightActive && isActive
-														? "text-blue-600 font-medium"
-														: "text-gray-700 hover:text-blue-600",
-												)}
+									className={clsx(
+										"block text-sm transition-colors border-gray-200 text-gray-700 hover:text-blue-600 hover:border-gray-300",
+										itemTextStyle?.textTransform,
+									)}
+												activeProps={{
+													className: "border-blue-600 text-blue-600 font-medium",
+												}}
 											>
-												{displayName}
+												{doc.title}
 											</Link>
 										</li>
 									);

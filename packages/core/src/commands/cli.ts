@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { createRequire } from "module";
+import { createRequire } from "node:module";
 
 import { build } from "./build";
 import { clear } from "./clear";

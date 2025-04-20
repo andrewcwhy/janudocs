@@ -15,7 +15,6 @@ export default defineConfig({
 				src: "",
 			},
 			items: {
-				highlightActive: true,
 				textStyle: { textTransform: "capitalize" },
 			},
 		},
@@ -37,7 +36,6 @@ export default defineConfig({
 				},
 			},
 			items: {
-				highlightActive: true,
 				textStyle: {
 					textTransform: "capitalize",
 				},
@@ -62,12 +60,26 @@ export default defineConfig({
 		},
 	],
 
-	docs: {
-		/*
-		 * Change this to match your repository.
-		 * Remove this to remove the "Edit this page" link on documenation pages.
-		 */
-		editUrl:
-			"https://github.com/andrewcwhy/janudocs/tree/main/packages/create-janudocs/templates/shared/",
-	},
+	presets: [
+		{
+			blog: {
+				/*
+				 * Change this to match your repository.
+				 * Remove this to remove the "Edit this page" link on documentation pages.
+				 */
+				editUrl:
+					"https://github.com/andrewcwhy/janudocs/tree/main/packages/create-janudocs/templates/shared/",
+			},
+		},
+		{
+			docs: {
+				/*
+				 * Change this to match your repository.
+				 * Remove this to remove the "Edit this page" link on documentation pages.
+				 */
+				editUrl:
+					"https://github.com/andrewcwhy/janudocs/tree/main/packages/create-janudocs/templates/shared/",
+			},
+		},
+	],
 });

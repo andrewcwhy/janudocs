@@ -199,6 +199,14 @@
 			"permalink": "/docs/introduction"
 		},
 		{
+			"id": "mdx",
+			"title": "MDX",
+			"description": "Learn how to upgrade your Janudocs project and dependencies to the latest version.",
+			"path": "/mdx",
+			"slug": "/mdx",
+			"permalink": "/docs/mdx"
+		},
+		{
 			"id": "upgrade",
 			"title": "Upgrade",
 			"description": "Learn how to upgrade your Janudocs project and dependencies to the latest version.",

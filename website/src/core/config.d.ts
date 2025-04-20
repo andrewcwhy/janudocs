@@ -1,3 +1,5 @@
+import type { IconType } from "react-icons";
+
 type CollapseState = "expanded" | "collapsed";
 type TextTransform = "capitalize" | "uppercase" | "lowercase";
 type SidebarPosition = "left" | "right";
@@ -30,7 +32,6 @@ interface NavBarConfig {
 		src: string;
 	};
 	items: {
-		highlightActive: boolean;
 		textStyle: {
 			textTransform: TextTransform;
 		};
@@ -47,7 +48,6 @@ interface SidebarConfig {
 		textStyle: TextStyleConfig;
 	};
 	items: {
-		highlightActive: boolean;
 		textStyle: {
 			textTransform: TextTransform;
 		};
@@ -64,6 +64,10 @@ interface SocialLinks {
 	url: string;
 }
 
+interface Blog {
+	editUrl?: string;
+}
+
 interface Docs {
 	editUrl?: string;
 }
@@ -72,17 +76,8 @@ export type JanudocsConfig = {
 	metaData: MetaData;
 	themeConfig: ThemeConfig;
 	socialLinks?: SocialLinks[];
-	docs?: Docs;
-};
-
-/**
- * Janudocs config, as provided by the user (partial/un-normalized). This type
- * is used to provide type-safety / IDE auto-complete on the config file.
- */
-export type Config = Overwrite<
-	DeepPartial<JanudocsConfig>,
-	{
-		title: JanudocsConfig["title"];
-		url: JanudocsConfig["url"];
+	presets: {
+		blog?: Blob;
+		docs?: Docs;
 	}
->;
+};

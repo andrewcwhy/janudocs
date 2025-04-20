@@ -14,10 +14,7 @@
 			"types": "./dist/index.d.ts"
 		}
 	},
-	"files": [
-		"dist",
-		"README.md"
-	],
+	"files": ["dist", "README.md"],
 	"homepage": "https://github.com/andrewcwhy/janudocs#readme",
 	"keywords": [
 		"janudocs",

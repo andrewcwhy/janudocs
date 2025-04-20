@@ -62,8 +62,8 @@ function App() {
 						title="TypeScript & ESM"
 						description="Written in TypeScript from the core, for safety and performance."
 						icon={SiTypescript}
-					/>						
-					<FeatureCard 
+					/>
+					<FeatureCard
 						title="Rust"
 						description="Fast and efficient, with a focus on performance."
 						icon={FaRust}

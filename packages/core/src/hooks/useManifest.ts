@@ -20,7 +20,7 @@ export interface CategorizedDocGroup {
 	label: string;
 	position: number;
 	categoryGeneratedIndex: CategoryGeneratedIndex;
-	files: DocEntry[];
+	docs: DocEntry[];
 }
 
 export interface Manifest {

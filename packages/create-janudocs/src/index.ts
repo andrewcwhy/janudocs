@@ -43,8 +43,10 @@ function runTask(taskDescription: string, task: () => void) {
 	}
 }
 
+
+
 // Recursively copy files from shared into target without overwriting existing files
-function copySharedFiles(source: string, target: string) {
+async function copySharedFiles(source: string, target: string) {
 	const entries = readdirSync(source);
 	for (const entry of entries) {
 		const srcPath = path.join(source, entry);
@@ -60,6 +62,17 @@ function copySharedFiles(source: string, target: string) {
 		}
 	}
 }
+
+async function copyTemplate = ensure(
+	await select({
+		message: "Choose a starter template:",
+		options: [
+			{ label: "Default", value: "default" },
+			{ label: "Full", value: "full" },
+			{ label: "Vite", value: "vite" },
+		],
+	}),
+);
 
 async function main() {
 	intro(picocolors.inverse("create-janudocs"));
@@ -80,16 +93,6 @@ async function main() {
 
 	const projectDir = resolve(cwd, projectName);
 
-	const template = ensure(
-		await select({
-			message: "Choose a starter template:",
-			options: [
-				{ label: "Default", value: "default" },
-				{ label: "Full", value: "full" },
-				{ label: "Vite", value: "vite" },
-			],
-		}),
-	);
 
 	const devTools = ensure(
 		await multiselect({

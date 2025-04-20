@@ -11,11 +11,8 @@
 			"types": "./dist/index.d.ts"
 		}
 	},
-	"files": [
-        "dist",
-        "README.md"
-    ],
-    "homepage": "https://github.com/andrewcwhy/janudocs#readme",
+	"files": ["dist", "README.md"],
+	"homepage": "https://github.com/andrewcwhy/janudocs#readme",
 	"keywords": [
 		"janudocs",
 		"jupyter",
@@ -25,8 +22,11 @@
 		"python"
 	],
 	"repository": {
-        "type": "git",
-        "url": "https://github.com/andrewcwhy/janudocs.git",
-        "directory": "packages/jupyter"
-    }
+		"type": "git",
+		"url": "https://github.com/andrewcwhy/janudocs.git",
+		"directory": "packages/jupyter"
+	},
+	"scripts": {
+		"build": "tsc"
+	}
 }

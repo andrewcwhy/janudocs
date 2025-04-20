@@ -5,7 +5,7 @@ import clsx from "clsx";
 
 // Internal Imports
 import config from "../../janudocs.config";
-import { useManifest, useToggle } from "@/hooks";
+import { useToggle, useManifest } from "@/hooks";
 import {
 	FiChevronDown,
 	FiChevronRight,
@@ -31,7 +31,7 @@ export default function Sidebar() {
 			textStyle: categoryTextStyle,
 		},
 		items: { textStyle: itemTextStyle },
-	} = config.componentsConfig.sidebar;
+	} = config.themeConfig.sidebar;
 
 	useEffect(() => {
 		const initialOpen: Record<string, boolean> = {};
